@@ -1,0 +1,42 @@
+\documentclass[12pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+
+\graphicspath{ {images/} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge  \bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Kod iznad preuzet (uz manje modifikacije) sa: http://tex.stackexchange.com/a/120743
+% Bez ovog koda iznad svakog poglavlja bi pisalo 'Chapter 1', 'Chapter 2', itd.
+
+\begin{document}
+
+\tableofcontents
+
+\chapter{Uvod}
+\input{chapters/Uvod}
+
+\chapter{Osnovne tehnike}
+\input{"chapters/Osnovne tehnike"}
+
+\end{document}

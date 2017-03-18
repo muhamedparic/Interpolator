@@ -1,0 +1,100 @@
+adapters.hpp: In member function ‘void mp::Video::write(const mp::Image&)’:
+adapters.hpp:191:21: error: no matching function for call to ‘cv::VideoWriter::write(const mp::Image&)’
+   writer.write(frame);
+                     ^
+In file included from /usr/local/include/opencv2/highgui.hpp:51:0,
+                 from /usr/local/include/opencv2/opencv.hpp:65,
+                 from adapters.hpp:1:
+/usr/local/include/opencv2/videoio.hpp:889:26: note: candidate: virtual void cv::VideoWriter::write(const cv::Mat&)
+     CV_WRAP virtual void write(const Mat& image);
+                          ^
+/usr/local/include/opencv2/videoio.hpp:889:26: note:   no known conversion for argument 1 from ‘const mp::Image’ to ‘const cv::Mat&’
+adapters.hpp: In member function ‘bool mp::Video::read(mp::Image&)’:
+adapters.hpp:196:27: error: no matching function for call to ‘cv::VideoCapture::read(mp::Image&)’
+   return reader.read(frame);
+                           ^
+In file included from /usr/local/include/opencv2/highgui.hpp:51:0,
+                 from /usr/local/include/opencv2/opencv.hpp:65,
+                 from adapters.hpp:1:
+/usr/local/include/opencv2/videoio.hpp:756:26: note: candidate: virtual bool cv::VideoCapture::read(cv::OutputArray)
+     CV_WRAP virtual bool read(OutputArray image);
+                          ^
+/usr/local/include/opencv2/videoio.hpp:756:26: note:   no known conversion for argument 1 from ‘mp::Image’ to ‘cv::OutputArray {aka const cv::_OutputArray&}’
+In file included from blender.cpp:1:0:
+adapters.hpp: In member function ‘void mp::Video::write(const mp::Image&)’:
+adapters.hpp:191:21: error: no matching function for call to ‘cv::VideoWriter::write(const mp::Image&)’
+   writer.write(frame);
+                     ^
+In file included from /usr/local/include/opencv2/highgui.hpp:51:0,
+                 from /usr/local/include/opencv2/opencv.hpp:65,
+                 from adapters.hpp:1,
+                 from blender.cpp:1:
+/usr/local/include/opencv2/videoio.hpp:889:26: note: candidate: virtual void cv::VideoWriter::write(const cv::Mat&)
+     CV_WRAP virtual void write(const Mat& image);
+                          ^
+/usr/local/include/opencv2/videoio.hpp:889:26: note:   no known conversion for argument 1 from ‘const mp::Image’ to ‘const cv::Mat&’
+In file included from blender.cpp:1:0:
+adapters.hpp: In member function ‘bool mp::Video::read(mp::Image&)’:
+adapters.hpp:196:27: error: no matching function for call to ‘cv::VideoCapture::read(mp::Image&)’
+   return reader.read(frame);
+                           ^
+In file included from /usr/local/include/opencv2/highgui.hpp:51:0,
+                 from /usr/local/include/opencv2/opencv.hpp:65,
+                 from adapters.hpp:1,
+                 from blender.cpp:1:
+/usr/local/include/opencv2/videoio.hpp:756:26: note: candidate: virtual bool cv::VideoCapture::read(cv::OutputArray)
+     CV_WRAP virtual bool read(OutputArray image);
+                          ^
+/usr/local/include/opencv2/videoio.hpp:756:26: note:   no known conversion for argument 1 from ‘mp::Image’ to ‘cv::OutputArray {aka const cv::_OutputArray&}’
+blender.cpp: In function ‘int main(int, char**)’:
+blender.cpp:28:5: error: ‘Video’ is not a member of ‘cv’
+     cv::Video output(argv[2], mp::Vid_mode::write, slow_mo ? 30 : 60, input.width(), input.height());
+     ^
+blender.cpp:28:5: note: suggested alternative:
+In file included from blender.cpp:1:0:
+adapters.hpp:44:8: note:   ‘mp::Video’
+  class Video
+        ^
+blender.cpp:43:9: error: ‘output’ was not declared in this scope
+         output.write(prev_frame);
+         ^
+blender.cpp: In function ‘void calc_inter_frame(const mp::Image&, const mp::Image&, mp::Image&)’:
+blender.cpp:54:13: error: ‘Pixel’ was not declared in this scope
+             Pixel prev = prev_frame.at(i, j);
+             ^
+blender.cpp:54:13: note: suggested alternative:
+In file included from blender.cpp:1:0:
+adapters.hpp:6:9: note:   ‘mp::Pixel’
+  struct Pixel
+         ^
+blender.cpp:55:19: error: expected ‘;’ before ‘next’
+             Pixel next = next_frame.at(i, j);
+                   ^
+blender.cpp:57:44: error: ‘prev’ was not declared in this scope
+             inter_frame.at(i, j).r = ((int)prev.r + next.r) / 2;
+                                            ^
+blender.cpp:57:44: note: suggested alternative:
+In file included from /usr/include/c++/5/bits/stl_algobase.h:66:0,
+                 from /usr/include/c++/5/algorithm:61,
+                 from /usr/local/include/opencv2/core/base.hpp:55,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from /usr/local/include/opencv2/opencv.hpp:52,
+                 from adapters.hpp:1,
+                 from blender.cpp:1:
+/usr/include/c++/5/bits/stl_iterator_base_funcs.h:193:5: note:   ‘std::prev’
+     prev(_BidirectionalIterator __x, typename
+     ^
+blender.cpp:57:53: error: ‘next’ was not declared in this scope
+             inter_frame.at(i, j).r = ((int)prev.r + next.r) / 2;
+                                                     ^
+blender.cpp:57:53: note: suggested alternative:
+In file included from /usr/include/c++/5/bits/stl_algobase.h:66:0,
+                 from /usr/include/c++/5/algorithm:61,
+                 from /usr/local/include/opencv2/core/base.hpp:55,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from /usr/local/include/opencv2/opencv.hpp:52,
+                 from adapters.hpp:1,
+                 from blender.cpp:1:
+/usr/include/c++/5/bits/stl_iterator_base_funcs.h:184:5: note:   ‘std::next’
+     next(_ForwardIterator __x, typename
+     ^
