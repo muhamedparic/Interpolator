@@ -1,0 +1,41 @@
+\section{Uvod}
+Prva klasa algoritama koje \cj emo prou\ch avati kre\cj u od iste osnovne ideje: Podijeliti prvi frejm na blokove, za svaki blok prona\cj i vektor pomaka iz prvog u drugi frejm, te primijeniti jedan dio tog vektora pomaka na blok.
+Ako nam je cilj samo kreirati jedan novi frejm izme\dj u svaka dva postoje\cj a, svaki blok \cj emo pomjeriti du\zh\ pola izra\ch unatog vektora pomaka. Ako nam je cilj interpolirati dva frejma izme\dj u dva postoje\cj a, blok \cj emo 
+pomjeriti du\zh\ jedne tre\cj ine vektora pomaka za prvi, i dvije tre\cj ine za drugi interpolirani frejm, itd. Cilj slijede\cj ih algoritama jeste uparivanje blokova prvog frejma sa blokom iste veli\ch ine u drugom frejmu. Me\dj utim,
+postoji nekoliko pitanja na koja moramo odgovoriti prije nego \sh to mo\zh emo primijeniti ove algoritme:
+
+\begin{itemize}
+	\item Koju veli\ch inu bloka \cj emo koristiti?
+	\item Koliki \cj e biti prozor pretrage, odnosno koliko \cj e se svaki blok mo\cj i maksimalno pomjeriti izme\dj u prvog i drugog frejma?
+	\item Koji je kriterij sli\ch nosti dva bloka?
+	\item Kako odrediti uspje\sh nost uparivanja?
+\end{itemize}
+
+U praksi se koriste blokovi veli\ch ine 16x16 piksela, te prozor pretrage veli\ch ine 30x30 piksela. To zna\ch i da pretpostavljamo da se izme\dj u dva susjedna frejma blokovi ne\cj e pomjeriti vi\sh e od 7 piksela u bilo kojem od 4
+kardinalna smjera. To nam daje 225 mogu\cj ih lokacija za svaki blok. Naravno, ne postoji definitivna, optimalna veli\ch ina bloka ili prozora pretrage za sve slu\ch ajeve. Manje blokove je br\zh e uporediti, ali je njihov broj ve\cj i,
+te je ve\cj a vjerovatno\cj a da \cj e dva bloka biti slu\ch ajno veoma sli\ch na. Ve\cj i prozor pretrage nam omogu\cj ava pronala\zh enje ispravnih vektora pomaka i u slu\ch aju kada se desi pomak ve\cj i od 7 piksela, ali
+zna\ch ajno pove\cj ava vrijeme potrebno za izra\ch unavanje te, sli\ch no kao u slu\ch aju blokova, pove\cj anjem prozora pretrage se pove\cj ava i vjerovatno\cj a uparivanja dva bloka koji su sli\ch ni, ali zapravo ne
+predstavljaju isti blok. U svim slijede\cj im algoritmima \cj emo koristiti blokove i prozore pretrage navedene veli\ch ine.
+
+Sljede\cj e pitanje se ti\ch e kriterija sli\ch nosti dva bloka. Svaki blok je sastavljen od 256 piksela, koji se sastoje od 3 komponente: crvene, zelene, i plave. Svaka komponenta ima cjelobrojnu ja\ch inu u rasponu od 0 do 255, uklju\ch ivo.
+Za upore\dj ivanje blokova se prvo pikseli pretvore u crno-bijele, sa jednom komponentom koja predstavlja ja\ch inu bijele boje piksela.
+% Objasniti zasto
+Kori\sh teni kriteriji sli\ch nosti blokova su veoma jednostavni. Jedan je  \textit{Mean Absolute Difference (MAD)}, odnosno \textit{srednja apsolutna razlika}. Ova mjera nije ni\sh ta drugo nego suma apsolutnih vrijednosti razlika
+ja\ch ina odgovaraju\cj ih piksela u blokovima, podijeljena sa veli\ch inom bloka. Drugim rije\ch ima, zadana je formulom
+$$
+MAD = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}|A_{ij}-B_{ij}|
+$$
+Pri \ch emu \textit{N} predstavlja visinu i \sh irinu bloka (u na\sh em slu\ch aju 16), dok $A_{ij}$ i $B_{ij}$ predstavljaju vrijednosti piksela na koordinatama \textit{i,j} (sa po\ch etkom u gornjem lijevom uglu bloka) prvog,
+odnosno drugog razmatranog bloka. 
+
+Druga, veoma sli\ch na mjera jeste \textit{Mean Squared Error (MSE)}, odnosno \textit{srednji kvadrat gre\sh ke}. Umjesto uzimanja apsolutne vrijednosti razlika piksela, ova mjera kvadrira razlike piksela, \ch ime se vi\sh e
+ka\zh njavaju ve\cj e razlike. \textit{MSE} je zadana formulom
+$$
+MSE = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}(A_{ij}-B_{ij})^2
+$$
+
+\section{Osnovni algoritmi}
+
+\section{Adaptive Rood Pattern Search - ARPS}
+
+\section{Fazna korelacija}
