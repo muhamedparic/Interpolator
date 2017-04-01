@@ -25,6 +25,7 @@ ja\ch ina odgovaraju\cj ih piksela u blokovima, podijeljena sa veli\ch inom blok
 $$
 MAD = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}|A_{ij}-B_{ij}|
 $$
+
 Pri \ch emu \textit{N} predstavlja visinu i \sh irinu bloka (u na\sh em slu\ch aju 16), dok $A_{ij}$ i $B_{ij}$ predstavljaju vrijednosti piksela na koordinatama \textit{i,j} (sa po\ch etkom u gornjem lijevom uglu bloka) prvog,
 odnosno drugog razmatranog bloka. 
 
@@ -36,7 +37,7 @@ $$
 
 Mi \cj emo ove funkcije ubudu\cj e zvati zajedni\ch kim imenom \textit{funkcije cijene}. Cilj svih algoritama u ovom poglavlju jeste minimizacija funkcije cijene, bilo \textit{MAD} ili \textit{MSE}.
 
-Jo\sh\ jedno veoma va\zh no pordu\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. U dijelu vezanom za osnovne algoritme i ARPS,
+Jo\sh\ jedno veoma va\zh no podru\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. U dijelu vezanom za osnovne algoritme i ARPS,
 obra\dj uju se algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine) kori\sh teni su napredniji algoritmi, koji u
 ovom radu ne\cj e biti obra\dj eni.
 
@@ -58,9 +59,23 @@ Ovaj algoritam se zasniva na potpunom pretra\zh ivanju svih mogu\cj ih lokacija 
 a za izra\ch unavanje vrijednosti funkcije cijene moramo uporediti $16 * 16 = 256$ piksela. To nam daje $225 * 256 = 57600$ upore\dj ivanja piksela po bloku. HD video (dimenzija 1280x720 piksela) sadr\zh i frejmove koji se
 sastoje od 3600 blokova, \sh to nam ukupno daje preko 200 miliona upore\dj ivanja piksela za svaki frejm video sekvence. Tako da nije te\sh ko vidjeti za\sh to se ovaj algoritam ne koristi u praksi.
 
-\subsection{3SS}
+\subsection{Trostepena pretraga}
+Trostepena pretraga se oslanja na osobinu unimodalnosti matrice vrijednosti funkcije cijene. Ovaj algoritam je ovdje kori\sh ten isklju\ch ivo kao uvod, jer ostvaruje veoma slabe rezultate u praksi. Algoritam je mnogo br\zh i
+od potpune pretrage te koristi sli\ch ne tehnike kao bolji algoritmi koji \cj e biti obra\dj eni u narednim dijelovima.
 
-\subsection{4SS}
+Neka je zadan prozor pretrage veli\ch ine 30x30 piksela i blok veli\ch ine 16x16 piksela. Trostepena pretraga radi tako \sh to u svakom koraku izra\ch una funkciju cijene bloka na 9 lokacija u prozoru pretrage. Tih 9 lokacija su
+trenutni centar i sve kombinacije lokacija koje dobijemo ako blok pomjerimo za \textit{-S, 0} ili \textit{S} piksela po x i y osama (postoji 9 kombinacija, od kojih je jedna \textit{(0, 0)}, \sh to predstavlja na\sh\ centar).
+\textit{S} predstavlja trenutnu \textit{veli\ch inu koraka}. Nakon izra\ch unavanja funkcije cijene na svih 9 lokacija, izaberemo najbolju (tj. lokaciju koja daje najmanju vrijednost funkcije cijene), nju odredimo za novi centar, i 
+smanjimo \textit{S} na jednu polovinu trenutne vrijednosti. U prvom koraku, \textit{S} \cj e imati vrijednost 4, u drugom 2, a u tre\cj em 1, dok \cj e centar u prvom koraku predstavljati stvarni centar prozora pretrage. 
+S obzirom da se na po\ch etku blok nalazi 7 piksela daleko od ivica prozora pretrage, a u 3 koraka (sa pomakom od 4, 2 i 1 pikselom) se mogu\cj e pomjeriti najvi\sh e ta\ch no 7 piksela, blok mo\zh e zauzeti bilo koju 
+poziciju u prozoru pretrage.
+
+U svakom od 3 koraka, imamo 9 razli\ch itih mogu\cj ih pozicija bloka, tako da izgleda da moramo izra\ch unati funkciju cijene bloka 27 puta. Me\dj utim, centar u drugom i tre\cj em koraku je ve\cj\ izra\ch unat u prethodnom
+koraku, tako da je zapravo potrebno izra\ch unati samo 25 razli\ch itih funkcija pretrage, \sh to je 9 puta manje od 225 kod potpune pretrage, \sh to naravno predstavlja veoma zna\ch ajno ubrzanje. Me\dj utim, kao \sh to je
+prije re\ch eno, ovaj algoritam generalno ne izra\ch unava zadovoljavaju\cj e vektore pomaka, tako da se u praksi i ne koristi.
+%Slika rada algoritma
+
+\subsection{\CH etverostepena pretraga}
 
 \subsection{Dijamantna pretraga}
 
