@@ -34,7 +34,35 @@ $$
 MSE = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}(A_{ij}-B_{ij})^2
 $$
 
+Mi \cj emo ove funkcije ubudu\cj e zvati zajedni\ch kim imenom \textit{funkcije cijene}. Cilj svih algoritama u ovom poglavlju jeste minimizacija funkcije cijene, bilo \textit{MAD} ili \textit{MSE}.
+
+Jo\sh\ jedno veoma va\zh no pordu\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. U dijelu vezanom za osnovne algoritme i ARPS,
+obra\dj uju se algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine) kori\sh teni su napredniji algoritmi, koji u
+ovom radu ne\cj e biti obra\dj eni.
+
 \section{Osnovni algoritmi}
+Sada \cj emo se osvrnuti na neke od osnovnih algoritama uparivanja blokova. Pretpostavit \cj emo da su blokovi veli\ch ine 16x16 piksela, a prozori pretrage veli\ch ine 30x30 piksela, te da su svi pikseli monohromatski
+(crno-bijeli). Od svih slijede\cj ih algoritama, samo prvi pronalazi optimalno uparivanje. Svi ostali ostali algoritmi su aproksimacije. Preciznije re\ch eno, postoji 225 mogu\cj ih lokacija gdje se po\ch tni blok mo\zh e nalaziti
+u prozoru pretrage. Defini\sh imo matricu $C_{15x15}$, pri \ch emu svakom elementu matrice $C$ odgovara vrijednost funkcije cijene (\textit{MAD} ili \textit{MSE}) koju dobijemo ako postavimo blok na to mjesto u prozoru pretrage
+(drugim rije\ch ima, elementu \textit{1,1} odgovara vrijednost funkcije cijene koju dobijemo ako blok postavimo u gornji lijevi ugao prozora pretrage, pomjeranjem bloka dobijamo druge vrijednosti matrice).
+Aproksimativni algoritmi pretpostavljaju da ova matrica ima jednu najmanju (optimalnu) vrijednost, i da vrijednosti elemenata matrice monotono rastu kako se udaljavamo od ovog elementa. Kontinualni analogon ove osobine
+bi bila funkcija 2 realne promjenljive koja ima samo jedan lokalni minimum, koji je ujedno i globalni minimum. Za funkciju koja ima ovu osobinu ka\zh emo da je \textit{unimodalna}. U slu\ch aju kad ova osobina postoji,
+mo\zh emo prona\cj i minimalnu vrijednost matrice jednostavnim spu\sh tanjem po gradijentu, odnosno, po\ch ev\sh i od proizvoljnog po\ch etnog elementa, u svakom koraku pre\dj emo na bilo koji od manjih elemenata dok ne
+do\dj emo do nekog koji je manji od svih svojih susjednih elemenata.
+
+Naravno, ne postoji ni\sh ta da nam garantuje ovu osobinu, \sh to zna\ch i da \cj e aproksimativni algoritmi samo u rijetkim slu\ch ajevima prona\cj i optimalno rje\sh enje.
+% Dodati dio o PSNR
+
+\subsection{Potpuna pretraga}
+Ovaj algoritam se zasniva na potpunom pretra\zh ivanju svih mogu\cj ih lokacija za blok, te pronala\zh enju lokacije koja daje najmanju vrijednost funkcije cijene. Postoji 225 mogu\cj ih lokacija za blok unutar prozora pretrage,
+a za izra\ch unavanje vrijednosti funkcije cijene moramo uporediti $16 * 16 = 256$ piksela. To nam daje $225 * 256 = 57600$ upore\dj ivanja piksela po bloku. HD video (dimenzija 1280x720 piksela) sadr\zh i frejmove koji se
+sastoje od 3600 blokova, \sh to nam ukupno daje preko 200 miliona upore\dj ivanja piksela za svaki frejm video sekvence. Tako da nije te\sh ko vidjeti za\sh to se ovaj algoritam ne koristi u praksi.
+
+\subsection{3SS}
+
+\subsection{4SS}
+
+\subsection{Dijamantna pretraga}
 
 \section{Adaptive Rood Pattern Search - ARPS}
 
