@@ -1,0 +1,23 @@
+Direktnom primjenom algoritama uparivanja blokova, mogu\cj e je dobiti interpolirane frejmove. Me\dj utim, ti frejmovi \cj e biti veoma slabe kvalitete. U ovom poglavlju \cj e biti razra\dj ene tehnike pomo\cj u kojih
+\cj emo rije\sh iti sljede\cj a 3 problema:
+\begin{enumerate}
+	\item Postojat \cj e velike "rupe" u interpoliranom frejmu, jer za zna\ch ajan dio piksela ne\cj e biti prona\dj en niti jedan blok koji ih pokriva. U prvom dijelu \cj e biti obja\sh njena tehnika koju \cj emo koristiti
+	za njihovo popravljanje.
+	\item Bez obzira na to koji algoritam uparivanja koristimo, za neke blokove \cj e biti generisani neispravni vektori pomaka. U drugom dijelu \cj e biti obja\sh njene neke tehnike za detekciju i korekciju
+	neispravnih vektora pomaka.
+	\item U zavisnosti od toga koji algoritam uparivanja koristimo, postoji ni\zh a ili vi\sh a vjerovatno\cj a da \cj e granice izme\dj u blokova u interpoliranom frejmu biti veoma o\sh tre i o\ch igledne. Ova 
+	\ch injenica opet proizlazi iz nesavr\sh enosti algoritama uparivanja. Da bismo u\ch inili interpolirane frejmove realisti\ch nijim i ugodnijim za gledati, u tre\cj em dijelu \cj e biti razra\dj ene neke tehnike pomo\cj u kojih je
+	mogu\cj e umanjiti ovaj efekat.
+\end{enumerate}
+
+\section{Popunjavanje rupa}
+
+\section{Neispravni vektori pomaka}
+Kori\sh tenjem algoritama uparivanja blokova, dobili smo odgovaraju\cj e vektore pomaka za svaki blok veli\ch ine 16x16 piksela. Me\dj utim, postoji visoka vjerovatno\cj a da neki od tih vektora ne odgovaraju stvarnom pokretu
+u video sekvenci. Prvo \cj emo definisati \sh ta zapravo zna\ch i neispravan vektor pomaka, kako ih detektovati, a zatim kako ih popraviti.
+
+\subsection{Detekcija neispravnih vektora pomaka}
+
+\subsection{Ispravljanje neispravnih vektora pomaka}
+
+\section{Izgla\dj ivanje granica izme\dj u blokova}

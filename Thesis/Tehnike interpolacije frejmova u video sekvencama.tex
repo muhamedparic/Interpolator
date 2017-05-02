@@ -4,7 +4,8 @@
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage{lipsum}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{textcomp}
 
 \graphicspath{ {images/} }
 
@@ -40,6 +41,7 @@
 \newcommand{\ZH}{\v{Z}}
 % Radi brzeg pisanja afrikata (\dj i \DJ su vec definisani)
 
+\newcommand{\midtilde}{\raisebox{0.6ex}{\texttildelow}} % Iz nekog razloga nije bas jednostavno napisati tildu u LaTex-u, ali ovo radi ok
 
 \begin{document}
 
@@ -63,7 +65,7 @@
 %input...
 %Detekcija uglova, LK, Farneback
 
-\chapter{Paralelno izvr\sh avanje tehnika interpolacije}
+\chapter{Paralelno izvr\sh avanje algoritama interpolacije}
 %input...
 %Pricati o mogucnosti paralelizacije svih spomenutih algoritama
 

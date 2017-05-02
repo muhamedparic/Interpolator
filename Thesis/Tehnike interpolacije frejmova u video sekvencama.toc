@@ -1,23 +1,27 @@
 \contentsline {chapter}{\numberline {1}Uvod}{3}{chapter.1}
 \contentsline {section}{\numberline {1.1}Op\'{c}enito o video sekvencama}{3}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Video fajlovi}{3}{subsection.1.1.1}
-\contentsline {section}{\numberline {1.2}Definicija opsega rada}{3}{section.1.2}
-\contentsline {section}{\numberline {1.3}Primjene video interpolacije}{3}{section.1.3}
-\contentsline {chapter}{\numberline {2}Osnovne tehnike}{4}{chapter.2}
-\contentsline {section}{\numberline {2.1}Duplikacija frejmova}{4}{section.2.1}
-\contentsline {section}{\numberline {2.2}Linearna interpolacija}{4}{section.2.2}
-\contentsline {section}{\numberline {2.3}Podru\v {c}ja primjene}{4}{section.2.3}
-\contentsline {chapter}{\numberline {3}Algoritmi uparivanja blokova}{5}{chapter.3}
-\contentsline {section}{\numberline {3.1}Uvod}{5}{section.3.1}
-\contentsline {section}{\numberline {3.2}Osnovni algoritmi}{7}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Potpuna pretraga}{7}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Trostepena pretraga}{8}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}\v {C}etverostepena pretraga}{9}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Dijamantna pretraga}{9}{subsection.3.2.4}
-\contentsline {section}{\numberline {3.3}Adaptive Rood Pattern Search - ARPS}{9}{section.3.3}
-\contentsline {section}{\numberline {3.4}Fazna korelacija}{9}{section.3.4}
-\contentsline {chapter}{\numberline {4}Uklanjanje gre\v {s}aka}{10}{chapter.4}
-\contentsline {chapter}{\numberline {5}Interpolacija frejmova kori\v {s}tenjem opti\v {c}kog toka}{11}{chapter.5}
-\contentsline {chapter}{\numberline {6}Paralelno izvr\v {s}avanje tehnika interpolacije}{12}{chapter.6}
-\contentsline {chapter}{\numberline {7}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{13}{chapter.7}
-\contentsline {chapter}{\numberline {8}Zaklju\v {c}ak}{14}{chapter.8}
+\contentsline {subsection}{\numberline {1.1.1}Video fajlovi}{4}{subsection.1.1.1}
+\contentsline {section}{\numberline {1.2}Primjene video interpolacije}{4}{section.1.2}
+\contentsline {chapter}{\numberline {2}Osnovne tehnike}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Duplikacija frejmova}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Linearna interpolacija}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Podru\v {c}ja primjene}{5}{section.2.3}
+\contentsline {chapter}{\numberline {3}Algoritmi uparivanja blokova}{6}{chapter.3}
+\contentsline {section}{\numberline {3.1}Uvod}{6}{section.3.1}
+\contentsline {section}{\numberline {3.2}Osnovni algoritmi}{8}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Potpuna pretraga}{8}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Trostepena pretraga}{9}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}\v {C}etverostepena pretraga}{10}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Dijamantna pretraga}{10}{subsection.3.2.4}
+\contentsline {section}{\numberline {3.3}Adaptive Rood Pattern Search - ARPS}{10}{section.3.3}
+\contentsline {section}{\numberline {3.4}Fazna korelacija}{10}{section.3.4}
+\contentsline {chapter}{\numberline {4}Uklanjanje gre\v {s}aka}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Popunjavanje rupa}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}Neispravni vektori pomaka}{11}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Detekcija neispravnih vektora pomaka}{12}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Ispravljanje neispravnih vektora pomaka}{12}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Izgla\dj ivanje granica izme\dj u blokova}{12}{section.4.3}
+\contentsline {chapter}{\numberline {5}Interpolacija frejmova kori\v {s}tenjem opti\v {c}kog toka}{13}{chapter.5}
+\contentsline {chapter}{\numberline {6}Paralelno izvr\v {s}avanje algoritama interpolacije}{14}{chapter.6}
+\contentsline {chapter}{\numberline {7}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{15}{chapter.7}
+\contentsline {chapter}{\numberline {8}Zaklju\v {c}ak}{16}{chapter.8}
