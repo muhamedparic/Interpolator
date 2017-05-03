@@ -8,13 +8,14 @@
 \contentsline {section}{\numberline {2.3}Podru\v {c}ja primjene}{5}{section.2.3}
 \contentsline {chapter}{\numberline {3}Algoritmi uparivanja blokova}{6}{chapter.3}
 \contentsline {section}{\numberline {3.1}Uvod}{6}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}PSNR}{8}{subsection.3.1.1}
 \contentsline {section}{\numberline {3.2}Osnovni algoritmi}{8}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Potpuna pretraga}{8}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Trostepena pretraga}{9}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}\v {C}etverostepena pretraga}{10}{subsection.3.2.3}
 \contentsline {subsection}{\numberline {3.2.4}Dijamantna pretraga}{10}{subsection.3.2.4}
 \contentsline {section}{\numberline {3.3}Adaptive Rood Pattern Search - ARPS}{10}{section.3.3}
-\contentsline {section}{\numberline {3.4}Fazna korelacija}{10}{section.3.4}
+\contentsline {section}{\numberline {3.4}Kros-korelacija}{10}{section.3.4}
 \contentsline {chapter}{\numberline {4}Uklanjanje gre\v {s}aka}{11}{chapter.4}
 \contentsline {section}{\numberline {4.1}Popunjavanje rupa}{11}{section.4.1}
 \contentsline {section}{\numberline {4.2}Neispravni vektori pomaka}{11}{section.4.2}

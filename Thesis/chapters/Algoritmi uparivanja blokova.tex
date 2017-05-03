@@ -41,6 +41,8 @@ Jo\sh\ jedno veoma va\zh no podru\ch je primjene algoritama uparivanja blokova (
 obra\dj uju se algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine) kori\sh teni su napredniji algoritmi, koji u
 ovom radu ne\cj e biti obra\dj eni.
 
+\subsection{PSNR}
+
 \section{Osnovni algoritmi}
 Sada \cj emo se osvrnuti na neke od osnovnih algoritama uparivanja blokova. Pretpostavit \cj emo da su blokovi veli\ch ine 16x16 piksela, a prozori pretrage veli\ch ine 30x30 piksela, te da su svi pikseli monohromatski
 (crno-bijeli). Od svih slijede\cj ih algoritama, samo prvi pronalazi optimalno uparivanje. Svi ostali ostali algoritmi su aproksimacije. Preciznije re\ch eno, postoji 225 mogu\cj ih lokacija gdje se po\ch tni blok mo\zh e nalaziti
@@ -81,4 +83,8 @@ prije re\ch eno, ovaj algoritam generalno ne izra\ch unava zadovoljavaju\cj e ve
 
 \section{Adaptive Rood Pattern Search - ARPS}
 
-\section{Fazna korelacija}
+\section{Kros-korelacija} % Sa MATLAB-ove stranice za xcorr2
+Svi do sada obja\sh njeni algoritmi se zasnivaju na direktnom upore\dj ivanju piksela. Kros-korelacija, s druge strane, je metoda sli\ch na konvoluciji, te tako\dj er radi, u osnovi, direktno upore\dj ivanje piksela 2 bloka u
+cilju pronala\zh enja lokacije prvog (manjeg) bloka unutar drugog (ve\cj eg). Ina\ch e, treba napomenuti da se radi o diskretnoj kros-korelaciji, jer je skup piksela nad kojim se vr\sh i ova operacija po svojoj prirodi
+diskretan. Kao \sh to \cj emo vidjeti, kros-korelacija u su\sh tini radi potpunu pretragu, te implementirana direktno ima isti problem izuzetno visokog vremena izvr\sh avanja. Me\dj utim, kros-korelaciju je mogu\cj e
+izra\ch unati kori\sh tenjem brze Fourierove transformacije (\textit{FFT}), \sh to \cj e zna\ch ajno ubrzati pretragu. U nastavku \cj emo objasniti sam algoritam, a nakon toga \cj e biti govora o njegovim performansama.
