@@ -4,7 +4,8 @@ ne u algoritmima dekodiranja i enkodiranja video fajlova, koji mogu biti veoma s
 Veli\ch ina frejma naravno zavisi od veli\ch ine konkretnog fajla na kojem radimo, ali za primjere \cj emo koristiti frejmove dimenzija 1280x720 piksela (1280 piksela \sh irine i 720 piksela visine).
  Video sekvenc  ove dimenzije se \ch esto zovu HD (\textit{High Definition}) video sekvence. Neke druge \ch esto kori\sh tene dimenzije uklju\ch uju 640x360, 1920x1080 (\textit{Full HD}), 2560x1440 
  (\textit{2K}), 3840x2160(\textit{4K}), itd. HD veli\ch ina je tako\dj er pogodno jer jedan frejm sadr\zh i \midtilde 1 milion piksela (ta\ch no 921600), \sh to prora\ch une \ch ija preciznost nije od izrazite 
- va\zh nosti \ch ini lak\sh im. 
+ va\zh nosti \ch ini lak\sh im. Postoje posebni frejmovi u video sekvenci koji se zovu \textit{keyframe}-ovi. Keyframe je prvi frejm nove scene, ili se previ\sh e zna\ch ajno razlikuje od prethodnog
+ frejma da bi bilo smisla tra\zh iti sli\ch nosti sa prethodnim frejmom. Ove frejmove je zbog toga potrebno posebno tretirati, \sh to \cj e biti obja\sh njeno u narednom poglavlju.
  
  Jo\sh\ jedna va\zh na osobina video sekvenci jeste \textit{framerate}, broj frejmova u sekundi. Framerate video sekvence zavisi od primjene. Za filmove, standardni framerate
 iznosi 24 \textit{fps} (\textit{frames per second}, broj frejmova u sekundi). Video igre naj\ch e\sh \cj e prikazuju 30 ili 60 fps. Ve\cj ina monitora ne mo\zh e prikazivati vi\sh e od 60 fps. Iako predstavlja
@@ -26,3 +27,17 @@ koje tra\zh e sli\ch nosti izme\dj u frejmova. Osim video sadr\zh aja, video faj
 ne\cj e biti obra\dj ivane u ovom radu, niti ih OpenCV biblioteka podr\zh ava.
 
 \section{Primjene video interpolacije}
+
+\section{Osnovni koraci algoritma video interpolacije}
+U ovom dijelu \cj e biti obja\sh njeni generalni koraci od kojih se sastoje algoritmi interpolacije frejmova, pri \ch emu su neki koraci zasebni algoritmi. Za ve\cj inu koraka \cj e u ovom radu biti obja\sh njeno
+vi\sh e algoritama.
+\begin{enumerate}
+	\item U\ch itamo naredna dva frejma originalne video sekvence.
+	\item Odredimo da li je drugi frejm keyframe. Ako jeste, interpolirani frejm je jednak prvom frejmu.
+	\item U suprotnom, svaki od piksela prvog frejma pove\zh emo sa jednim pikselom drugog frejma (ili suprotno, zavisno od algoritma), ili odredimo da ne postoji konekcija.
+	\item Pomak piksela iz jednog frejma u drugi, odnosno razlika koordinata piksela i njegovog povezanog piksela, nazivamo vektorom pomaka. Na piksele primijenimo njihove odgovaraju\cj e vektore
+	pomaka pomno\zh ene sa faktorom pomaka, koji zavisi od toga gdje se interpolirani frejm nalazi izme\dj u dva originalna frejma (npr. faktor pomaka bi bio 0.5 ako izme\dj u svaka dva frejma)
+	interpoliramo samo jedan. Piksele upi\sh emo na prona\dj enu lokaciju.
+	\item Izvr\sh imo eventualne popravke kao i popunjavanje rupa koje nastaju jer ne postoji vektor pomaka za svaki piksel, i neki pikseli \cj e biti upisani na isto mjesto.
+	\item Novokreirani frejm spasimo.
+\end{enumerate}
