@@ -14,9 +14,24 @@ Direktnom primjenom algoritama uparivanja blokova, mogu\cj e je dobiti interpoli
 
 \section{Neispravni vektori pomaka}
 Kori\sh tenjem algoritama uparivanja blokova, dobili smo odgovaraju\cj e vektore pomaka za svaki blok veli\ch ine 16x16 piksela. Me\dj utim, postoji visoka vjerovatno\cj a da neki od tih vektora ne odgovaraju stvarnom pokretu
-u video sekvenci. Prvo \cj emo definisati \sh ta zapravo zna\ch i neispravan vektor pomaka, kako ih detektovati, a zatim kako ih popraviti.
+u video sekvenci. Prvo \cj emo definisati \sh ta zapravo zna\ch i neispravan vektor pomaka, kako ih detektovati, a zatim kako ih popraviti. % Definisati vektor pomaka
 
-\subsection{Detekcija neispravnih vektora pomaka}
+\subsection{Detekcija neispravnih vektora pomaka} % Low complexity method...
+U ovom odjeljku \cj emo objasniti generalnu metodu detekcije neispravnih vektora pomaka, pri \ch emu \cj emo izra\ch unavanje odre\dj enih konstanti ostaviti za poglavlje vezano za implementaciju (te konstante \cj emo dobiti
+testiranjem).
+
+Vektor pomaka za neki blok, bez obzira na kori\sh tenu metodu, je dobiven kori\sh tenjem \textit{MAD} metode. Me\dj utim, MAD nije efektivan u situacijama u kojima postoji veliki broj kandidata sa istom MAD mjerom.
+Da bismo preciznije izra\ch unali ispravnost vektora pomaka, koristit \cj emo jo\sh\ jednu mjeru, a to je \textit{BAD} (\textit{Boundary Absolute Difference}). Za blok B$_1$ nekog frejma, i njemu upareni blok B$_2$ iz narednog
+frejma, BAD ra\ch unamo kao zbir apsolutnih vrijednosti razlika piksela na ivici bloka B$_1$ i njima najbli\zh ih piksela koji okru\zh uju blok B$_2$. % Definitivno treba sliku ubaciti
+Za blok veli\ch ine 16x16 piksela, imat \cj emo 64 ivi\ch na piksela. Radi konzistentnosti, mo\zh emo koristiti \textit{SAD} umjesto MAD, odnosno \textit{Sum Absolute Difference}, koji jednostavno predstavlja ukupni zbir
+apsolutnih vrijednosti razlika piksela, bez dijeljenja sa veli\ch inom bloka. Nakon pronala\zh enja SAD i BAD mjera za odgovaraju\cj i blok, tako\dj er trebamo odrediti konstante T$_1$, T$_2$, T$_3$ i T$_4$, pri \ch emu je T$_3$ > T$_1$ i T$_4$ > T$_2$. 
+Ove konstante \cj emo koristiti u algoritmu za odre\dj ivanje kvalitete vektora pomaka, koji glasi:
+\begin{itemize}
+	\item Ako je SAD < T$_1$ ILI BAD < T$_2$, vektor pomaka je ispravan
+	\item Ako je SAD < T$_3$ I BAD < T$_4$, vektor pomaka je ispravan
+	\item U suprotnom, vektor pomaka je neispravan
+\end{itemize}
+% Ima jos u Low complexity method...
 
 \subsection{Ispravljanje neispravnih vektora pomaka}
 
