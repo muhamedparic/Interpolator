@@ -2,3 +2,9 @@
 *.log
 *.synctex.gz
 *.out
+*.mp4
+*.avi
+*.mkv
+CMake*
+*.cmake
+Makefile

@@ -20,9 +20,8 @@
 \contentsline {section}{\numberline {4.1}Popunjavanje rupa}{12}{section.4.1}
 \contentsline {section}{\numberline {4.2}Neispravni vektori pomaka}{12}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Detekcija neispravnih vektora pomaka}{13}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Ispravljanje neispravnih vektora pomaka}{13}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Izgla\dj ivanje granica izme\dj u blokova}{13}{section.4.3}
-\contentsline {chapter}{\numberline {5}Interpolacija frejmova kori\v {s}tenjem opti\v {c}kog toka}{14}{chapter.5}
-\contentsline {chapter}{\numberline {6}Paralelno izvr\v {s}avanje algoritama interpolacije}{15}{chapter.6}
-\contentsline {chapter}{\numberline {7}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{16}{chapter.7}
-\contentsline {chapter}{\numberline {8}Zaklju\v {c}ak}{17}{chapter.8}
+\contentsline {subsection}{\numberline {4.2.2}Ispravljanje neispravnih vektora pomaka}{14}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Izgla\dj ivanje granica izme\dj u blokova}{14}{section.4.3}
+\contentsline {chapter}{\numberline {5}Interpolacija frejmova kori\v {s}tenjem opti\v {c}kog toka}{15}{chapter.5}
+\contentsline {chapter}{\numberline {6}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{16}{chapter.6}
+\contentsline {chapter}{\numberline {7}Zaklju\v {c}ak}{17}{chapter.7}

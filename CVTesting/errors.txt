@@ -1,0 +1,25 @@
+/tmp/ccNQ5pHh.o: In function `main':
+block_matching.cpp:(.text+0x5d): undefined reference to `cv::VideoCapture::VideoCapture(cv::String const&)'
+block_matching.cpp:(.text+0x8f): undefined reference to `cv::VideoCapture::operator>>(cv::Mat&)'
+block_matching.cpp:(.text+0x131): undefined reference to `cv::namedWindow(cv::String const&, int)'
+block_matching.cpp:(.text+0x168): undefined reference to `cv::namedWindow(cv::String const&, int)'
+block_matching.cpp:(.text+0x19f): undefined reference to `cv::namedWindow(cv::String const&, int)'
+block_matching.cpp:(.text+0x1f4): undefined reference to `cv::imshow(cv::String const&, cv::_InputArray const&)'
+block_matching.cpp:(.text+0x255): undefined reference to `cv::imshow(cv::String const&, cv::_InputArray const&)'
+block_matching.cpp:(.text+0x2b9): undefined reference to `cv::imshow(cv::String const&, cv::_InputArray const&)'
+block_matching.cpp:(.text+0x2e1): undefined reference to `cv::waitKey(int)'
+block_matching.cpp:(.text+0x31a): undefined reference to `cv::VideoCapture::~VideoCapture()'
+block_matching.cpp:(.text+0x44f): undefined reference to `cv::VideoCapture::~VideoCapture()'
+/tmp/ccNQ5pHh.o: In function `cv::String::String(char const*)':
+block_matching.cpp:(.text._ZN2cv6StringC2EPKc[_ZN2cv6StringC5EPKc]+0x4d): undefined reference to `cv::String::allocate(unsigned long)'
+/tmp/ccNQ5pHh.o: In function `cv::String::~String()':
+block_matching.cpp:(.text._ZN2cv6StringD2Ev[_ZN2cv6StringD5Ev]+0x14): undefined reference to `cv::String::deallocate()'
+/tmp/ccNQ5pHh.o: In function `cv::String::operator=(cv::String const&)':
+block_matching.cpp:(.text._ZN2cv6StringaSERKS0_[_ZN2cv6StringaSERKS0_]+0x28): undefined reference to `cv::String::deallocate()'
+/tmp/ccNQ5pHh.o: In function `cv::Mat::Mat(cv::Mat const&)':
+block_matching.cpp:(.text._ZN2cv3MatC2ERKS0_[_ZN2cv3MatC5ERKS0_]+0x17d): undefined reference to `cv::Mat::copySize(cv::Mat const&)'
+/tmp/ccNQ5pHh.o: In function `cv::Mat::~Mat()':
+block_matching.cpp:(.text._ZN2cv3MatD2Ev[_ZN2cv3MatD5Ev]+0x39): undefined reference to `cv::fastFree(void*)'
+/tmp/ccNQ5pHh.o: In function `cv::Mat::release()':
+block_matching.cpp:(.text._ZN2cv3Mat7releaseEv[_ZN2cv3Mat7releaseEv]+0x4b): undefined reference to `cv::Mat::deallocate()'
+collect2: error: ld returned 1 exit status

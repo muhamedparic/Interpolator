@@ -31,8 +31,15 @@ Ove konstante \cj emo koristiti u algoritmu za odre\dj ivanje kvalitete vektora 
 	\item Ako je SAD < T$_3$ I BAD < T$_4$, vektor pomaka je ispravan
 	\item U suprotnom, vektor pomaka je neispravan
 \end{itemize}
-% Ima jos u Low complexity method...
+
+Postoji jo\sh jedna metoda detekcije neispravnih vektora pomaka, koja se izvr\sh ava direktno na vektorima, umjesto na blokovima. Ovom metodom mo\zh emo otkriti vektore koji se zna\ch ajno razlikuju od svojih susjednih vektora,
+\sh to je naj\ch e\sh \cj e indikator neispravnosti. Svaki vektor pomaka se sastoji od \textit{x}-komponente i \textit{y}-komponente, te \cj emo definisati razliku dva vektora pomaka kao zbir apsolutnih vrijednosti razlika njihovih
+x i y komponenti, odnosno, razlika dva vektora pomaka \textit{mv$_1$} i \textit{mv$_2$} je $|mv_{1x} - mv_{2x}| + |mv_{1y} - mv_{2y}|$. Ako je za neki vektor pomaka zbir razlika sa njegovih 8 susjednih vektora ve\cj i od neke
+konstante, vektor ozna\ch imo kao neispravan.
 
 \subsection{Ispravljanje neispravnih vektora pomaka}
+Neovisno od toga kako smo odredili neispravnost vektora pomaka, koristit \cj emo istu metodu ispravljanja. S obzirom da o\ch ekujemo da \cj e susjedni blokovi imati iste vektore pomaka, najlak\sh i na\ch in da ispravimo neispravan 
+vektor pomaka jeste da ga zamijenimo jednim od 8 susjednih vektora. Izbor \cj emo izvr\sh iti tako \sh to \cj emo, od 8 susjednih vektora, uzeti onaj sa minimalnim zbirom razlika od ostalih 7. Odnosno, uzet \cj emo onaj vektor pomaka
+$mv_k$ koji daje najmanji rezultat funkcije $\sum_{i=1}^{8}(|mv_{kx}-mv_{ix}|+|mv_{ky}=mv_{iy|})$, pri \ch emu su $mv_1, mv_2, \ldots , mv_8$ susjedni vektori pomaka na\sh eg neispravnog vektora.
 
 \section{Izgla\dj ivanje granica izme\dj u blokova}
