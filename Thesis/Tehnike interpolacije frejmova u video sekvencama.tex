@@ -6,8 +6,9 @@
 \usepackage{lipsum}
 \usepackage[hidelinks]{hyperref}
 \usepackage{textcomp}
+\usepackage{color}
 
-\graphicspath{ {images/} }
+\graphicspath{{images/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
@@ -41,7 +42,7 @@
 \newcommand{\ZH}{\v{Z}}
 % Radi brzeg pisanja afrikata (\dj i \DJ su vec definisani)
 
-\newcommand{\midtilde}{\raisebox{0.6ex}{\texttildelow}} % Iz nekog razloga nije bas jednostavno napisati tildu u LaTex-u, ali ovo radi ok
+\newcommand{\midtilde}{\raisebox{0.6ex}{\texttildelow}} % Iz nekog razloga nije bas jednostavno napisati tildu u LaTeX-u, ali ovo radi ok
 \renewcommand{\contentsname}{Sadr\zh aj}
 
 \begin{document}
@@ -54,25 +55,14 @@
 \chapter{Osnovne tehnike}
 \input{"chapters/Osnovne tehnike"}
 
-\chapter{Algoritmi uparivanja blokova}
-\input{"chapters/Algoritmi uparivanja blokova"}
-%Klasicni i sa kros-korelacijom
+\chapter{Opti\ch ki tok}
+%\input{"chapters/Opticki tok"}
 
-\chapter{Uklanjanje gre\sh aka}
-\input{"chapters/Uklanjanje gresaka"}
-%Popravljanje vektorskog polja pomaka, popunjavanje rupa, ivice, OBMC
-
-\chapter{Interpolacija frejmova kori\sh tenjem opti\ch kog toka}
-%input...
-%Detekcija uglova, LK, Farneback
-
-%\chapter{Paralelno izvr\sh avanje algoritama interpolacije}
-%input...
-%Pricati o mogucnosti paralelizacije svih spomenutih algoritama
+\chapter{Popunjavanje rupa}
+%\input{"chapters/Popunjavanje rupa"}
 
 \chapter{Implementacija interpolatora kori\sh tenjem OpenCV biblioteke i benchmark testovi}
 %input...
-%Pricati o svemu spomenutom, samo kroz OpenCV
 
 \chapter{Zaklju\ch ak}
 %input...

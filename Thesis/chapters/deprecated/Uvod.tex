@@ -1,0 +1,43 @@
+\section{Op\cj enito o video sekvencama}
+Radi jednostvnosti, mi \cj emo imati relativno jednostavan pogled na video sekvence. Fokus rada je na direktnoj manipulaciji nad frejmovima (sli\ch icama) i pikselima radi dobivanja krajnje sekvence, 
+ne u algoritmima dekodiranja i enkodiranja video fajlova, koji mogu biti veoma slo\zh eni. Konkretno, mi \cj emo na video sekvencu gledati kao obi\ch an niz frejmova. Svaki frejm je matrica piksela. 
+Veli\ch ina frejma naravno zavisi od veli\ch ine konkretnog fajla na kojem radimo, ali za primjere \cj emo koristiti frejmove dimenzija 1280x720 piksela (1280 piksela \sh irine i 720 piksela visine).
+ Video sekvenc  ove dimenzije se \ch esto zovu HD (\textit{High Definition}) video sekvence. Neke druge \ch esto kori\sh tene dimenzije uklju\ch uju 640x360, 1920x1080 (\textit{Full HD}), 2560x1440 
+ (\textit{2K}), 3840x2160(\textit{4K}), itd. HD veli\ch ina je tako\dj er pogodno jer jedan frejm sadr\zh i \midtilde 1 milion piksela (ta\ch no 921600), \sh to prora\ch une \ch ija preciznost nije od izrazite 
+ va\zh nosti \ch ini lak\sh im. Postoje posebni frejmovi u video sekvenci koji se zovu \textit{keyframe}-ovi. Keyframe je prvi frejm nove scene, ili se previ\sh e zna\ch ajno razlikuje od prethodnog
+ frejma da bi bilo smisla tra\zh iti sli\ch nosti sa prethodnim frejmom. Ove frejmove je zbog toga potrebno posebno tretirati, \sh to \cj e biti obja\sh njeno u narednom poglavlju.
+ 
+ Jo\sh\ jedna va\zh na osobina video sekvenci jeste \textit{framerate}, broj frejmova u sekundi. Framerate video sekvence zavisi od primjene. Za filmove, standardni framerate
+iznosi 24 \textit{fps} (\textit{frames per second}, broj frejmova u sekundi). Video igre naj\ch e\sh \cj e prikazuju 30 ili 60 fps. Ve\cj ina monitora ne mo\zh e prikazivati vi\sh e od 60 fps. Iako predstavlja
+va\zh nu osobinu video sekvenci, nama framerate nije od naro\ch ite va\zh nosti. Ulaz i izlaz predstavljaju sekvence frejmova, koje mogu biti prikazane proizvoljno \ch esto. O tome koji framerate
+je pogodan za koju namjenu \cj e biti vi\sh e govora u dijelu o primjenama video interpolacije
+
+Zavisno od toga u kojoj smo fazi obrade frejma, piksel predstavlja jednu od dvije razli\ch ite stvari. Po\ch etni i krajnji video fajlovi imaju piksele sa 3 komponente: Crvena, zelena i plava. Svaka 
+komponenta ima cjelobrojnu ja\ch inu izme\dj u 0 i 255, uklju\ch ivo. Me\dj utim, u fazi obrade, \ch esto je pogodnije gledati na svaki piksel kao samo jedan broj (u istom opsegu) koji
+predstavlja ja\ch inu svjetlosti piksela (drugim rije\ch ima, frejm postaje crno-bijel). Intenzitet svjetlosti svakog piksela \cj e biti obi\ch na aritmeti\ch ka sredina crvene, zelene i plave komponente.
+
+\subsection{Video fajlovi}
+Iako fokus rada nije na video fajlovima, vrijedi spomenuti nekoliko detalja. Proces \ch itanja i pisanja video sekvenci u fajlove \cj e obavljati OpenCV biblioteka (o kojoj \cj e biti vi\sh e rije\ch i u 
+posljednjem poglavlju). \CH uvati video fajlove kao obi\ch ne nizove frejmova bi bilo izuzetno neefikasno. Naime, video HD dimenzije du\zh ine 2 sata (pri \ch emu svaki piksel zauzima 3 bajta i
+framerate iznosi 24 fps) bez ikakve kompresije bi zauzimao $2 * 3600 * 24 * 1280 * 720 * 3 = 477757440000$ bajta (\midtilde 466 GB), gdje u stvarnosti ta veli\ch ina iznosi naj\ch e\sh \cj e 
+nekoliko gigabajta. Kompresija video fajlova se zasniva na 2 osnovna principa: \textit{intraframe} kompresija i \textit{interframe} kompresija. Intraframe kompresija se bavi smanjivanjem veli\ch ine
+svakog pojedina\ch nog frejma, \sh to nema dodirnih ta\ch aka sa tehnikama interpolacije frejmova. Interframe kompresija poku\sh ava smanjiti veli\ch inu krajnjeg fajla tako \sh to tra\zh i sli\ch nosti
+izme\dj u uzastopnih frejmova, te umjesto spa\sh avanja \ch itavih frejmova, spasi razlike izme\dj u trenutnog i pro\sh log frejma (ili trenutnog i narednog). Poglavlje 3 je posve\cj eno upravo tehnikama
+koje tra\zh e sli\ch nosti izme\dj u frejmova. Osim video sadr\zh aja, video fajlovi sadr\zh e i druge komponente poput jedne ili vi\sh e audio komponente, prijevoda, menija, itd. Ove komponente
+ne\cj e biti obra\dj ivane u ovom radu, niti ih OpenCV biblioteka podr\zh ava.
+
+\section{Primjene video interpolacije}
+
+\section{Osnovni koraci algoritma video interpolacije}
+U ovom dijelu \cj e biti obja\sh njeni generalni koraci od kojih se sastoje algoritmi interpolacije frejmova, pri \ch emu su neki koraci zasebni algoritmi. Za ve\cj inu koraka \cj e u ovom radu biti obja\sh njeno
+vi\sh e algoritama.
+\begin{enumerate}
+	\item U\ch itamo naredna dva frejma originalne video sekvence.
+	\item Odredimo da li je drugi frejm keyframe. Ako jeste, interpolirani frejm je jednak prvom frejmu.
+	\item U suprotnom, svaki od piksela prvog frejma pove\zh emo sa jednim pikselom drugog frejma (ili suprotno, zavisno od algoritma), ili odredimo da ne postoji konekcija.
+	\item Pomak piksela iz jednog frejma u drugi, odnosno razlika koordinata piksela i njegovog povezanog piksela, nazivamo vektorom pomaka. Na piksele primijenimo njihove odgovaraju\cj e vektore
+	pomaka pomno\zh ene sa faktorom pomaka, koji zavisi od toga gdje se interpolirani frejm nalazi izme\dj u dva originalna frejma (npr. faktor pomaka bi bio 0.5 ako izme\dj u svaka dva frejma)
+	interpoliramo samo jedan. Piksele upi\sh emo na prona\dj enu lokaciju.
+	\item Izvr\sh imo eventualne popravke kao i popunjavanje rupa koje nastaju jer ne postoji vektor pomaka za svaki piksel, i neki pikseli \cj e biti upisani na isto mjesto.
+	\item Novokreirani frejm spasimo.
+\end{enumerate}

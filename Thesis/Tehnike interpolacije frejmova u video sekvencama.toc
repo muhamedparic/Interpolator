@@ -1,27 +1,11 @@
-\contentsline {chapter}{\numberline {1}Uvod}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Op\'{c}enito o video sekvencama}{3}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Video fajlovi}{4}{subsection.1.1.1}
-\contentsline {section}{\numberline {1.2}Primjene video interpolacije}{4}{section.1.2}
-\contentsline {section}{\numberline {1.3}Osnovni koraci algoritma video interpolacije}{4}{section.1.3}
-\contentsline {chapter}{\numberline {2}Osnovne tehnike}{6}{chapter.2}
-\contentsline {section}{\numberline {2.1}Duplikacija frejmova}{6}{section.2.1}
+\contentsline {chapter}{\numberline {1}Uvod}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Video sekvence}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Interpolacija u video sekvenci}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Primjene video interpolacije}{4}{section.1.3}
+\contentsline {chapter}{\numberline {2}Osnovne tehnike}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Duplikacija frejmova}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Linearna interpolacija}{6}{section.2.2}
-\contentsline {chapter}{\numberline {3}Algoritmi uparivanja blokova}{7}{chapter.3}
-\contentsline {section}{\numberline {3.1}Uvod}{7}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}PSNR}{9}{subsection.3.1.1}
-\contentsline {section}{\numberline {3.2}Osnovni algoritmi}{9}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Potpuna pretraga}{9}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Trostepena pretraga}{10}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}\v {C}etverostepena pretraga}{11}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Dijamantna pretraga}{11}{subsection.3.2.4}
-\contentsline {section}{\numberline {3.3}Adaptive Rood Pattern Search - ARPS}{11}{section.3.3}
-\contentsline {section}{\numberline {3.4}Kros-korelacija}{11}{section.3.4}
-\contentsline {chapter}{\numberline {4}Uklanjanje gre\v {s}aka}{12}{chapter.4}
-\contentsline {section}{\numberline {4.1}Popunjavanje rupa}{12}{section.4.1}
-\contentsline {section}{\numberline {4.2}Neispravni vektori pomaka}{12}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Detekcija neispravnih vektora pomaka}{13}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Ispravljanje neispravnih vektora pomaka}{14}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Izgla\dj ivanje granica izme\dj u blokova}{14}{section.4.3}
-\contentsline {chapter}{\numberline {5}Interpolacija frejmova kori\v {s}tenjem opti\v {c}kog toka}{15}{chapter.5}
-\contentsline {chapter}{\numberline {6}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{16}{chapter.6}
-\contentsline {chapter}{\numberline {7}Zaklju\v {c}ak}{17}{chapter.7}
+\contentsline {chapter}{\numberline {3}Opti\v {c}ki tok}{7}{chapter.3}
+\contentsline {chapter}{\numberline {4}Popunjavanje rupa}{8}{chapter.4}
+\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{9}{chapter.5}
+\contentsline {chapter}{\numberline {6}Zaklju\v {c}ak}{10}{chapter.6}
