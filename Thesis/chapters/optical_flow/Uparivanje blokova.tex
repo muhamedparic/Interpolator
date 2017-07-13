@@ -1,5 +1,6 @@
-\section{Uvod}
-Prva klasa algoritama koje \cj emo prou\ch avati kre\cj u od iste osnovne ideje: Podijeliti prvi frejm na blokove, za svaki blok prona\cj i vektor pomaka iz prvog u drugi frejm, te primijeniti jedan dio tog vektora pomaka na blok.
+Prva klasa algoritama koje \cj emo prou\ch avati kre\cj u od iste osnovne ideje: Podijeliti prvi frejm na blokove, te na\cj i vektor pomaka svakog bloka iz prvog frejma u drugi. Ovi algoritmi zna\ch ajno pojednostave problem tako \sh to
+pretpostave da \cj e svi pikseli unutar jednog bloka imati iste vektore pomaka. Ovaj pristup mo\zh e dovesti do gre\sh aka, ali \ch ini izra\ch unavanje vektora pomaka jednostavnim i brzim.
+
 Ako nam je cilj samo kreirati jedan novi frejm izme\dj u svaka dva postoje\cj a, svaki blok \cj emo pomjeriti du\zh\ pola izra\ch unatog vektora pomaka. Ako nam je cilj interpolirati dva frejma izme\dj u dva postoje\cj a, blok \cj emo 
 pomjeriti du\zh\ jedne tre\cj ine vektora pomaka za prvi, i dvije tre\cj ine za drugi interpolirani frejm, itd. Cilj slijede\cj ih algoritama jeste uparivanje blokova prvog frejma sa blokom iste veli\ch ine u drugom frejmu. Me\dj utim,
 postoji nekoliko pitanja na koja moramo odgovoriti prije nego \sh to mo\zh emo primijeniti ove algoritme:
@@ -14,22 +15,25 @@ postoji nekoliko pitanja na koja moramo odgovoriti prije nego \sh to mo\zh emo p
 U praksi se koriste blokovi veli\ch ine 16x16 piksela, te prozor pretrage veli\ch ine 30x30 piksela. To zna\ch i da pretpostavljamo da se izme\dj u dva susjedna frejma blokovi ne\cj e pomjeriti vi\sh e od 7 piksela u bilo kojem od 4
 kardinalna smjera. To nam daje 225 mogu\cj ih lokacija za svaki blok. Naravno, ne postoji definitivna, optimalna veli\ch ina bloka ili prozora pretrage za sve slu\ch ajeve. Manje blokove je br\zh e uporediti, ali je njihov broj ve\cj i,
 te je ve\cj a vjerovatno\cj a da \cj e dva bloka biti slu\ch ajno veoma sli\ch na. Ve\cj i prozor pretrage nam omogu\cj ava pronala\zh enje ispravnih vektora pomaka i u slu\ch aju kada se desi pomak ve\cj i od 7 piksela, ali
-zna\ch ajno pove\cj ava vrijeme potrebno za izra\ch unavanje te, sli\ch no kao u slu\ch aju blokova, pove\cj anjem prozora pretrage se pove\cj ava i vjerovatno\cj a uparivanja dva bloka koji su sli\ch ni, ali zapravo ne
+pove\cj ava vrijeme potrebno za izra\ch unavanje te, sli\ch no kao u slu\ch aju blokova, pove\cj anjem prozora pretrage se pove\cj ava i vjerovatno\cj a uparivanja dva bloka koji su sli\ch ni, ali zapravo ne
 predstavljaju isti blok. U svim slijede\cj im algoritmima \cj emo koristiti blokove i prozore pretrage navedene veli\ch ine.
 
 Sljede\cj e pitanje se ti\ch e kriterija sli\ch nosti dva bloka. Svaki blok je sastavljen od 256 piksela, koji se sastoje od 3 komponente: crvene, zelene, i plave. Svaka komponenta ima cjelobrojnu ja\ch inu u rasponu od 0 do 255, uklju\ch ivo.
-Za upore\dj ivanje blokova se prvo pikseli pretvore u crno-bijele, sa jednom komponentom koja predstavlja ja\ch inu bijele boje piksela.
-% Objasniti zasto
-Kori\sh teni kriteriji sli\ch nosti blokova su veoma jednostavni. Jedan je  \textit{Mean Absolute Difference (MAD)}, odnosno \textit{srednja apsolutna razlika}. Ova mjera nije ni\sh ta drugo nego suma apsolutnih vrijednosti razlika
-ja\ch ina odgovaraju\cj ih piksela u blokovima, podijeljena sa veli\ch inom bloka. Drugim rije\ch ima, zadana je formulom
+Za upore\dj ivanje blokova ne\cj emo koristiti sve 3 komponente piksela, nego \cj emo izra\ch unati njihov intenzitet, koji se dobija kao aritmeti\ch ka sredina intenziteta crvene, zelene i plave komponente. Ovo se radi zato \sh to 
+jednostavno ne bismo imali koristi od odvojenog upore\dj ivanja sve 3 komponente.
+Naravno, postoji vjerovatno\cj a da \cj emo upariti dva piksela koji imaju sli\ch ne intenzitete, a ne i iste boje (npr. potpuno crven i potpuno zelen piksel imaju iste intenzitete), ali ra\ch unanjem vektora pomaka za sve 3 komponente
+zasebno bismo \ch esto dobili 3 razli\ch ita vektora pomaka, \sh to nam ne daju nikakvu korisnu informaciju. Zbog toga je bolje samo uzimati u obzir intenzitete piksela.
+
+Kori\sh teni kriteriji sli\ch nosti blokova su veoma jednostavni. Jedan je  \textit{Mean Absolute Difference (MAD)}, odnosno \textit{Srednja Apsolutna Razlika}. Ova mjera nije ni\sh ta drugo nego suma apsolutnih vrijednosti razlika
+intenziteta odgovaraju\cj ih piksela u blokovima, podijeljena sa veli\ch inom bloka. Drugim rije\ch ima, zadana je formulom
 $$
 MAD = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}|A_{ij}-B_{ij}|
 $$
 
-Pri \ch emu \textit{N} predstavlja visinu i \sh irinu bloka (u na\sh em slu\ch aju 16), dok $A_{ij}$ i $B_{ij}$ predstavljaju vrijednosti piksela na koordinatama \textit{i,j} (sa po\ch etkom u gornjem lijevom uglu bloka) prvog,
+Pri \ch emu \textit{N} predstavlja visinu i \sh irinu bloka (u na\sh em slu\ch aju 16), dok $A_{ij}$ i $B_{ij}$ predstavljaju vrijednosti piksela na koordinatama $(i,j)$ (sa po\ch etkom u gornjem lijevom uglu bloka) prvog,
 odnosno drugog razmatranog bloka. 
 
-Druga, veoma sli\ch na mjera jeste \textit{Mean Squared Error (MSE)}, odnosno \textit{srednji kvadrat gre\sh ke}. Umjesto uzimanja apsolutne vrijednosti razlika piksela, ova mjera kvadrira razlike piksela, \ch ime se vi\sh e
+Druga, veoma sli\ch na mjera jeste \textit{Mean Squared Error (MSE)}, odnosno \textit{Srednji Kvadrat Gre\sh ke}. Umjesto uzimanja apsolutne vrijednosti razlika piksela, ova mjera kvadrira razlike piksela, \ch ime se vi\sh e
 ka\zh njavaju ve\cj e razlike. \textit{MSE} je zadana formulom
 $$
 MSE = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}(A_{ij}-B_{ij})^2
@@ -37,13 +41,12 @@ $$
 
 Mi \cj emo ove funkcije ubudu\cj e zvati zajedni\ch kim imenom \textit{funkcije cijene}. Cilj svih algoritama u ovom poglavlju jeste minimizacija funkcije cijene, bilo \textit{MAD} ili \textit{MSE}.
 
-Jo\sh\ jedno veoma va\zh no podru\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. U dijelu vezanom za osnovne algoritme i ARPS,
-obra\dj uju se algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine) kori\sh teni su napredniji algoritmi, koji u
+Jo\sh\ jedno veoma va\zh no podru\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. O ovom poglavlju se obra\dj uju
+algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine) kori\sh teni su napredniji algoritmi, koji u
 ovom radu ne\cj e biti obra\dj eni.
 
 \subsection{PSNR}
 
-\section{Osnovni algoritmi}
 Sada \cj emo se osvrnuti na neke od osnovnih algoritama uparivanja blokova. Pretpostavit \cj emo da su blokovi veli\ch ine 16x16 piksela, a prozori pretrage veli\ch ine 30x30 piksela, te da su svi pikseli monohromatski
 (crno-bijeli). Od svih slijede\cj ih algoritama, samo prvi pronalazi optimalno uparivanje. Svi ostali ostali algoritmi su aproksimacije. Preciznije re\ch eno, postoji 225 mogu\cj ih lokacija gdje se po\ch tni blok mo\zh e nalaziti
 u prozoru pretrage. Defini\sh imo matricu $C_{15x15}$, pri \ch emu svakom elementu matrice $C$ odgovara vrijednost funkcije cijene (\textit{MAD} ili \textit{MSE}) koju dobijemo ako postavimo blok na to mjesto u prozoru pretrage
@@ -74,15 +77,35 @@ poziciju u prozoru pretrage.
 
 U svakom od 3 koraka, imamo 9 razli\ch itih mogu\cj ih pozicija bloka, tako da izgleda da moramo izra\ch unati funkciju cijene bloka 27 puta. Me\dj utim, centar u drugom i tre\cj em koraku je ve\cj\ izra\ch unat u prethodnom
 koraku, tako da je zapravo potrebno izra\ch unati samo 25 razli\ch itih funkcija pretrage, \sh to je 9 puta manje od 225 kod potpune pretrage, \sh to naravno predstavlja veoma zna\ch ajno ubrzanje. Me\dj utim, kao \sh to je
-prije re\ch eno, ovaj algoritam generalno ne izra\ch unava zadovoljavaju\cj e vektore pomaka, tako da se u praksi i ne koristi.
+prije re\ch eno, ovaj algoritam generalno ne izra\ch unava zadovoljavaju\cj e vektore pomaka, tako da se u praksi ne koristi.
 %Slika rada algoritma
 
 \subsection{\CH etverostepena pretraga}
+\CH etverostepena pretraga radi na istom principu kao trostepena, samo sa druga\ch ijim izborom veli\ch ine koraka. U prvom koraku $S$ iznosi 2, odnosno lokacije koje pretra\zh ujemo \cj e biti $(0, 0)$, $(0, 2)$, $(2, 0)$, $(2, 2)$,
+$(-2, 0)$, $(0, -2)$, $(-2, -2)$, $(2, -2)$ i $(-2, 2)$. U slu\ch aju da lokacija $(0, 0)$ daje najmanju vrijednost funkcije cijene, prelazimo na \ch etvrti korak. Ovo vrijedi i u drugom i tre\cj em koraku, za trenutni centar pretrage. Drugi i
+tre\cj i korak tako\dj er imaju veli\ch inu koraka $S=2$, dok za \ch etvrti korak vrijedi $S=1$. Ukoliko pro\dj emo kroz sva \ch etiri koraka, vidimo da je maksimalni pomak jednak $2+2+2+1=7$.
+
+Ovaj pristup zahtijeva od 17 do 27 upore\dj ivanja blokova. Razlog ovome jeste \sh to je veli\ch ina koraka u prva 3 koraka ista, \sh to zna\ch i da \cj e se zna\ch ajan broj lokacija poklapati, te ih ne moramo ra\ch unati ponovno.
+Iako je manje konsistentna od trostepene pretrage (koja uvijek zahtijeva 25 upore\dj ivanja blokova), \ch etverostepena pretraga \cj e u ve\cj ini slu\ch ajeva biti br\zh a. Druga prednost je \sh to \ch etverostepena pretraga bolje
+detektuje male vektore pomaka (1 do 2 piksela u jednom smjeru), zato \sh to je po\ch etni korak manji ($S=2$ u odnosu na $S=4$), kao i zato \sh to u slu\ch aju da je najbolja lokacija u centru, automatski prelazimo u \ch etvrti korak,
+koji mo\zh e samo jos podesiti vektor pomaka za 1 piksel u bilo kojem smjeru.
 
 \subsection{Dijamantna pretraga}
+Dijamantna pretraga je sli\ch na \ch etverostepenoj pretrazi, uz dvije modifikacije. Prva je da oblik koji prave lokacije koje pretra\zh ujemo nije vi\sh e kvadrat \ch ije su stranice paralelne sa koordinatnim osama, nego kvadrat 
+rotiran za 45\degree (\ch iji oblik podsje\cj a na dijamant ili romb), a druga da ne postoji gornja granica na maksimalan broj koraka. Naravno, algoritam \cj e uvijek terminirati jer postoji 225 mogu\cj ih lokacija, a funkcija cijene 
+za svaku lokaciju se ra\ch una samo jednom,
+druga razlika samo zna\ch i da algoritam ne\cj e automatski pre\cj i na manju veli\ch inu koraka nakon nekog broja koraka, nego se to radi samo ako, od 9 lokacija koje razmatramo u trenutnom koraku, najbolji rezultat daje
+trenutni centar. Do posljednjeg koraka, veli\ch ina koraka $S$ iznosi 2, \sh to u prvom koraku daje sljede\cj e lokacije koje trebamo pretra\zh iti: $(0, 0)$, $(2, 0)$, $(0, 2)$, $(-2, 0)$, $(0, -2)$, $(1, 1)$, $(1, -1)$, $(-1, 1)$ i $(-1, -1)$.
+U posljednjem koraku, veli\ch ina koraka $S$ iznosi 1, \sh to zna\ch i da \cj emo posmatrati samo trenutni centar i 4 lokacije direktno iznad, ispod, lijevo i desno od trenutnog centra (pomjerene po jedan piksel u kardinalnim
+smjerovima).
 
-\section{Adaptive Rood Pattern Search - ARPS}
+Garanciju da \cj e algoritam eventualno pre\cj i na posljednji korak nam daje \ch injenica da ovaj algoritam (i oba prethodna) uvijek prelazi na lokaciju koja daje bolju vrijednost funkcije cijene (ili ostaje na trenutnoj lokaciji). 
+S obzirom da postoji kona\ch an (225) broj lokacija, a nikad ne prelazimo na lokaciju koja nam daje ve\cj u vrijednost funkcije cijene, eventualno \cj emo do\cj i do lokalnog minimuma (koji je u idealnom slu\ch aju i globalni
+minimum).
 
+\subsection{Adaptive Rood Pattern Search - ARPS}
+
+% Izbaciti iz ovog dijela
 \section{Kros-korelacija} % Sa MATLAB-ove stranice za xcorr2
 Svi do sada obja\sh njeni algoritmi se zasnivaju na direktnom upore\dj ivanju piksela. Kros-korelacija, s druge strane, je metoda sli\ch na konvoluciji, te tako\dj er radi, u osnovi, direktno upore\dj ivanje piksela 2 bloka u
 cilju pronala\zh enja lokacije prvog (manjeg) bloka unutar drugog (ve\cj eg). Ina\ch e, treba napomenuti da se radi o diskretnoj kros-korelaciji, jer je skup piksela nad kojim se vr\sh i ova operacija po svojoj prirodi

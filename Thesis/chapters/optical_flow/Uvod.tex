@@ -1,0 +1,24 @@
+Sada \cj emo se po\ch eti baviti slo\zh enijim tehnikama interpolacije koje mogu davati mnogo bolje rezultate od linearne interpolacije. U idealnom slu\ch aju, rezultiraju\cj i frejmovi \cj e izgledati potpuno prirodno.
+Postoji vi\sh e klasa algoritama koji su u praksi kori\sh teni, od kojih \cj emo mi u ovom poglavlju objasniti tri: Tehnike zasnovane na faznoj korelaciji, upore\dj ivanju blokova, i rje\sh avanju diferencijalnih jedna\ch ina. % Dodati jos diskretne ako uspijem
+Zajedni\ch ko svim ovim algoritmima jeste da njihov izlaz ne\cj e biti novi interpolirani frejm, ve\cj\ \textit{polje opti\ch kog toka}.
+Cilj ovog poglavlja jeste da odgovori na sljede\cj a pitanja:
+\begin{enumerate}
+\item \SH ta su vektori pomaka?
+\item \SH ta je opti\ch ki tok?
+\item Kako mo\zh emo koristiti poznavanje opti\ch kog toga za kreiranje interpoliranih frejmova?
+\item Kojim metodama mo\zh emo izra\ch unati opti\ch ki tok?
+\end{enumerate}
+
+Neka su zadana dva susjedna frejma, $A$ i $B$, izme\dj u kojih \zh elimo interpolirati novi frejm. Intuitivno gledaju\cj i, neki objekti frejma $A$ \cj e se tako\dj er nalaziti u frejmu $B$, samo na nekoj drugoj poziciji, blizu
+svoje originalne. Drugim rije\ch ima, postoje vektori pomaka koji odgovaraju tim objektima, koji imaju dvije komponente i du\zh kojih su objekti prividno pomjereni izme\dj u frejmova $A$ i $B$.
+
+Odre\dj ivanje vektora pomaka za objekte bi zahtjevalo tra\zh enje objekata u frejmovima, \sh to je izuzetno zahtjevno samo po sebi. Umjesto toga, svi algoritmi koje \cj emo objasniti \cj e pridru\zh ivati pojedina\ch ne
+vektore pomaka svakom pikselu jednog od frejmova ($A$ ili $B$, neki algoritmi mogu odrediti koji je od ta dva slu\ch aja korisnije razmatrati). Algoritam \cj e jednostavno dobiti dva frejma, i za svaki piksel dati jedan
+vektor, njegov vektor pomaka. Skup svih vektora pomaka piksela jednog frejma na drugi nazivamo poljem opti\ch kog toka, pri \ch emu opti\ch ki tok mo\zh emo definisati kao prividno kretanje objekata u video
+sekvenci.
+
+Najve\cj i dio posla pri generisanju interpoliranog frejma upravo jeste tra\zh enje kvalitetnog opti\ch kog toka. Nakon toga, proces je relativno jednostavan:
+\begin{enumerate}
+\item Svaki piksel pomjeriti du\zh\ svog vektora pomaka pomno\zh enog sa $\alpha$ (realan broj dobiven na isti na\ch in kao $\alpha$ u dijelu u linearnoj interpolaciji) te ga spasiti na tu poziciju.
+\item Polja za koja nije prona\dj en niti jedan piksel popuniti kori\sh tenjem linearne interpolacije
+\end{enumerate}

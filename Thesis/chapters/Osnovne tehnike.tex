@@ -1,27 +1,32 @@
-Sada \cj emo objasniti "trivijalne" algoritme interpolacije: duplikacija frejmova i linearna interpolacija. Kao \sh to \cj emo vidjeti, linearna interploacija bi se \ch ak mogla koristiti samostalno za kreiranje interpoliranih
-frejmova. Me\dj utim, rezultat bi bio izuzetno mutan. U narednim odjeljcima \cj emo objasniti na\ch ine rada i podru\cj ja primjene ovih algoritama.
+Sada \cj emo objasniti "trivijalne" algoritme interpolacije: duplikacija frejmova i linearna interpolacija. Linearna interploacija bi se \ch ak mogla koristiti samostalno za kreiranje interpoliranih
+frejmova, me\dj utim, rezultat bi bio izuzetno mutan. U narednim odjeljcima \cj emo objasniti na\ch ine rada i podru\cj ja primjene ovih algoritama.
 
 \section{Duplikacija frejmova}
 Kao \sh to samo ime ka\zh e, duplicirani frejm je identi\ch an jednom od njegovih susjednih frejmova (prethodnom ili narednom). Duplicirani frejmovi se koriste u situacijama kada nema smisla koristiti standardne tehnike
 interpolacije. Naime, neki frejmovi se jednostavno potpuno razlikuju od svojih prethodnika. To se de\sh ava pri promjeni scene ili bilo kakvoj nagloj promjeni slike. Frejm koji se zna\ch ajno razlikuje od svog prethodnika
 nazivamo \textit{keyframe}.  Ako \cj emo izme\dj u svaka 2 susjedna frejma ubacivati odre\dj eni broj interpoliranih frejmova, onda moramo ubaciti ne\sh to i prije keyframe-a. Jednostavno \cj emo napraviti onoliko kopija
-posljednjeg frejma prethodne scene ili novog keyframe-a koliko nam treba interpoliranih frejmova. Ako poku\sh amo ipak interpolirati novi frejm izme\dj u dva putpuno razli\ch ita, dobit \cj emo ne\sh to \sh to ne\cj e
+posljednjeg frejma prethodne scene ili novog keyframe-a koliko nam treba interpoliranih frejmova. Ako poku\sh amo ipak interpolirati novi frejm izme\dj u dva potpuno razli\ch ita, dobit \cj emo ne\sh to \sh to ne\cj e
 li\ch iti ni na jedan od dva frejma, te \cj e biti veoma uo\ch ljivo gledaocima. Zbog toga je najbolje samo napraviti kopije. Alternativa tom pristupu bi bilo jednostavno presko\ch iti te frejmove i ostaviti ih kao susjedne.
 Nedostatak ovog pristupa je potencijalno stvaranje problema oko sinhronizacije ako uz video sekvencu imamo prate\cj i audio zapis ili tekst prijevoda. Ta "rupa" u frejmovima bi zna\ch ila da \cj e audio zapis i prijevod
 kasniti za video zapisom. Tako da \cj emo mi ipak koristiti duplikaciju prethodnog frejma.
 
 \section{Linearna interpolacija}
 Kao \sh to \cj emo vidjeti kasnije, tehnike interpolacije koje \cj emo mi koristiti ne\cj e kreirati cjelokupan frejm. Postojat \cj e velika podru\ch ja frejma za koje algoritam jednostavno nije dao nikakve podatke. Da bismo
-izbjegli veoma o\ch igledna podru\ch ja crnih piksela, moramo koristiti neku drugu tehniku koja \cj e zagarantovano davati podatke o svakom pikselu. A najjednostavnija takva tehnika (osim duplikacije) jeste linearna
+izbjegli veoma o\ch igledna "prazna" podru\ch ja crnih piksela, moramo koristiti neku drugu tehniku koja \cj e zagarantovano davati podatke o svakom pikselu. A najjednostavnija takva tehnika (osim duplikacije) jeste linearna
 interpolacija, koja radi na sljede\cj em principu: 
 
-Neka su $A$ i $B$ vektori kolone koji predstavljaju dva piksela. Piksel $A$ je piksel na nekoj poziciji prethodnog, a piksel $B$ je piksel na toj istoj
+Neka su $A$ i $B$ vektori kolone koji predstavljaju dva piksela (svaki \ch lan vektora po jednu od tri komponente), a $C$ je piksel interpoliranog frejma (kojeg \zh elimo generisati). Piksel $A$ je piksel na nekoj poziciji prethodnog, 
+a piksel $B$ je piksel na toj istoj
 poziciji narednog frejma. Mi sada \zh elimo da vidimo koji \cj e se piksel nalaziti na toj poziciji u interpoliranom frejmu. Realan broj $\alpha$ (0 < $\alpha$ < 1) predstavlja relativnu poziciju interpoliranog frejma izme\dj u
 rethodnog i narednog. To jeste, ako izme\dj u ta dva frejma generi\sh emo \textit{n} novih, a frejm koji \zh elimo generisati je \textit{k}-ti po redu, tada je:
-$$
+\begin{equation}
 \alpha=\frac{k}{n+1}
-$$
+\end{equation}
 Sada je vrijednost piksela \textit{C} interpoliranog frejma:
-$$
-C=\frac{(1-\alpha)*A+\alpha*B}{2}
-$$
+\begin{equation}
+C=(1-\alpha)*A+\alpha*B
+\end{equation}
+Ako izme\dj u svaka dva frejma jednostavno \zh elimo generisati jedan novi, tada je $\alpha=\frac{1}{2}$, te \cj e svaka komponenta generisanog piksela biti aritmeti\ch ka sredina komponenti piksela $A$ i $B$.
+
+Kao \sh to \cj emo kasnije vidjeti, pri generisanju novog frejma dr\zh at \cj emo "matricu posje\cj enosti", koja \cj e za svaki piksel dr\zh ati jednu binarnu vrijednost. Sve vrijedosti \cj e na po\ch etku biti postavljene na 0 (false).
+Pri upisivanju novog piksela, odgovaraju\cj u vrijednost matrice \cj emo postaviti na 1 (true). Na kraju, piksele na pozicijama sa vrijedno\sh \cj u 0 \cj emo generisati na drugi na\ch in, konkretno upravo linearnom interpolacijom.
