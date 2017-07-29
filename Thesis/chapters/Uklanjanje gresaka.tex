@@ -16,9 +16,9 @@ Direktnom primjenom algoritama uparivanja blokova, mogu\cj e je dobiti interpoli
 Kori\sh tenjem algoritama uparivanja blokova, dobili smo odgovaraju\cj e vektore pomaka za svaki blok veli\ch ine 16x16 piksela. Me\dj utim, postoji visoka vjerovatno\cj a da neki od tih vektora ne odgovaraju stvarnom pokretu
 u video sekvenci. Prvo \cj emo definisati \sh ta zapravo zna\ch i neispravan vektor pomaka, kako ih detektovati, a zatim kako ih popraviti. % Definisati vektor pomaka
 
-\subsection{Detekcija neispravnih vektora pomaka} % Low complexity method...
+\subsection{Detekcija neispravnih vektora pomaka} % Low complexity method (citav subsection)
 U ovom odjeljku \cj emo objasniti generalnu metodu detekcije neispravnih vektora pomaka, pri \ch emu \cj emo izra\ch unavanje odre\dj enih konstanti ostaviti za poglavlje vezano za implementaciju (te konstante \cj emo dobiti
-testiranjem).
+eksperimentalno).
 
 Vektor pomaka za neki blok, bez obzira na kori\sh tenu metodu, je dobiven kori\sh tenjem \textit{MAD} metode. Me\dj utim, MAD nije efektivan u situacijama u kojima postoji veliki broj kandidata sa istom MAD mjerom.
 Da bismo preciznije izra\ch unali ispravnost vektora pomaka, koristit \cj emo jo\sh\ jednu mjeru, a to je \textit{BAD} (\textit{Boundary Absolute Difference}). Za blok B$_1$ nekog frejma, i njemu upareni blok B$_2$ iz narednog

@@ -20,5 +20,57 @@ sekvenci.
 Najve\cj i dio posla pri generisanju interpoliranog frejma upravo jeste tra\zh enje kvalitetnog opti\ch kog toka. Nakon toga, proces je relativno jednostavan:
 \begin{enumerate}
 \item Svaki piksel pomjeriti du\zh\ svog vektora pomaka pomno\zh enog sa $\alpha$ (realan broj dobiven na isti na\ch in kao $\alpha$ u dijelu u linearnoj interpolaciji) te ga spasiti na tu poziciju.
-\item Polja za koja nije prona\dj en niti jedan piksel popuniti kori\sh tenjem linearne interpolacije
+\item Polja za koja nije prona\dj en niti jedan piksel popuniti kori\sh tenjem linearne interpolacije.
 \end{enumerate}
+
+\subsection{Kernel konvolucija} % http://web.pdx.edu/~jduh/courses/Archive/geog481w07/Students/Ludwig_ImageConvolution.pdf
+Kernel konvolucija je tehnika \ch esto kori\sh tena za obradu slike, i ima veliki broj razli\ch itih primjena. Neke od njih uklju\ch uju detekciju ivica, izo\sh travanje, zamu\cj ivanje i druge razne filtere koji mogu biti primijenjeni
+na slike. Ulazi kernel konvolucije su slika i sam kernel, dok je izlaz obra\dj ena slika. Kerneli funkcioni\sh u na samo jednom dvodimenzionalnom signalu, tako da \cj emo mi posmatrati samo intenzitete pojedinih piksela, 
+ne njihove odvojene komponente (crvena, zelena i plava).
+
+Kernel nije ni\sh ta drugo nego matrica realnih brojeva. Za na\sh e potrebe, dimenzije matrice \cj e morati biti neparni brojeva (vidjet \cj emo za\sh to je lak\sh e raditi sa takvim kernelima). Neka je zadana matrica intenziteta
+piksela $A$, kernel $K$ i izlazna matrica $B$. Dimenzije izlazne matrice su iste kao dimenzije ulazne. Neka su dimenzije kernela (visina i \sh irina) $p$ i $q$. Svaki piksel izlazne matrice$B_{i,j}$ ra\ch unamo narednom formulom:
+
+\[
+B_{i,j}=\sum_{y=-p'}^{p'}\sum_{x=-q'}^{q'}A_{i+y,j+x}*K_{y+p'+1,x+q'+1} % POJEDNOSTATVITI FORMULU
+\]
+pri \ch emu su:
+\[
+p'=(p-1)/2
+\]
+\[
+q'=(q-1)/2
+\]
+Zamislimo da smo postavili kernel iznad piksela sa koordinatama $i,j$, tako da element u sredini kernela ima upravo koordinate $i,j$. Ovdje vidimo za\sh to smo postavili ograni\ch enje da dimenzije kernela moraju biti neparni brojevi.
+Zatim \cj emo pomno\zh iti svaki element kernela sa elementom matrice $A$ koji se nalazi ta\ch no ispod njega. Zbir svih tih proizvoda upisujemo u element $B_{i,j}$.
+
+Kori\sh tenjem razli\ch itih kernela mo\zh emo dobiti razli\ch ite efekte. Ispod slijede primjeri nekih od \ch e\sh \cj e kori\sh tenih:
+\vspace{10px} % Uljepsati sve
+\[
+\text{Detekcija ivica: } 
+\begin{bmatrix}
+-1 & -1 & -1 \\
+-1 &  8 & -1 \\
+-1 & -1 & -1
+\end{bmatrix}
+\]
+\vspace{5px}
+\[
+\text{Zamu\cj ivanje: } 
+\begin{bmatrix}
+\frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
+\frac{1}{9} &  \frac{1}{9} &\frac{1}{9} \\
+\frac{1}{9} & \frac{1}{9} & \frac{1}{9}
+\end{bmatrix}
+\]
+\vspace{5px}
+\[
+\text{Izo\sh travanje: } 
+\begin{bmatrix}
+0  & -1 &  0 \\
+-1 &  5 & -1 \\
+ 0 & -1 &  0
+\end{bmatrix}
+\]
+
+Neki od algoritama koje \cj emo objasniti koriste kernel konvoluciju, u opisu algoritama \cj emo navesti i konkretne kori\sh tene kernele.
