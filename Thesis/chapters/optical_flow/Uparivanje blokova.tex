@@ -104,6 +104,19 @@ S obzirom da postoji kona\ch an (225) broj lokacija, a nikad ne prelazimo na lok
 minimum).
 
 \subsection{Adaptive Rood Pattern Search - ARPS}
+Algoritam koji daje najbolje rezultate koji \cj emo opisati u ovom poglavlju je ARPS. Za razliku od do sada opisanih algoritama, ARPS uzima u obzir ne samo vrijednosti piksela bloka i prozora pretrage, nego i prethodno
+izra\ch unati vektor pretrage. Konkretno, da bismo koristili ARPS, potreban nam je jedan vektor pomaka za koji o\ch ekujemo da \cj e vjerovatno biti sli\ch an stvarnom vektoru pomaka trenutnog bloka. Mi \cj emo koristiti
+vektor pomaka bloka koji se nalazi lijevo od trenutnog u tu svrhu. Ako se trenutni blok nalazi uz lijevu ivicu frejma (i ne postoji blok lijevo od njega), onda \cj emo koristiti vektor pomaka bloka iznad trenutnog. A u krajnjem
+slu\ch aju, ako ra\ch unamo vektor pomaka za prvi blok (u gornjem lijevom uglu frejma), mo\zh emo koristiti potpunu pretragu koja zagarantovano daje optimalno uparivanje (uticaj na performanse nije zna\ch ajan jer
+potpunu pretragu vr\sh imo samo jednom za jedan frejm).
+
+Neka prethodni vektor pomaka iznosi $(x, y)$. Uvest \cj emo pomo\cj nu promjenljivu $h=max(|x|,|y|)$. U prvom koraku \cj emo izra\ch unati funkciju cijene na 6 lokacija: (0, 0), (h, 0), (0, h), (-h, 0), (0, -h), (x, y). Odnosno,
+pretra\zh ujemo lokaciju (0, 0) (jer su nula vektori pomaka \ch esti), vektor pomaka od kojeg smo krenuli (x, y), te 4 lokacije koje su isto daleko od (0, 0) po tzv. \textit{Manhattan udaljenosti}. Treba uzeti u obzir da je mogu\cj e
+da je $x=0$ ili $y=0$, u kojem slu\ch aju je potrebno pretra\zh iti samo 5 lokacija (2 se poklapaju). Ako je $x=y=0$, onda je rije\ch\ o samo jednoj lokaciji, i mo\zh emo odmah pre\cj i na drugi korak algoritma.
+
+Drugi korak ARPS algoritma je isti kao drugi korak dijamantne pretrage. Od pretra\zh enih lokacija izaberemo najbolju, zatim izra\ch unavamo 4 lokacije direktno iznad, ispod, lijevo i desno od trenutne najbolje, te prelazimo
+na najbolju od te 4. Algoritam se zavr\sh ava kada je trenutna lokacija bolje od 4 koje je okru\zh uju. Kao i uvijek, mo\zh emo ubrzati algoritam tako \sh to ne ra\ch unamo opet funkciju cijene za lokacije koje smo ve\cj\ 
+obradili.
 
 % Izbaciti iz ovog dijela
 \section{Kros-korelacija} % Sa MATLAB-ove stranice za xcorr2

@@ -15,9 +15,9 @@
 \contentsline {subsection}{\numberline {3.2.4}\v {C}etverostepena pretraga}{14}{subsection.3.2.4}
 \contentsline {subsection}{\numberline {3.2.5}Dijamantna pretraga}{15}{subsection.3.2.5}
 \contentsline {subsection}{\numberline {3.2.6}Adaptive Rood Pattern Search - ARPS}{15}{subsection.3.2.6}
-\contentsline {section}{\numberline {3.3}Kros-korelacija}{15}{section.3.3}
-\contentsline {section}{\numberline {3.4}Fazna korelacija}{16}{section.3.4}
-\contentsline {section}{\numberline {3.5}Diferencijalne metode}{16}{section.3.5}
-\contentsline {chapter}{\numberline {4}Popunjavanje rupa}{17}{chapter.4}
-\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{18}{chapter.5}
-\contentsline {chapter}{\numberline {6}Zaklju\v {c}ak}{19}{chapter.6}
+\contentsline {section}{\numberline {3.3}Kros-korelacija}{16}{section.3.3}
+\contentsline {section}{\numberline {3.4}Fazna korelacija}{17}{section.3.4}
+\contentsline {section}{\numberline {3.5}Diferencijalne metode}{17}{section.3.5}
+\contentsline {chapter}{\numberline {4}Popunjavanje rupa}{18}{chapter.4}
+\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{19}{chapter.5}
+\contentsline {chapter}{\numberline {6}Zaklju\v {c}ak}{20}{chapter.6}
