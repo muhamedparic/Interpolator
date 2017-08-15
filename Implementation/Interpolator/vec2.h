@@ -5,7 +5,9 @@
 class Vec2
 {
 public:
-    Vec2();
+    int x;
+    int y;
+    Vec2(int new_x, int new_y);
 };
 
 #endif // VEC2_H

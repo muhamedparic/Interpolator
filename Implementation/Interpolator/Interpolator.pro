@@ -28,7 +28,12 @@ SOURCES += main.cpp\
     interpolator.cpp \
     vec2.cpp \
     optical_flow_calculator.cpp \
-    boundary_smoothener.cpp
+    boundary_smoothener.cpp \
+    diamond_search.cpp \
+    arps.cpp \
+    phase_correlation.cpp \
+    lucas_kanade.cpp \
+    horn_schunck.cpp
 
 HEADERS  += mainwindow.h \
     interpolator.h \
@@ -39,7 +44,12 @@ HEADERS  += mainwindow.h \
     algorithm.h \
     mv_corrector.h \
     optical_flow_calculator.h \
-    boundary_smoothener.h
+    boundary_smoothener.h \
+    diamond_search.h \
+    arps.h \
+    phase_correlation.h \
+    lucas_kanade.h \
+    horn_schunck.h
 
 FORMS    += mainwindow.ui
 
