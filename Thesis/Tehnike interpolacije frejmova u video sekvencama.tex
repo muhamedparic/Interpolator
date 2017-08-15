@@ -1,4 +1,5 @@
-\documentclass[12pt]{report}
+
+documentclass[12pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -34,14 +35,14 @@
 % Kod iznad preuzet (uz manje modifikacije) sa: http://tex.stackexchange.com/a/120743
 % Bez ovog koda iznad svakog poglavlja bi pisalo 'Chapter 1', 'Chapter 2', itd.
 
-\newcommand{\ch}{\v{c}}
-\newcommand{\CH}{\v{C}}
-\newcommand{\cj}{\'{c}}
-\newcommand{\CJ}{\'{C}}
-\newcommand{\sh}{\v{s}}
-\newcommand{\SH}{\v{S}}
-\newcommand{\zh}{\v{z}}
-\newcommand{\ZH}{\v{Z}}
+\newcommand{\ch}{č}
+\newcommand{\CH}{Č}
+\newcommand{\cj}{ć}
+\newcommand{\CJ}{Ć}
+\newcommand{\sh}{š}
+\newcommand{\SH}{Š}
+\newcommand{\zh}{ž}
+\newcommand{\ZH}{Ž}
 % Radi brzeg pisanja afrikata (\dj i \DJ su vec definisani)
 
 \newcommand{\midtilde}{\raisebox{0.6ex}{\texttildelow}} % Iz nekog razloga nije bas jednostavno napisati finu tildu u LaTeX-u, ali ovo radi ok
@@ -60,8 +61,8 @@
 \chapter{Opti\ch ki tok}
 \input{"chapters/Opticki tok"}
 
-\chapter{Popunjavanje rupa}
-%\input{"chapters/Popunjavanje rupa"}
+\chapter{Uklanjanje gre\sh aka}
+\input{"chapters/Uklanjanje gresaka"}
 
 \chapter{Implementacija interpolatora kori\sh tenjem OpenCV biblioteke i benchmark testovi}
 %input...

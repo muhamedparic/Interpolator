@@ -5,19 +5,24 @@
 \contentsline {chapter}{\numberline {2}Osnovne tehnike}{6}{chapter.2}
 \contentsline {section}{\numberline {2.1}Duplikacija frejmova}{6}{section.2.1}
 \contentsline {section}{\numberline {2.2}Linearna interpolacija}{7}{section.2.2}
-\contentsline {chapter}{\numberline {3}Opti\v {c}ki tok}{8}{chapter.3}
+\contentsline {chapter}{\numberline {3}Opti\IeC {\v c}ki tok}{8}{chapter.3}
 \contentsline {section}{\numberline {3.1}Uvod}{8}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Kernel konvolucija}{9}{subsection.3.1.1}
 \contentsline {section}{\numberline {3.2}Uparivanje blokova}{10}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}PSNR}{12}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Potpuna pretraga}{13}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Trostepena pretraga}{13}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}\v {C}etverostepena pretraga}{14}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.4}\IeC {\v C}etverostepena pretraga}{14}{subsection.3.2.4}
 \contentsline {subsection}{\numberline {3.2.5}Dijamantna pretraga}{15}{subsection.3.2.5}
 \contentsline {subsection}{\numberline {3.2.6}Adaptive Rood Pattern Search - ARPS}{15}{subsection.3.2.6}
 \contentsline {section}{\numberline {3.3}Kros-korelacija}{16}{section.3.3}
 \contentsline {section}{\numberline {3.4}Fazna korelacija}{17}{section.3.4}
 \contentsline {section}{\numberline {3.5}Diferencijalne metode}{17}{section.3.5}
-\contentsline {chapter}{\numberline {4}Popunjavanje rupa}{18}{chapter.4}
-\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\v {s}tenjem OpenCV biblioteke i benchmark testovi}{19}{chapter.5}
-\contentsline {chapter}{\numberline {6}Zaklju\v {c}ak}{20}{chapter.6}
+\contentsline {chapter}{\numberline {4}Uklanjanje gre\IeC {\v s}aka}{18}{chapter.4}
+\contentsline {section}{\numberline {4.1}Popunjavanje rupa}{18}{section.4.1}
+\contentsline {section}{\numberline {4.2}Neispravni vektori pomaka}{18}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Detekcija neispravnih vektora pomaka}{19}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Ispravljanje neispravnih vektora pomaka}{20}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Izgla\dj ivanje granica izme\dj u blokova}{20}{section.4.3}
+\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\IeC {\v s}tenjem OpenCV biblioteke i benchmark testovi}{21}{chapter.5}
+\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{22}{chapter.6}
