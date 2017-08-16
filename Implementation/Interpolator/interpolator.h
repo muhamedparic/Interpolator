@@ -11,6 +11,7 @@
 #include "boundary_smoothener.h"
 #include "optical_flow_calculator.h"
 #include "boundary_smoothener.h"
+#include "optical_flow_field.h"
 
 class Interpolator
 {    
@@ -19,7 +20,7 @@ public:
     void set_input_file_name(const std::string& input_name);
     void set_output_file_name(const std::string& output_name);
     Interpolator_options& options();
-    void set_progress_callback(std::function<void(double)> callback_fn);
+    void set_progress_callback(const std::function<void(double)> &callback_fn);
     double progress();
     void save_video();
     void run();
@@ -31,7 +32,7 @@ private:
     cv::Mat previous_frame;
     cv::Mat next_frame;
     cv::Mat interpolated_frame;
-    Interpolator_options options;
+    Interpolator_options interpolator_options;
     Optical_flow_calculator* optical_flow_calculator;
     MV_corrector* mv_corrector;
     Boundary_smoothener smoothener;
@@ -44,7 +45,7 @@ private:
     void report_progress();
     void generate_next_frame();
     void correct_motion_vectors();
-    //void render_next_frame(const Optical_flow_field& opt_flow_field);
+    void render_next_frame(const Optical_flow_field& opt_flow_field);
 };
 
 #endif // INTERPOLATOR_H

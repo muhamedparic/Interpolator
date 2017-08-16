@@ -8,13 +8,16 @@
 class Optical_flow_calculator
 {
 public:
-    set_prev_frame(const cv::Mat& frame);
-    set_next_frame(const cv::Mat& frame);
+    Optical_flow_calculator(const cv::Mat& prev_frame, const cv::Mat& next_frame, int block_size = 16);
     virtual Optical_flow_field& calculate() = 0;
+    virtual ~Optical_flow_calculator();
+protected:
+    double cost(Vec2 block_start, Vec2 block_offset);
 private:
     const cv::Mat& prev_frame;
     const cv::Mat& next_frame;
     Optical_flow_field opt_flow_field;
+    int block_size;
 };
 
 #endif // OPTICAL_FLOW_CALCULATOR_H

@@ -6,6 +6,7 @@
 class Boundary_smoothener
 {
 public:
+    Boundary_smoothener(); // TEMPORARY
     Boundary_smoothener(cv::Mat& frame,
                         const std::vector<std::vector<char> >& bound_map_h,
                         const std::vector<std::vector<char> >& bound_map_v);
