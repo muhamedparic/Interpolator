@@ -14,14 +14,15 @@ Optical_flow_calculator::~Optical_flow_calculator()
 
 }
 
+bool Optical_flow_calculator::is_legal(Vec2 pos)
+{
+    return pos.x >= 0 && pos.y >= 0 && pos.x < prev_frame.cols && pos.y < prev_frame.rows;
+}
+
 double Optical_flow_calculator::cost(Vec2 block_start, Vec2 block_offset)
 {
     int pixels_used = 0;
     int cost_sum = 0;
-    static auto is_legal = [&](Vec2 pos) -> bool
-    {
-        return pos.x >= 0 && pos.y >= 0 && pos.x < prev_frame.cols && pos.y < prev_frame.rows;
-    };
     static auto pixel_cost = [&](Vec2 pos_in_block) -> int
     {
         Vec2 pos_in_first_frame = block_start + pos_in_block;
@@ -46,5 +47,5 @@ double Optical_flow_calculator::cost(Vec2 block_start, Vec2 block_offset)
 
     if (pixels_used == 0)
         throw std::logic_error("Can't calculate cost with no legal pixel positions");
-    return (double)cost_sum / (block_size * block_size);
+    return (double)cost_sum / pixels_used;
 }

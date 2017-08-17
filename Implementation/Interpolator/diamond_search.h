@@ -15,10 +15,11 @@ public:
 private:
     std::array<Vec2, 8> big_pattern;
     std::array<Vec2, 4> small_pattern;
-    std::vector<std::vector<int> > cost_map;
+    std::vector<std::vector<double> > cost_map;
 
     Vec2 calculate_block_opt_flow(Vec2 block_start);
     void reset_cost_map();
+    void partial_reset_cost_map(Vec2 start, Vec2 end);
 };
 
 #endif // DIAMOND_SEARCH_H

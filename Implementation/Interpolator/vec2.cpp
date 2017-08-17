@@ -38,3 +38,13 @@ Vec2 Vec2::operator+(const Vec2& rhs)
 {
     return Vec2(x + rhs.x, y + rhs.y);
 }
+
+bool Vec2::operator==(const Vec2& rhs)
+{
+    return x == rhs.x && y == rhs.y;
+}
+
+bool Vec2::operator!=(const Vec2& rhs)
+{
+    return !(*this == rhs);
+}

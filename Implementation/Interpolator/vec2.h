@@ -14,6 +14,8 @@ public:
     Vec2& operator=(const Vec2& new_vec2);
     Vec2& operator=(const std::initializer_list<int>& init_list);
     Vec2 operator+(const Vec2& rhs);
+    bool operator==(const Vec2& rhs);
+    bool operator!=(const Vec2& rhs);
 };
 
 #endif // VEC2_H
