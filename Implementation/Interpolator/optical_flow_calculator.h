@@ -19,7 +19,7 @@ protected:
     int search_window_margin;
 
     double cost(Vec2 block_start, Vec2 block_offset);
-    inline bool is_legal(Vec2 pos);
+    inline bool is_legal(const Vec2& pos);
 };
 
 #endif // OPTICAL_FLOW_CALCULATOR_H

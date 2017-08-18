@@ -34,17 +34,17 @@ Vec2& Vec2::operator=(const std::initializer_list<int>& init_list)
     return *this;
 }
 
-Vec2 Vec2::operator+(const Vec2& rhs)
+Vec2 Vec2::operator+(const Vec2& rhs) const
 {
     return Vec2(x + rhs.x, y + rhs.y);
 }
 
-bool Vec2::operator==(const Vec2& rhs)
+bool Vec2::operator==(const Vec2& rhs) const
 {
     return x == rhs.x && y == rhs.y;
 }
 
-bool Vec2::operator!=(const Vec2& rhs)
+bool Vec2::operator!=(const Vec2& rhs) const
 {
     return !(*this == rhs);
 }

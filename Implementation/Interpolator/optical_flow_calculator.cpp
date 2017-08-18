@@ -14,7 +14,7 @@ Optical_flow_calculator::~Optical_flow_calculator()
 
 }
 
-bool Optical_flow_calculator::is_legal(Vec2 pos)
+inline bool Optical_flow_calculator::is_legal(const Vec2& pos)
 {
     return pos.x >= 0 && pos.y >= 0 && pos.x < prev_frame.cols && pos.y < prev_frame.rows;
 }

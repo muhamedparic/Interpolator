@@ -36,45 +36,123 @@ void Diamond_search::partial_reset_cost_map(Vec2 start, Vec2 end)
     }
 }
 
+Vec2 Diamond_search::find_rel_best_opt_flow_big_pattern(const Vec2& block_start)
+{
+    // rel_ is always relative to block_start
+    Vec2 current_rel_center(0, 0);
+    Vec2 current_abs_center(block_start);
+    Vec2 current_rel_candidate;
+    Vec2 current_abs_candidate;
+    Vec2 best_rel_candidate(0, 0);
+    Vec2 best_abs_candidate(block_start);
+    double current_candidate_cost;
+    double best_cost;
+    double* cost_map_ptr = nullptr;
+
+    best_cost = cost(block_start, {0, 0});
+    cost_map[block_start.y][block_start.x] = best_cost;
+
+    do
+    {
+        current_rel_center = best_rel_candidate;
+        current_abs_center = best_abs_candidate;
+
+        for (const auto& rel_offset : big_pattern)
+        {
+            current_rel_candidate = current_rel_center + rel_offset;
+            current_abs_candidate = current_abs_center + rel_offset;
+
+            if (std::max(std::abs(current_rel_candidate.y), std::abs(current_rel_candidate.x)) > search_window_margin)
+                continue;
+
+            if (is_legal(current_abs_candidate))
+            {
+                cost_map_ptr = &cost_map[current_abs_candidate.y][current_abs_candidate.x];
+                if (*cost_map_ptr < 0)
+                {
+                    current_candidate_cost = cost(block_start, current_rel_candidate);
+                    *cost_map_ptr = current_candidate_cost;
+                }
+                else
+                {
+                    current_candidate_cost = *cost_map_ptr;
+                }
+            }
+            else
+            {
+                current_candidate_cost = cost(block_start, current_rel_candidate);
+            }
+            if (current_candidate_cost < best_cost)
+            {
+                best_cost = current_candidate_cost;
+                best_rel_candidate = current_rel_candidate;
+                best_abs_candidate = current_abs_candidate;
+            }
+        } // Needs to be refactored into a separate method
+    } while (current_rel_center != best_rel_candidate);
+
+    return best_rel_candidate;
+}
+
+Vec2 Diamond_search::find_rel_best_opt_flow_small_pattern(const Vec2& block_start, const Vec2& rel_search_origin)
+{
+    Vec2 abs_search_origin = block_start + rel_search_origin;
+    Vec2 best_rel_candidate(0, 0);
+    Vec2 best_abs_candidate(abs_search_origin);
+    Vec2 current_rel_candidate;
+    Vec2 current_abs_candidate;
+    double current_candidate_cost;
+    double best_cost;
+    double* cost_map_ptr = nullptr;
+
+    if (is_legal(abs_search_origin))
+        best_cost = cost_map[abs_search_origin.y][abs_search_origin.x];
+    else
+        best_cost = cost(block_start, rel_search_origin);
+
+    for (const auto& rel_offset : small_pattern)
+    {
+        current_rel_candidate = rel_search_origin + rel_offset;
+        current_abs_candidate = abs_search_origin + rel_offset;
+
+        if (std::max(std::abs(current_rel_candidate.y), std::abs(current_rel_candidate.x)) > search_window_margin)
+            continue;
+
+        if (is_legal(current_abs_candidate))
+        {
+            cost_map_ptr = &cost_map[current_abs_candidate.y][current_abs_candidate.x];
+            if (*cost_map_ptr < 0)
+            {
+                current_candidate_cost = cost(block_start, current_rel_candidate);
+                *cost_map_ptr = current_candidate_cost;
+            }
+            else
+            {
+                current_candidate_cost = *cost_map_ptr;
+            }
+        }
+        else
+        {
+            current_candidate_cost = cost(block_start, current_rel_candidate);
+        }
+        if (current_candidate_cost < best_cost)
+        {
+            best_cost = current_candidate_cost;
+            best_rel_candidate = current_rel_candidate;
+            best_abs_candidate = current_abs_candidate;
+        }
+    } // Needs to be refactored into a separate method
+
+    return best_rel_candidate;
+}
+
 Vec2 Diamond_search::calculate_block_opt_flow(Vec2 block_start)
 {
-    Vec2 best_opt_flow(0, 0);
-    Vec2 current_center(0, 0);
-    double best_cost;
-
     partial_reset_cost_map(Vec2(block_start.x - search_window_margin, block_start.y - search_window_margin),
                            Vec2(block_start.x + block_size + search_window_margin, block_start.y + block_size + search_window_margin));
 
-    if (!is_legal(block_start))
-    {
-        std::cerr << "Checking block whose origin is an illegal coordinate, can't use cost_map, returning a 0 vector!";
-        return {0, 0};
-    }
+    Vec2 big_pattern_best_rel_candidate = find_rel_best_opt_flow_big_pattern(block_start);
 
-    best_cost = cost_map[current_center.y][current_center.x] = cost(block_start, {0, 0});
-
-    // First step, probably needs a separate method
-//    do
-//    {
-//        current_center = best_opt_flow;
-//        for (const Vec2& location : big_pattern)
-//        {
-//            Vec2 new_location = current_center + location;
-//            if (is_legal(new_location))
-//            {
-//                if (cost_map[new_location.y][new_location.x] < 0)
-//                {
-//                    const auto& current_cost = cost_map[new_location.y][new_location.x] = cost(block_start, new_location);
-//                    // Just for aliasing
-//                    if (current_cost < best_cost)
-//                    {
-//                        best_cost = current_cost;
-//                        best_opt_flow =
-//                    }
-//                }
-//            }
-//        }
-//    } while (best_opt_flow != current_center);
     // INCOMPLETE
 }
 
