@@ -2,7 +2,7 @@
 #define ALGORITHM_H
 
 
-enum Algorithm
+enum class Algorithm
 {
     diamond_search,
     ARPS,

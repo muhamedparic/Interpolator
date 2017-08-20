@@ -23,6 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++14
+CONFIG += console
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -34,7 +35,8 @@ SOURCES += main.cpp\
     arps.cpp \
     phase_correlation.cpp \
     lucas_kanade.cpp \
-    horn_schunck.cpp
+    horn_schunck.cpp \
+    test/test_diamond_search.cpp
 
 HEADERS  += mainwindow.h \
     interpolator.h \
@@ -50,7 +52,8 @@ HEADERS  += mainwindow.h \
     arps.h \
     phase_correlation.h \
     lucas_kanade.h \
-    horn_schunck.h
+    horn_schunck.h \
+    test/test_diamond_search.h
 
 FORMS    += mainwindow.ui
 

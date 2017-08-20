@@ -18,8 +18,11 @@ protected:
     int block_size;
     int search_window_margin;
 
-    double cost(Vec2 block_start, Vec2 block_offset);
-    inline bool is_legal(const Vec2& pos);
+    double cost(const Vec2& block_start, const Vec2& block_offset) const;
+    inline bool is_legal(const Vec2& pos) const
+    {
+        return pos.x >= 0 && pos.y >= 0 && pos.x < prev_frame.cols && pos.y < prev_frame.rows;
+    }
 };
 
 #endif // OPTICAL_FLOW_CALCULATOR_H

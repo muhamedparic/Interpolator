@@ -24,7 +24,8 @@ Vec2::Vec2(const Vec2 &new_vec2)
 
 Vec2& Vec2::operator=(const Vec2& new_vec2)
 {
-    *this = Vec2(new_vec2);
+    x = new_vec2.x;
+    y = new_vec2.y;
     return *this;
 }
 
