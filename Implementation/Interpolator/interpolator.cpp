@@ -48,6 +48,16 @@ void Interpolator::report_progress()
     progress_callback(progress());
 }
 
+void Interpolator::set_optical_flow_algorithm(Algorithm algorithm)
+{
+    interpolator_options.opt_flow_algorithm = algorithm;
+}
+
+void Interpolator::set_mv_correction_algorithm(Algorithm algorithm)
+{
+    interpolator_options.mv_correction_algorithm = algorithm;
+}
+
 void Interpolator::generate_next_frame()
 {
 

@@ -21,7 +21,7 @@ private:
     void reset_cost_map();
     void partial_reset_cost_map(const Vec2& start, const Vec2& end);
     Vec2 find_best_opt_flow_big_pattern(const Vec2& block_start);
-    Vec2 find_best_opt_flow_small_pattern(const Vec2& block_start, const Vec2& rel_search_origin);
+    Vec2 find_best_opt_flow_small_pattern(const Vec2& block_start, const Vec2& search_origin);
 };
 
 #endif // DIAMOND_SEARCH_H

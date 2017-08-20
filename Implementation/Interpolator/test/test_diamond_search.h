@@ -12,6 +12,7 @@ private:
     void identical_frames();
     void random_frames();
     void shift();
+
 };
 
 #endif // TEST_DIAMOND_SEARCH_H

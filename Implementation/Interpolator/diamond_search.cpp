@@ -94,10 +94,10 @@ Vec2 Diamond_search::find_best_opt_flow_big_pattern(const Vec2& block_start)
     return best_rel_candidate;
 }
 
-Vec2 Diamond_search::find_best_opt_flow_small_pattern(const Vec2& block_start, const Vec2& rel_search_origin)
+Vec2 Diamond_search::find_best_opt_flow_small_pattern(const Vec2& block_start, const Vec2& search_origin)
 {
-    Vec2 abs_search_origin = block_start + rel_search_origin;
-    Vec2 best_rel_candidate(0, 0);
+    Vec2 abs_search_origin = block_start + search_origin;
+    Vec2 best_rel_candidate(search_origin);
     Vec2 best_abs_candidate(abs_search_origin);
     Vec2 current_rel_candidate;
     Vec2 current_abs_candidate;
@@ -106,13 +106,19 @@ Vec2 Diamond_search::find_best_opt_flow_small_pattern(const Vec2& block_start, c
     double* cost_map_ptr = nullptr;
 
     if (is_legal(abs_search_origin))
+    {
+        if (cost_map[abs_search_origin.y][abs_search_origin.x] < 0)
+            throw std::logic_error("Search origin is legal but no precomputed cost recorded");
         best_cost = cost_map[abs_search_origin.y][abs_search_origin.x];
+    }
     else
-        best_cost = cost(block_start, rel_search_origin);
+    {
+        best_cost = cost(block_start, search_origin);
+    }
 
     for (const auto& rel_offset : small_pattern)
     {
-        current_rel_candidate = rel_search_origin + rel_offset;
+        current_rel_candidate = search_origin + rel_offset;
         current_abs_candidate = abs_search_origin + rel_offset;
 
         if (std::max(std::abs(current_rel_candidate.y), std::abs(current_rel_candidate.x)) > search_window_margin)
@@ -143,7 +149,7 @@ Vec2 Diamond_search::find_best_opt_flow_small_pattern(const Vec2& block_start, c
         }
     } // Needs to be refactored into a separate method
 
-    return best_rel_candidate + rel_search_origin;
+    return best_rel_candidate;
 }
 
 Vec2 Diamond_search::calculate_block_opt_flow(const Vec2& block_start)

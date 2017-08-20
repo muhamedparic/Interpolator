@@ -11,8 +11,8 @@
 Test_diamond_search::Test_diamond_search()
 {
     //identical_frames();
-    random_frames();
-    //shift();
+    //random_frames();
+    shift();
 }
 
 template <typename T1, typename T2>
@@ -120,8 +120,8 @@ void Test_diamond_search::shift()
             frame1.at<uchar>(i, j) = rand_pixel();
     }
 
-    int i_offset = 1;
-    int j_offset = -1;
+    int i_offset = -2;
+    int j_offset = 0;
 
     for (int i = 0; i < frame2.rows; i++)
     {
@@ -145,21 +145,21 @@ void Test_diamond_search::shift()
         std::cout << std::endl;
     }
 
-    for (int i = 0; i < frame1.rows; i++)
-    {
-        for (int j = 0; j < frame1.cols; j++)
-            std::cout << (int)frame1.at<uchar>(i, j) << "  ";
-        std::cout << std::endl;
-    }
+//    for (int i = 0; i < frame1.rows; i++)
+//    {
+//        for (int j = 0; j < frame1.cols; j++)
+//            std::cout << (int)frame1.at<uchar>(i, j) << "  ";
+//        std::cout << std::endl;
+//    }
 
-    std::cout << "\n\n";
+//    std::cout << "\n\n";
 
-    for (int i = 0; i < frame2.rows; i++)
-    {
-        for (int j = 0; j < frame2.cols; j++)
-            std::cout << (int)frame2.at<uchar>(i, j) << "  ";
-        std::cout << std::endl;
-    }
+//    for (int i = 0; i < frame2.rows; i++)
+//    {
+//        for (int j = 0; j < frame2.cols; j++)
+//            std::cout << (int)frame2.at<uchar>(i, j) << "  ";
+//        std::cout << std::endl;
+//    }
 
     delete search;
 }
