@@ -143,7 +143,7 @@ Vec2 Diamond_search::find_best_opt_flow_small_pattern(const Vec2& block_start, c
         }
     } // Needs to be refactored into a separate method
 
-    return best_rel_candidate;
+    return best_rel_candidate + rel_search_origin;
 }
 
 Vec2 Diamond_search::calculate_block_opt_flow(const Vec2& block_start)

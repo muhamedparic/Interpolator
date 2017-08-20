@@ -11,8 +11,8 @@
 Test_diamond_search::Test_diamond_search()
 {
     //identical_frames();
-    //random_frames();
-    shift();
+    random_frames();
+    //shift();
 }
 
 template <typename T1, typename T2>
@@ -61,8 +61,8 @@ void Test_diamond_search::identical_frames()
 void Test_diamond_search::random_frames()
 {
     Diamond_search* search;
-    const int height = 72;
-    const int width = 128;
+    const int height = 32;
+    const int width = 32;
 
     cv::Mat frame1(height, width, CV_8UC1);
     cv::Mat frame2(height, width, CV_8UC1);
@@ -102,8 +102,8 @@ void Test_diamond_search::random_frames()
 void Test_diamond_search::shift()
 {
     Diamond_search* search;
-    const int height = 16;
-    const int width = 16;
+    const int height = 80;
+    const int width = 80;
 
     cv::Mat frame1(height, width, CV_8UC1);
     cv::Mat frame2(height, width, CV_8UC1);
@@ -120,12 +120,15 @@ void Test_diamond_search::shift()
             frame1.at<uchar>(i, j) = rand_pixel();
     }
 
+    int i_offset = 1;
+    int j_offset = -1;
+
     for (int i = 0; i < frame2.rows; i++)
     {
         for (int j = 0; j < frame2.cols; j++)
         {
-            if (i >= 3 && j >= 2)
-                frame2.at<uchar>(i, j) = frame1.at<uchar>(i - 3, j - 2);
+            if (i >= i_offset && j >= j_offset)
+                frame2.at<uchar>(i, j) = frame1.at<uchar>(i - i_offset, j - j_offset);
             else
                 frame2.at<uchar>(i, j) = rand_pixel();
         }

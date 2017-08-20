@@ -31,7 +31,10 @@ Vec2& Vec2::operator=(const Vec2& new_vec2)
 
 Vec2& Vec2::operator=(const std::initializer_list<int>& init_list)
 {
-    *this = Vec2(init_list);
+    if (init_list.size() != 2)
+        throw std::domain_error("Can't create a vec2 with an initializer_list of size != 2");
+    x = *init_list.begin();
+    y = *(init_list.begin() + 1);
     return *this;
 }
 
