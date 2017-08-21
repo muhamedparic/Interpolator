@@ -10,8 +10,8 @@
 
 Test_diamond_search::Test_diamond_search()
 {
-    //identical_frames();
-    //random_frames();
+    identical_frames();
+    random_frames();
     shift();
 }
 
@@ -46,7 +46,7 @@ void Test_diamond_search::identical_frames()
             frame.at<uchar>(i, j) = rand_pixel();
     }
 
-    search = new Diamond_search(frame, frame);
+    search = new Diamond_search(&frame, &frame);
     Optical_flow_field& field = search->calculate();
 
     for (int i = 0; i < field.rows; i++)
@@ -85,7 +85,7 @@ void Test_diamond_search::random_frames()
             frame2.at<uchar>(i, j) = rand_pixel();
     }
 
-    search = new Diamond_search(frame1, frame2);
+    search = new Diamond_search(&frame1, &frame2);
 
     Optical_flow_field& field = search->calculate();
 
@@ -134,7 +134,7 @@ void Test_diamond_search::shift()
         }
     }
 
-    search = new Diamond_search(frame1, frame2);
+    search = new Diamond_search(&frame1, &frame2);
 
     Optical_flow_field& field = search->calculate();
 

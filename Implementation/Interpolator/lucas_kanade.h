@@ -6,7 +6,7 @@
 class Lucas_kanade : public Optical_flow_calculator
 {
 public:
-    Lucas_kanade(const cv::Mat& prev_frame, const cv::Mat& next_frame);
+    Lucas_kanade(const cv::Mat* prev_frame, const cv::Mat* next_frame);
     Optical_flow_field& calculate() override;
 };
 

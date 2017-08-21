@@ -10,7 +10,7 @@
 class Diamond_search : public Optical_flow_calculator
 {
 public:
-    Diamond_search(const cv::Mat& prev_frame, const cv::Mat& next_frame);
+    Diamond_search(cv::Mat* prev_frame, cv::Mat* next_frame);
     Optical_flow_field& calculate() override;
 private:
     std::array<Vec2, 8> big_pattern;

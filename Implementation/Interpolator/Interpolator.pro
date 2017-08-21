@@ -33,7 +33,6 @@ SOURCES += main.cpp\
     boundary_smoothener.cpp \
     diamond_search.cpp \
     arps.cpp \
-    phase_correlation.cpp \
     lucas_kanade.cpp \
     horn_schunck.cpp \
     test/test_diamond_search.cpp
@@ -50,7 +49,6 @@ HEADERS  += mainwindow.h \
     boundary_smoothener.h \
     diamond_search.h \
     arps.h \
-    phase_correlation.h \
     lucas_kanade.h \
     horn_schunck.h \
     test/test_diamond_search.h

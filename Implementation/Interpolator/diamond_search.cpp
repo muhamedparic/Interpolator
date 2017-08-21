@@ -4,7 +4,7 @@
 #include "diamond_search.h"
 #include "vec2.h"
 
-Diamond_search::Diamond_search(const cv::Mat& prev_frame, const cv::Mat& next_frame)
+Diamond_search::Diamond_search(cv::Mat* prev_frame, cv::Mat* next_frame)
     : Optical_flow_calculator(prev_frame, next_frame)
 {
     reset_cost_map();
@@ -16,7 +16,7 @@ void Diamond_search::reset_cost_map()
 {
     if (cost_map.empty())
     {
-        cost_map = std::vector<std::vector<double> >(prev_frame.rows, std::vector<double>(prev_frame.cols, -1));
+        cost_map = std::vector<std::vector<double> >(prev_frame->rows, std::vector<double>(prev_frame->cols, -1));
         // -1 is the starting (illegal) value
     }
     else
@@ -168,9 +168,9 @@ Vec2 Diamond_search::calculate_block_opt_flow(const Vec2& block_start)
 
 Optical_flow_field& Diamond_search::calculate()
 {
-    for (int block_start_y = 0; block_start_y < prev_frame.rows; block_start_y += block_size)
+    for (int block_start_y = 0; block_start_y < prev_frame->rows; block_start_y += block_size)
     {
-        for (int block_start_x = 0; block_start_x < prev_frame.cols; block_start_x += block_size)
+        for (int block_start_x = 0; block_start_x < prev_frame->cols; block_start_x += block_size)
         {
             Vec2 block_opt_flow = calculate_block_opt_flow({block_start_x, block_start_y});
             for (int pixel_offset_y = 0; pixel_offset_y < block_size; pixel_offset_y++)
@@ -180,7 +180,7 @@ Optical_flow_field& Diamond_search::calculate()
                     int row = block_start_y + pixel_offset_y;
                     int col = block_start_x + pixel_offset_x;
 
-                    if (row >= prev_frame.rows || col >= prev_frame.cols)
+                    if (row >= prev_frame->rows || col >= prev_frame->cols)
                         continue;
 
                     opt_flow_field.data[row][col] = block_opt_flow;
