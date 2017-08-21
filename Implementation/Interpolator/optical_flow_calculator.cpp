@@ -24,8 +24,6 @@ double Optical_flow_calculator::cost(const Vec2& block_start, const Vec2& block_
     {
         Vec2 pos_in_first_frame = block_start + pos_in_block;
         Vec2 pos_in_second_frame = block_start + block_offset + pos_in_block;
-        int rows = prev_frame.rows; // DEBUG
-        int cols = prev_frame.cols; // DEBUG
         int first_pixel = prev_frame.at<uchar>(pos_in_first_frame.y, pos_in_first_frame.x);
         int second_pixel = next_frame.at<uchar>(pos_in_second_frame.y,pos_in_second_frame.x);
         return std::abs(first_pixel - second_pixel); // Can be changed to squaring

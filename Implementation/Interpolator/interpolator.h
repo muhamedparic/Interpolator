@@ -13,6 +13,7 @@
 #include "boundary_smoothener.h"
 #include "optical_flow_field.h"
 #include "algorithm.h"
+#include "video_info.h"
 
 class Interpolator
 {    
@@ -42,6 +43,7 @@ private:
     std::function<void(double)> progress_callback;
     std::vector<std::vector<char>> boundary_map_horizontal;
     std::vector<std::vector<char>> boundary_map_vertical;
+    Video_info video_info;
 
     void report_progress();
     void generate_next_frame();

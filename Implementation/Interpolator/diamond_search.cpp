@@ -15,7 +15,10 @@ Diamond_search::Diamond_search(const cv::Mat& prev_frame, const cv::Mat& next_fr
 void Diamond_search::reset_cost_map()
 {
     if (cost_map.empty())
-        cost_map = std::vector<std::vector<double> >(prev_frame.rows, std::vector<double>(prev_frame.cols, -1)); // -1 is the starting (illegal) value
+    {
+        cost_map = std::vector<std::vector<double> >(prev_frame.rows, std::vector<double>(prev_frame.cols, -1));
+        // -1 is the starting (illegal) value
+    }
     else
     {
         for (auto& row : cost_map)

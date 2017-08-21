@@ -75,5 +75,19 @@ void Interpolator::render_next_frame(const Optical_flow_field& opt_flow_field)
 
 void Interpolator::run()
 {
+    if (input_file_name.empty())
+        throw std::logic_error("Input file name not present");
+    if (output_file_name.empty())
+        throw std::logic_error("Output file name not present");
 
+    video_capture.open(input_file_name);
+    video_info.fourcc = (int)video_capture.get(CV_CAP_PROP_FOURCC);
+    video_info.fps = (int)video_capture.get(CV_CAP_PROP_FPS);
+    video_info.height = (int)video_capture.get(CV_CAP_PROP_FRAME_HEIGHT);
+    video_info.width = (int)video_capture.get(CV_CAP_PROP_FRAME_WIDTH);
+    video_info.frame_count = (int)video_capture.get(CV_CAP_PROP_FRAME_COUNT);
+
+    video_writer.open(output_file_name, video_info.fourcc,
+                      video_info.fps, cv::Size(video_info.width, video_info.height));
+    // INCOMPLETE
 }
