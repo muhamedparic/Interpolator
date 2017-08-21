@@ -3,6 +3,7 @@
 
 #include <string>
 #include <functional>
+#include <vector>
 
 #include <opencv2/opencv.hpp>
 
@@ -35,18 +36,19 @@ private:
     cv::VideoWriter video_writer;
     cv::Mat previous_frame;
     cv::Mat next_frame;
-    cv::Mat interpolated_frame;
+    std::vector<cv::Mat> interpolated_frames;
     Interpolator_options interpolator_options;
     Boundary_smoothener smoothener;
     int total_frames;
     int frames_processed;
     std::function<void(double)> progress_callback;
-    std::vector<std::vector<char>> boundary_map_horizontal;
-    std::vector<std::vector<char>> boundary_map_vertical;
+    std::vector<std::vector<char> > known_pixel_map;
+    std::vector<std::vector<char> > boundary_map_horizontal;
+    std::vector<std::vector<char> > boundary_map_vertical;
     Video_info video_info;
 
     void report_progress();
-    void generate_next_frame();
+    void generate_intermediate_frames();
     void correct_motion_vectors();
     void render_next_frame(const Optical_flow_field& opt_flow_field);
 };
