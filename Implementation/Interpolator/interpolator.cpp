@@ -2,10 +2,21 @@
 #include <algorithm>
 
 #include "interpolator.h"
+#include "arps.h"
+#include "diamond_search.h"
+#include "lucas_kanade.h"
+#include "horn_schunck.h"
 
 Interpolator::Interpolator()
 {
+    opt_flow_calculator = nullptr;
+    // Probably needs more initialization
+}
 
+Interpolator::~Interpolator()
+{
+    if (opt_flow_calculator != nullptr)
+        delete opt_flow_calculator;
 }
 
 void Interpolator::set_input_file_name(const std::string& input_name)
@@ -59,9 +70,48 @@ void Interpolator::set_mv_correction_algorithm(Algorithm algorithm)
     interpolator_options.mv_correction_algorithm = algorithm;
 }
 
+Optical_flow_calculator* Interpolator::create_opt_flow_calculator() const
+{
+    switch (interpolator_options.opt_flow_algorithm)
+    {
+    case Algorithm::ARPS:
+        return new ARPS();
+        break;
+    case Algorithm::diamond_search:
+        return new Diamond_search();
+        break;
+    case Algorithm::lucas_kanade:
+        return new Lucas_kanade();
+        break;
+    case Algorithm::horn_schunck:
+        return new Horn_schunck();
+        break;
+    default:
+        throw std::domain_error("Invalid optical flow algorithm");
+    }
+}
+
 void Interpolator::generate_intermediate_frames()
 {
+    if (opt_flow_calculator == nullptr)
+        opt_flow_calculator = create_opt_flow_calculator();
 
+    if (interpolated_frames.size() < interpolator_options.frames_to_generate)
+    {
+        interpolated_frames.resize(interpolator_options.frames_to_generate);
+        for (auto& frame : interpolated_frames)
+            frame = previous_frame.clone();
+        // Slow but should only run once per video
+    }
+
+    for (int frame_idx = 0; frame_idx < interpolator_options.frames_to_generate; frame_idx++)
+    {
+        opt_flow_calculator->set_prev_frame(&previous_frame);
+        opt_flow_calculator->set_next_frame(&next_frame);
+
+        const Optical_flow_field& opt_flow_field = opt_flow_calculator->calculate();
+        render_next_frame(opt_flow_field, frame_idx);
+    }
 }
 
 void Interpolator::correct_motion_vectors()
@@ -69,7 +119,7 @@ void Interpolator::correct_motion_vectors()
 
 }
 
-void Interpolator::render_next_frame(const Optical_flow_field& opt_flow_field)
+void Interpolator::render_next_frame(const Optical_flow_field& opt_flow_field, int frame_idx)
 {
 
 }

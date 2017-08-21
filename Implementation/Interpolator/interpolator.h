@@ -20,6 +20,7 @@ class Interpolator
 {    
 public:
     Interpolator();
+    ~Interpolator();
     void set_input_file_name(const std::string& input_name);
     void set_output_file_name(const std::string& output_name);
     Interpolator_options& options();
@@ -46,11 +47,13 @@ private:
     std::vector<std::vector<char> > boundary_map_horizontal;
     std::vector<std::vector<char> > boundary_map_vertical;
     Video_info video_info;
+    Optical_flow_calculator* opt_flow_calculator;
 
     void report_progress();
     void generate_intermediate_frames();
     void correct_motion_vectors();
-    void render_next_frame(const Optical_flow_field& opt_flow_field);
+    void render_next_frame(const Optical_flow_field& opt_flow_field, int frame_idx);
+    Optical_flow_calculator* create_opt_flow_calculator() const;
 };
 
 #endif // INTERPOLATOR_H

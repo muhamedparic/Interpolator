@@ -6,6 +6,7 @@
 class Horn_schunck : public Optical_flow_calculator
 {
 public:
+    Horn_schunck();
     Horn_schunck(const cv::Mat* prev_frame, const cv::Mat* next_frame);
     Optical_flow_field& calculate() override;
 };

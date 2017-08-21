@@ -4,7 +4,12 @@
 #include "diamond_search.h"
 #include "vec2.h"
 
-Diamond_search::Diamond_search(cv::Mat* prev_frame, cv::Mat* next_frame)
+Diamond_search::Diamond_search()
+{
+    // Needs initialization like in the other constructor
+}
+
+Diamond_search::Diamond_search(const cv::Mat* prev_frame, const cv::Mat* next_frame)
     : Optical_flow_calculator(prev_frame, next_frame)
 {
     reset_cost_map();
