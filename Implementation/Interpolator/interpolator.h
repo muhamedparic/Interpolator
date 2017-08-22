@@ -15,6 +15,7 @@
 #include "optical_flow_field.h"
 #include "algorithm.h"
 #include "video_info.h"
+#include "vec2.h"
 
 class Interpolator
 {    
@@ -51,9 +52,16 @@ private:
 
     void report_progress();
     void generate_intermediate_frames();
-    void correct_motion_vectors();
+    void correct_motion_vectors(Optical_flow_field& opt_flow_field);
     void render_next_frame(const Optical_flow_field& opt_flow_field, int frame_idx);
+    void paste_pixels(const Optical_flow_field& opt_flow_field, int frame_idx);
+    void fill_unknown_pixels(int frame_idx);
     Optical_flow_calculator* create_opt_flow_calculator() const;
+    inline bool is_legal(Vec2 pos) const
+    {
+        return pos.x >= 0 && pos.y >= 0 && pos.y < previous_frame.rows && pos.x < previous_frame.cols;
+    }
+    static cv::Vec3b blend_pixels(const cv::Vec3b& pixel1, const cv::Vec3b& pixel2, double ratio = 0.5);
 };
 
 #endif // INTERPOLATOR_H

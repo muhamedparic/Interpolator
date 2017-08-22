@@ -52,3 +52,13 @@ bool Vec2::operator!=(const Vec2& rhs) const
 {
     return !(*this == rhs);
 }
+
+Vec2 Vec2::operator*(double factor) const
+{
+    return Vec2(x * factor, y * factor);
+}
+
+Vec2 operator*(double factor, const Vec2& vector)
+{
+    return vector * factor;
+}

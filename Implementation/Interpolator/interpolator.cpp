@@ -70,6 +70,14 @@ void Interpolator::set_mv_correction_algorithm(Algorithm algorithm)
     interpolator_options.mv_correction_algorithm = algorithm;
 }
 
+cv::Vec3b Interpolator::blend_pixels(const cv::Vec3b& pixel1, const cv::Vec3b& pixel2, double ratio)
+{
+    unsigned int b = (ratio * pixel1[0] + (1 - ratio) * pixel2[0]);
+    unsigned int g = (ratio * pixel1[1] + (1 - ratio) * pixel2[1]);
+    unsigned int r = (ratio * pixel1[2] + (1 - ratio) * pixel2[2]);
+    return cv::Vec3b(b, g, r);
+}
+
 Optical_flow_calculator* Interpolator::create_opt_flow_calculator() const
 {
     switch (interpolator_options.opt_flow_algorithm)
@@ -109,19 +117,76 @@ void Interpolator::generate_intermediate_frames()
         opt_flow_calculator->set_prev_frame(&previous_frame);
         opt_flow_calculator->set_next_frame(&next_frame);
 
-        const Optical_flow_field& opt_flow_field = opt_flow_calculator->calculate();
+        Optical_flow_field& opt_flow_field = opt_flow_calculator->calculate();
+        correct_motion_vectors(opt_flow_field);
         render_next_frame(opt_flow_field, frame_idx);
     }
+
+    frames_processed++;
+    report_progress();
 }
 
-void Interpolator::correct_motion_vectors()
+void Interpolator::correct_motion_vectors(Optical_flow_field& opt_flow_field)
 {
-
+    return; // For now
 }
 
 void Interpolator::render_next_frame(const Optical_flow_field& opt_flow_field, int frame_idx)
 {
+    paste_pixels(opt_flow_field, frame_idx);
+    fill_unknown_pixels(frame_idx);
 
+    // No boundary map generation, that's the next step
+    // Then fix the edges, and voila
+}
+
+void Interpolator::paste_pixels(const Optical_flow_field& opt_flow_field, int frame_idx)
+{
+    // Needs to include boundary maps
+    for (auto& row : known_pixel_map)
+        std::fill(row.begin(), row.end(), 0);
+
+    for (int i = 0; i < previous_frame.rows; i++)
+    {
+        for (int j = 0; j < previous_frame.cols; j++)
+        {
+            Vec2 projected_position = opt_flow_field.data[i][j] *
+                    ((frame_idx + 1) / (interpolator_options.frames_to_generate + 1));
+
+            if (is_legal(projected_position))
+            {
+                auto& current_pixel = previous_frame.at<cv::Vec3b>(i, j);
+                auto& other_pixel = interpolated_frames[frame_idx].
+                        at<cv::Vec3b>(projected_position.y, projected_position.x);
+
+                if (known_pixel_map[projected_position.y][projected_position.x] != 0 && interpolator_options.blur_overlaps)
+                    other_pixel = blend_pixels(current_pixel, other_pixel);
+                else
+                    other_pixel = current_pixel;
+
+                known_pixel_map[projected_position.y][projected_position.x] = 1;
+            }
+        }
+    }
+}
+
+void Interpolator::fill_unknown_pixels(int frame_idx)
+{
+    double frame_distance = (frame_idx + 1) / (interpolator_options.frames_to_generate + 1);
+
+    for (int i = 0; i < previous_frame.rows; i++)
+    {
+        for (int j = 0; j < previous_frame.cols; j++)
+        {
+            if (known_pixel_map[i][j] == 0)
+            {
+                auto& mid_pixel = interpolated_frames[frame_idx].at<cv::Vec3b>(i, j);
+                auto& previous_pixel = previous_frame.at<cv::Vec3b>(i, j);
+                auto& next_pixel = next_frame.at<cv::Vec3b>(i, j);
+                mid_pixel = blend_pixels(previous_pixel, next_pixel, frame_distance);
+            }
+        }
+    }
 }
 
 void Interpolator::run()
@@ -142,6 +207,9 @@ void Interpolator::run()
     known_pixel_map = std::vector<std::vector<char> >(video_info.height, std::vector<char>(video_info.width, 0));
     boundary_map_horizontal = known_pixel_map;
     boundary_map_vertical = known_pixel_map; // Just for brevity, they all have the same dimensions
+
+    total_frames = video_info.frame_count;
+    frames_processed = 0;
 
     video_writer.open(output_file_name, video_info.fourcc,
                       video_info.fps, cv::Size(video_info.width, video_info.height));
