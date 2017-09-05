@@ -26,6 +26,7 @@ protected:
     {
         return pos.x >= 0 && pos.y >= 0 && pos.x < prev_frame->cols && pos.y < prev_frame->rows;
     }
+    void init_opt_flow_field();
 };
 
 #endif // OPTICAL_FLOW_CALCULATOR_H

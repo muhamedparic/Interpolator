@@ -62,3 +62,10 @@ double Optical_flow_calculator::cost(const Vec2& block_start, const Vec2& block_
         throw std::logic_error("Can't calculate cost with no legal pixel positions");
     return (double)cost_sum / pixels_used;
 }
+
+void Optical_flow_calculator::init_opt_flow_field()
+{
+    opt_flow_field.data = std::vector<std::vector<Vec2> >(prev_frame->rows, std::vector<Vec2>(prev_frame->cols, Vec2(0, 0)));
+    opt_flow_field.rows = prev_frame->rows;
+    opt_flow_field.cols = prev_frame->cols;
+}

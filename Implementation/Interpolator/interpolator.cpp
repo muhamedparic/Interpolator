@@ -55,9 +55,8 @@ void Interpolator::save_video()
 
 void Interpolator::report_progress()
 {
-    if (progress_callback == nullptr)
-        throw std::logic_error("No callback set, can't report progress");
-    progress_callback(progress());
+    if (progress_callback != nullptr)
+        progress_callback(progress());
 }
 
 void Interpolator::set_optical_flow_algorithm(Algorithm algorithm)
@@ -211,8 +210,10 @@ void Interpolator::run()
     total_frames = video_info.frame_count;
     frames_processed = 0;
 
-    video_writer.open(output_file_name, video_info.fourcc,
-                      video_info.fps, cv::Size(video_info.width, video_info.height));
+    video_writer.open(output_file_name, CV_FOURCC('H', '2', '6', '4'),
+                      2 * video_info.fps, cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
+    if (!video_writer.isOpened())
+        throw std::logic_error("Can\'t open video writer!");
 
     while (true) // Maybe bad idea?
     {

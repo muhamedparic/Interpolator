@@ -55,23 +55,40 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-INCLUDEPATH += /usr/include/opencv
-LIBS += -L/usr/local/lib
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so -lopencv_calib3d 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_contrib.so -lopencv_contrib 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_core.so -lopencv_core 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_features2d.so -lopencv_features2d 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_flann.so -lopencv_flann 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_gpu.so -lopencv_gpu 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_highgui.so -lopencv_highgui 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so -lopencv_imgproc 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_legacy.so -lopencv_legacy 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_ml.so -lopencv_ml 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so -lopencv_objdetect 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_ocl.so -lopencv_ocl 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_photo.so -lopencv_photo 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_stitching.so -lopencv_stitching 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_superres.so -lopencv_superres 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_ts.so -lopencv_ts 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_video.so -lopencv_video 
-LIBS += /usr/lib/x86_64-linux-gnu/libopencv_videostab.so -lopencv_videostab
+INCLUDEPATH += /usr/local/include/opencv
+INCLUDEPATH += /usr/local/include
+LIBS += -L/usr/local/lib -lopencv_shape \
+-lopencv_stitching \
+-lopencv_objdetect \
+-lopencv_superres \
+-lopencv_videostab \
+-lopencv_calib3d \
+-lopencv_features2d \
+-lopencv_highgui \
+-lopencv_videoio \
+-lopencv_imgcodecs \
+-lopencv_video \
+-lopencv_photo \
+-lopencv_ml \
+-lopencv_imgproc \
+-lopencv_flann \
+-lopencv_core
+
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so -lopencv_calib3d
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_contrib.so -lopencv_contrib
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_core.so -lopencv_core
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_features2d.so -lopencv_features2d
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_flann.so -lopencv_flann
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_gpu.so -lopencv_gpu
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_highgui.so -lopencv_highgui
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so -lopencv_imgproc
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_legacy.so -lopencv_legacy
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_ml.so -lopencv_ml
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so -lopencv_objdetect
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_ocl.so -lopencv_ocl
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_photo.so -lopencv_photo
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_stitching.so -lopencv_stitching
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_superres.so -lopencv_superres
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_ts.so -lopencv_ts
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_video.so -lopencv_video
+#LIBS += /usr/lib/x86_64-linux-gnu/libopencv_videostab.so -lopencv_videostab

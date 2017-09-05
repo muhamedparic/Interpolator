@@ -5,8 +5,9 @@
 #include "vec2.h"
 
 Diamond_search::Diamond_search()
+    : Optical_flow_calculator()
 {
-    // Needs initialization like in the other constructor
+
 }
 
 Diamond_search::Diamond_search(const cv::Mat* prev_frame, const cv::Mat* next_frame)
@@ -173,6 +174,11 @@ Vec2 Diamond_search::calculate_block_opt_flow(const Vec2& block_start)
 
 Optical_flow_field& Diamond_search::calculate()
 {
+    if (cost_map.empty())
+        reset_cost_map();
+    if (opt_flow_field.data.empty())
+        init_opt_flow_field();
+
     for (int block_start_y = 0; block_start_y < prev_frame->rows; block_start_y += block_size)
     {
         for (int block_start_x = 0; block_start_x < prev_frame->cols; block_start_x += block_size)
