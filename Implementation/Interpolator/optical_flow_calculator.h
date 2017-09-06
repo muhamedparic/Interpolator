@@ -17,6 +17,8 @@ public:
 protected:
     const cv::Mat* prev_frame;
     const cv::Mat* next_frame;
+    //cv::Mat prev_frame_grayscale;
+    //cv::Mat next_frame_grayscale;
     Optical_flow_field opt_flow_field;
     int block_size;
     int search_window_margin;
@@ -25,6 +27,10 @@ protected:
     inline bool is_legal(const Vec2& pos) const
     {
         return pos.x >= 0 && pos.y >= 0 && pos.x < prev_frame->cols && pos.y < prev_frame->rows;
+    }
+    inline int grayscale_pixel(const cv::Vec3b& pixel) const
+    {
+        return (pixel[0] + pixel[1] + pixel[2]) / 3;
     }
     void init_opt_flow_field();
 };

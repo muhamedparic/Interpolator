@@ -7,13 +7,18 @@
 Diamond_search::Diamond_search()
     : Optical_flow_calculator()
 {
-
+    init_patterns();
 }
 
 Diamond_search::Diamond_search(const cv::Mat* prev_frame, const cv::Mat* next_frame)
     : Optical_flow_calculator(prev_frame, next_frame)
 {
     reset_cost_map();
+    init_patterns();
+}
+
+void Diamond_search::init_patterns()
+{
     big_pattern = {Vec2(0, -2), Vec2(1, -1), Vec2(2, 0), Vec2(1, 1), Vec2(0, 2), Vec2(-1, 1), Vec2(-2, 0), Vec2(-1, -1)};
     small_pattern = {Vec2(0, -1), Vec2(1, 0), Vec2(0, 1), Vec2(-1, 0)};
 }
@@ -184,6 +189,7 @@ Optical_flow_field& Diamond_search::calculate()
         for (int block_start_x = 0; block_start_x < prev_frame->cols; block_start_x += block_size)
         {
             Vec2 block_opt_flow = calculate_block_opt_flow({block_start_x, block_start_y});
+
             for (int pixel_offset_y = 0; pixel_offset_y < block_size; pixel_offset_y++)
             {
                 for (int pixel_offset_x = 0; pixel_offset_x < block_size; pixel_offset_x++)
