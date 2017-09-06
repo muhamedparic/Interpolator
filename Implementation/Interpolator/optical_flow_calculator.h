@@ -17,8 +17,8 @@ public:
 protected:
     const cv::Mat* prev_frame;
     const cv::Mat* next_frame;
-    //cv::Mat prev_frame_grayscale;
-    //cv::Mat next_frame_grayscale;
+    cv::Mat prev_frame_grayscale;
+    cv::Mat next_frame_grayscale;
     Optical_flow_field opt_flow_field;
     int block_size;
     int search_window_margin;

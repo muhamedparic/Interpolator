@@ -25,13 +25,19 @@ Optical_flow_calculator::~Optical_flow_calculator()
 void Optical_flow_calculator::set_prev_frame(const cv::Mat* new_prev_frame)
 {
     prev_frame = new_prev_frame;
-    //cv::cvtColor(*prev_frame, prev_frame_grayscale, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(*prev_frame, prev_frame_grayscale, cv::COLOR_BGR2GRAY);
+
+//    for (int i = 0; i < prev_frame->rows; i++)
+//    {
+//        for (int j = 0; j < prev_frame->cols; j++)
+//            std::cout << (int)prev_frame->at<cv::Vec3b>(i, j)[0] << '\n';
+//    }
 }
 
 void Optical_flow_calculator::set_next_frame(const cv::Mat* new_next_frame)
 {
     next_frame = new_next_frame;
-    //cv::cvtColor(*next_frame, next_frame_grayscale, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(*next_frame, next_frame_grayscale, cv::COLOR_BGR2GRAY);
 }
 
 double Optical_flow_calculator::cost(const Vec2& block_start, const Vec2& block_offset) const
@@ -42,8 +48,8 @@ double Optical_flow_calculator::cost(const Vec2& block_start, const Vec2& block_
     {
         Vec2 pos_in_first_frame = block_start + pos_in_block;
         Vec2 pos_in_second_frame = block_start + block_offset + pos_in_block;
-        int first_pixel = grayscale_pixel(prev_frame->at<cv::Vec3b>(pos_in_first_frame.y, pos_in_first_frame.x));
-        int second_pixel = grayscale_pixel(next_frame->at<cv::Vec3b>(pos_in_second_frame.y, pos_in_second_frame.x));
+        int first_pixel = prev_frame_grayscale.at<uchar>(pos_in_first_frame.y, pos_in_first_frame.x);
+        int second_pixel = next_frame_grayscale.at<uchar>(pos_in_second_frame.y, pos_in_second_frame.x);
         return std::abs(first_pixel - second_pixel); // Can be changed to squaring
     };
 

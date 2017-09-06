@@ -133,7 +133,8 @@ void Interpolator::correct_motion_vectors(Optical_flow_field& opt_flow_field)
 void Interpolator::render_next_frame(const Optical_flow_field& opt_flow_field, int frame_idx)
 {
     paste_pixels(opt_flow_field, frame_idx);
-    fill_unknown_pixels(frame_idx);
+    if (interpolator_options.fix_holes)
+        fill_unknown_pixels(frame_idx);
 
     // No boundary map generation, that's the next step
     // Then fix the edges, and voila
@@ -149,8 +150,8 @@ void Interpolator::paste_pixels(const Optical_flow_field& opt_flow_field, int fr
     {
         for (int j = 0; j < previous_frame.cols; j++)
         {
-            Vec2 projected_position = opt_flow_field.data[i][j] *
-                    ((frame_idx + 1) / (interpolator_options.frames_to_generate + 1));
+            Vec2 projected_position = Vec2(j, i) + (opt_flow_field.data[i][j] *
+                    (((double)frame_idx + 1) / (interpolator_options.frames_to_generate + 1)));
 
             if (is_legal(projected_position))
             {
@@ -165,6 +166,7 @@ void Interpolator::paste_pixels(const Optical_flow_field& opt_flow_field, int fr
 
                 known_pixel_map[projected_position.y][projected_position.x] = 1;
             }
+
         }
     }
 }
@@ -211,7 +213,7 @@ void Interpolator::run()
     frames_processed = 0;
 
     video_writer.open(output_file_name, CV_FOURCC('H', '2', '6', '4'),
-                      2 * video_info.fps, cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
+                      video_info.fps, cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
     if (!video_writer.isOpened())
         throw std::logic_error("Can\'t open video writer!");
 
