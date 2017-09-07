@@ -6,6 +6,7 @@
 #include "diamond_search.h"
 #include "lucas_kanade.h"
 #include "horn_schunck.h"
+#include "vec2.h"
 
 Interpolator::Interpolator()
 {
@@ -20,6 +21,10 @@ Interpolator::Interpolator()
     interpolator_options.mv_correction_algorithm = Algorithm::odd_mv_corrector;
     interpolator_options.opt_flow_algorithm = Algorithm::diamond_search;
     interpolator_options.smooth_edges = true;
+
+    // Boundary smoothener initialization
+    smoothener.set_boundary_map_horizontal(&boundary_map_horizontal);
+    smoothener.set_boundary_map_vertical(&boundary_map_vertical);
 }
 
 Interpolator::~Interpolator()
@@ -151,8 +156,55 @@ void Interpolator::render_next_frame(const Optical_flow_field& opt_flow_field, i
     if (interpolator_options.fix_holes)
         fill_unknown_pixels(frame_idx);
 
-    // No boundary map generation, that's the next step
-    // Then fix the edges, and voila
+    if (interpolator_options.smooth_edges)
+    {
+        const Algorithm opt_flow_algorithm = interpolator_options.opt_flow_algorithm;
+
+        if (opt_flow_algorithm == Algorithm::ARPS || opt_flow_algorithm == Algorithm::diamond_search)
+        {
+            create_boundary_map(opt_flow_field);
+            smooth_edges(frame_idx);
+        }
+    }
+}
+
+void Interpolator::create_boundary_map(const Optical_flow_field& opt_flow_field)
+{
+    auto is_legal = [&](int row, int col){
+        return row >= 0 && row < previous_frame.rows && col >= 0 && col < previous_frame.cols;
+    };
+
+    boundary_map_horizontal = std::vector<std::vector<char> >(previous_frame.rows, std::vector<char>(previous_frame.cols, 0));
+    boundary_map_vertical = std::vector<std::vector<char> >(previous_frame.rows, std::vector<char>(previous_frame.cols, 0));
+
+    // MAJOR issues if block_size != 16
+    // Horizontal edges
+    for (int i = 15; i < previous_frame.rows; i += 16)
+    {
+        for (int j = 0; j < previous_frame.cols; j++)
+        {
+            Vec2 map_position = Vec2(j, i) + opt_flow_field.data[i][j];
+            if (is_legal(map_position.y, map_position.x))
+                boundary_map_horizontal[map_position.y][map_position.x] = 1;
+        }
+    }
+
+    // Vertical edges
+    for (int i = 0; i < previous_frame.rows; i++)
+    {
+        for (int j = 15; j < previous_frame.cols; j += 16)
+        {
+            Vec2 map_position = Vec2(j, i) + opt_flow_field.data[i][j];
+            if (is_legal(map_position.y, map_position.x))
+                boundary_map_vertical[map_position.y][map_position.x] = 1;
+        }
+    }
+}
+
+void Interpolator::smooth_edges(int frame_idx)
+{
+    smoothener.set_frame(&interpolated_frames[frame_idx]);
+    smoothener.run();
 }
 
 void Interpolator::paste_pixels(const Optical_flow_field& opt_flow_field, int frame_idx)

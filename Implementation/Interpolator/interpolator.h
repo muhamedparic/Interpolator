@@ -57,6 +57,8 @@ private:
     void paste_pixels(const Optical_flow_field& opt_flow_field, int frame_idx);
     void fill_unknown_pixels(int frame_idx);
     Optical_flow_calculator* create_opt_flow_calculator() const;
+    void create_boundary_map(const Optical_flow_field& opt_flow_field);
+    void smooth_edges(int frame_idx);
     inline bool is_legal(Vec2 pos) const
     {
         return pos.x >= 0 && pos.y >= 0 && pos.y < previous_frame.rows && pos.x < previous_frame.cols;
