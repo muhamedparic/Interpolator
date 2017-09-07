@@ -3,6 +3,8 @@
 
 #include "optical_flow_calculator.h"
 
+const Vec2 Optical_flow_calculator::invalid_motion_vector(100000, 100000);
+
 Optical_flow_calculator::Optical_flow_calculator(int block_size)
     : prev_frame(nullptr), next_frame(nullptr), block_size(block_size), search_window_margin(block_size / 2 - 1)
 {
@@ -26,18 +28,27 @@ void Optical_flow_calculator::set_prev_frame(const cv::Mat* new_prev_frame)
 {
     prev_frame = new_prev_frame;
     cv::cvtColor(*prev_frame, prev_frame_grayscale, cv::COLOR_BGR2GRAY);
-
-//    for (int i = 0; i < prev_frame->rows; i++)
-//    {
-//        for (int j = 0; j < prev_frame->cols; j++)
-//            std::cout << (int)prev_frame->at<cv::Vec3b>(i, j)[0] << '\n';
-//    }
 }
 
 void Optical_flow_calculator::set_next_frame(const cv::Mat* new_next_frame)
 {
     next_frame = new_next_frame;
     cv::cvtColor(*next_frame, next_frame_grayscale, cv::COLOR_BGR2GRAY);
+}
+
+void Optical_flow_calculator::set_block_size(int new_block_size)
+{
+    block_size = new_block_size;
+}
+
+void Optical_flow_calculator::set_max_valid_cost(int new_max_valid_cost)
+{
+    max_valid_cost = new_max_valid_cost;
+}
+
+void Optical_flow_calculator::set_search_window_margin(int new_search_window_margin)
+{
+    search_window_margin = new_search_window_margin;
 }
 
 double Optical_flow_calculator::cost(const Vec2& block_start, const Vec2& block_offset) const
@@ -67,7 +78,7 @@ double Optical_flow_calculator::cost(const Vec2& block_start, const Vec2& block_
     }
 
     if (pixels_used == 0)
-        throw std::logic_error("Can't calculate cost with no legal pixel positions");
+        return 256.0;
     return (double)cost_sum / pixels_used;
 }
 

@@ -14,6 +14,9 @@ public:
     virtual ~Optical_flow_calculator();
     void set_prev_frame(const cv::Mat* new_prev_frame);
     void set_next_frame(const cv::Mat* new_next_frame);
+    void set_block_size(int new_block_size);
+    void set_search_window_margin(int new_search_window_margin);
+    void set_max_valid_cost(int new_max_valid_cost);
 protected:
     const cv::Mat* prev_frame;
     const cv::Mat* next_frame;
@@ -22,6 +25,8 @@ protected:
     Optical_flow_field opt_flow_field;
     int block_size;
     int search_window_margin;
+    int max_valid_cost;
+    static const Vec2 invalid_motion_vector;
 
     double cost(const Vec2& block_start, const Vec2& block_offset) const;
     inline bool is_legal(const Vec2& pos) const

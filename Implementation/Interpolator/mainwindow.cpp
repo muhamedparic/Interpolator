@@ -25,12 +25,13 @@ void MainWindow::on_runButton_clicked()
 {
     Interpolator_options options;
     options.block_size = 16;
-    options.blur_overlaps = false;
+    options.blur_overlaps = true;
     options.fix_holes = true;
     options.frames_to_generate = 1;
     options.mv_correction_algorithm = Algorithm::odd_mv_corrector;
     options.opt_flow_algorithm = Algorithm::diamond_search;
     options.smooth_edges = false;
+    options.max_valid_cost = 75;
 
     // Temporary!
     std::string input_file = QFileDialog::getOpenFileName(this, "Open video file", "/home/muhamed/Desktop/videos", "All files (*.*)").toStdString();

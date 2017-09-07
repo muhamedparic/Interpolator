@@ -163,7 +163,10 @@ Vec2 Diamond_search::find_best_opt_flow_small_pattern(const Vec2& block_start, c
         }
     } // Needs to be refactored into a separate method
 
-    return best_rel_candidate;
+    if (best_cost > max_valid_cost)
+        return invalid_motion_vector;
+    else
+        return best_rel_candidate;
 }
 
 Vec2 Diamond_search::calculate_block_opt_flow(const Vec2& block_start)
@@ -175,7 +178,6 @@ Vec2 Diamond_search::calculate_block_opt_flow(const Vec2& block_start)
     Vec2 final_best_candidate = find_best_opt_flow_small_pattern(block_start, big_pattern_best_candidate);
 
     return final_best_candidate;
-    //return {0, 0}; // Don't forget to change back!
 }
 
 Optical_flow_field& Diamond_search::calculate()

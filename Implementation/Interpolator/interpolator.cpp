@@ -10,7 +10,16 @@
 Interpolator::Interpolator()
 {
     opt_flow_calculator = nullptr;
-    // Probably needs more initialization
+
+    // Initialization of default options
+    interpolator_options.block_size = 16;
+    interpolator_options.blur_overlaps = true;
+    interpolator_options.fix_holes = true;
+    interpolator_options.frames_to_generate = 1;
+    interpolator_options.max_valid_cost = 70;
+    interpolator_options.mv_correction_algorithm = Algorithm::odd_mv_corrector;
+    interpolator_options.opt_flow_algorithm = Algorithm::diamond_search;
+    interpolator_options.smooth_edges = true;
 }
 
 Interpolator::~Interpolator()
@@ -79,23 +88,29 @@ cv::Vec3b Interpolator::blend_pixels(const cv::Vec3b& pixel1, const cv::Vec3b& p
 
 Optical_flow_calculator* Interpolator::create_opt_flow_calculator() const
 {
+    Optical_flow_calculator* new_calculator;
     switch (interpolator_options.opt_flow_algorithm)
     {
     case Algorithm::ARPS:
-        return new ARPS();
+        new_calculator = new ARPS();
         break;
     case Algorithm::diamond_search:
-        return new Diamond_search();
+        new_calculator = new Diamond_search();
         break;
     case Algorithm::lucas_kanade:
-        return new Lucas_kanade();
+        new_calculator = new Lucas_kanade();
         break;
     case Algorithm::horn_schunck:
-        return new Horn_schunck();
+        new_calculator = new Horn_schunck();
         break;
     default:
         throw std::domain_error("Invalid optical flow algorithm");
     }
+
+    new_calculator->set_block_size(interpolator_options.block_size);
+    new_calculator->set_max_valid_cost(interpolator_options.max_valid_cost);
+
+    return new_calculator;
 }
 
 void Interpolator::generate_intermediate_frames()
@@ -166,7 +181,6 @@ void Interpolator::paste_pixels(const Optical_flow_field& opt_flow_field, int fr
 
                 known_pixel_map[projected_position.y][projected_position.x] = 1;
             }
-
         }
     }
 }
@@ -213,7 +227,7 @@ void Interpolator::run()
     frames_processed = 0;
 
     video_writer.open(output_file_name, CV_FOURCC('H', '2', '6', '4'),
-                      video_info.fps, cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
+                      video_info.fps * 2, cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
     if (!video_writer.isOpened())
         throw std::logic_error("Can\'t open video writer!");
 

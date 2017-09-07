@@ -12,6 +12,7 @@ struct Interpolator_options
     bool fix_holes;
     bool smooth_edges;
     bool blur_overlaps;
+    int max_valid_cost;
 };
 
 #endif // INTERPOLATOR_OPTIONS_H
