@@ -272,8 +272,8 @@ void Interpolator::run()
     video_info.width = (int)video_capture.get(CV_CAP_PROP_FRAME_WIDTH);
     video_info.frame_count = (int)video_capture.get(CV_CAP_PROP_FRAME_COUNT);
     known_pixel_map = std::vector<std::vector<char> >(video_info.height, std::vector<char>(video_info.width, 0));
-    boundary_map_horizontal = known_pixel_map;
-    boundary_map_vertical = known_pixel_map; // Just for brevity, they all have the same dimensions
+    //boundary_map_horizontal = known_pixel_map;
+    //boundary_map_vertical = known_pixel_map; // Just for brevity, they all have the same dimensions
 
     total_frames = video_info.frame_count;
     frames_processed = 0;

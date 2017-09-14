@@ -10,8 +10,6 @@ Direktnom primjenom algoritama uparivanja blokova, mogu\cj e je dobiti interpoli
 	mogu\cj e umanjiti ovaj efekat.
 \end{enumerate}
 
-\section{Popunjavanje rupa}
-
 \section{Neispravni vektori pomaka}
 Kori\sh tenjem algoritama uparivanja blokova, dobili smo odgovaraju\cj e vektore pomaka za svaki blok veli\ch ine 16x16 piksela. Me\dj utim, postoji visoka vjerovatno\cj a da neki od tih vektora ne odgovaraju stvarnom pokretu
 u video sekvenci. Prvo \cj emo definisati \sh ta zapravo zna\ch i neispravan vektor pomaka, kako ih detektovati, a zatim kako ih popraviti. % Definisati vektor pomaka
@@ -43,3 +41,39 @@ vektor pomaka jeste da ga zamijenimo jednim od 8 susjednih vektora. Izbor \cj em
 $mv_k$ koji daje najmanji rezultat funkcije $\sum_{i=1}^{8}(|mv_{kx}-mv_{ix}|+|mv_{ky}=mv_{iy|})$, pri \ch emu su $mv_1, mv_2, \ldots , mv_8$ susjedni vektori pomaka na\sh eg neispravnog vektora.
 
 \section{Izgla\dj ivanje granica izme\dj u blokova}
+Kori\sh tenjem algoritama koji uparuju \ch itave blokove sa drugim blokovima, interpolirani frejmovi \cj e imati veoma vidljive vertikalne i horizontalne linije izme\dj u granica blokova. Kori\sh tenjem BAD metode mo\zh emo detektovati vektore
+pomaka koji \cj rezultovati ovim artefaktima, ali to ne zna\ch i da \cj emo ih mo\cj i uvijek kvalitetno ispraviti. Tako da je po\zh eljno, radi pobolj\sh anja kvalitete, promijeniti piksele u neposrednoj okolini tih artefakta radi njihovog maskiranja.
+Piksele mo\zh emo promijeniti kori\sh tenjem kernel konvolucije, koriste\cj i kernel koji zamu\cj uje sliku u okolini artefakata. Koristit \cj emo 1-D kernele za zamu\cj ivanje horizontalnih i vertikalnih linija koji su zasnovani na Gaussovoj funkciji.
+Vrijednosti matrice kernela mo\zh emo dobiti iz Gaussove funkcije na jednakim intervalima, pri \ch emu je tako\dj er bitno da je kernel simetri\ch an, \sh to mo\zh emo dobiti ako uzimamo vrijednosti funkcije centrirane oko ta\ch ke 0.
+Matrice kernela za vertikalne i horizontalne linije \cj e biti me\dj usobno transponovane. U slu\ch aju da se piksel nalazi u presjeku vertikalne i horizontalne linije, mo\zh emo koristiti kernel dobiven iz 2-D Gaussove funkcije. U oba slu\ch aja,
+parametar $\sigma$ predstavlja standardnu devijaciju. Pove\cj anjem ovog parametra se pove\cj ava zamu\cj enost slike, \sh to smanjuje artefakte, ali se gubi vi\sh e informacija o originalnoj slici.
+
+1-D Gaussova funkcija:
+\[
+G(x)=\frac{e^{-\frac{x^2}{2\sigma^2}}}{\sqrt{2\pi\sigma^2}}
+\]
+
+2-D Gaussova funkcija:
+\[
+G(x,y)=\frac{e^{-\frac{x^2+y^2}{2\sigma^2}}}{\sqrt{2\pi\sigma^2}}
+\]
+
+\[
+\text{Primjer 1-D kernela (za $\sigma=1$):}
+\begin{bmatrix}
+0.06136 & 0.24477 & 0.38774 & 0.24477 & 0.06136
+\end{bmatrix}
+\]
+
+Primjer 2-D kernela (za $\sigma=1$):
+\[
+\begin{bmatrix}
+0.003765 & 0.015019 & 0.023792 & 0.015019 & 0.003765 \\
+0.015019 & 0.059912 & 0.094907 & 0.059912 & 0.015019 \\
+0.023792 & 0.094907 & 0.150342 & 0.094907 & 0.023792 \\
+0.015019 & 0.059912 & 0.094907 & 0.059912 & 0.015019 \\
+0.003765 & 0.015019 & 0.023792 & 0.015019 & 0.003765
+\end{bmatrix}
+\]
+
+Da ne bismo dio slike u\ch inili svjeltlijim ili tamnijim, zbir svih vrijednosti matrice kernela mora biti jednak 1.
