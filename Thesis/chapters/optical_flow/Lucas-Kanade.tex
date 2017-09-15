@@ -1,0 +1,15 @@
+Osnovna ideja iza Lucas-Kanade metode jeste kori\sh tenje vi\sh e od jednog piksela. Kori\sh tenjem okoline piksela \ch iji opti\ch ki tok poku\sh avamo izra\ch unati, dobit \cj emo vi\sh e jedna\ch ina
+(npr. ako koristimo 3x3 podru\ch je oko zadanog piksela dobit \cj emo 9 nezavisnih jedna\ch ina). Naravno, sistem od 9 jedna\ch ina sa 2 nepoznate gotovo nikada nema jedinstveno rje\sh enje,
+tako da Lucas-Kanade metoda pronalazi najbolje rje\sh enje metodom najmanjih kvadrata. Nije nu\zh no koristiti ta\ch no 9 jedna\ch ina, metoda radi sa bilo kojim brojem piksela u okolini zadanog.
+
+Umjesto pisanja jedna\ch ine opti\ch kog toka 9 puta za svih 9 piksela, mo\zh emo svih 9 predstaviti jednostavnom matri\ch nom jedna\ch inom:
+\[
+S
+\begin{pmatrix}
+u \\
+v
+\end{pmatrix}
+=\vec{t}
+\]
+
+pri \ch emu je $S$ 9x2 matrica \ch iji su redovi vektori oblika $\begin{pmatrix}I_x(x+p,y+q),I_y(x+p,y+q)\end{pmatrix},p,q\in (-1,0,1)$

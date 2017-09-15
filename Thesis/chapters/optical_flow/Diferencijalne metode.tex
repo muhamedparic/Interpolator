@@ -1,0 +1,55 @@
+\subsection{Uvod}
+Da bismo objasnili ove metode, moramo prvo pojasniti \textit{jedna\ch inu opti\ch kog toka}. Ova jedna\ch ina glasi:
+\[
+I_xu+I_yv+I_t=0
+\]
+ili
+\[
+\frac{\partial I}{\partial x}u+\frac{\partial I}{\partial y}v+\frac{\partial I}{\partial t}=0
+\]
+
+Jedan frejm, pri \ch emu samo posmatramo intenzitet piksela, a ne i njihove boje, mo\zh emo zamisliti kao realnu funkciju dvije realne promjenljive$I(x,y)$. Naravno, vrijednosti parametara
+$x$ i $y$ moraju biti prirodni brojevi (ili nula), te \cj e sam rezultat funkcije biti cijeli broj u intervalu [0, 255], me\dj utim, uz ovakvo predstavljanje frejma mo\zh emo koristiti metode analize za
+rje\sh avanje problema. Mo\zh emo \ch ak \ch itav video predstaviti kao jednu jedinu funkciju tri realne promjenljive $I(x,y,t)$, pri \ch emu $x$ i $y$ predstavljaju koordinate piksela u frejmu,
+dok $t$ predstavlja redni broj samog frejma. Iz ovakve funkcije mo\zh emo izvesti jedna\ch inu opti\ch kog toka.
+
+Za zadani piksel $I(x,y,t)$, na\sh\ cilj je prona\cj i $\Delta x,\Delta y,\Delta t$ takve da:
+\[
+I(x,y,t)=I(x+\Delta x,y+\Delta y,t+\Delta t)
+\]
+
+Zatim \cj emo $I(x,y,t)$ aproksimirati Taylorovim polinomom prvog reda:
+\[
+I(x+\Delta x,y+\Delta y,t+\Delta t)\approx I(x,y,t)+\frac{\partial I}{\partial x}\Delta x+\frac{\partial I}{\partial y}\Delta y+\frac{\partial I}{\partial t}\Delta t
+\]
+
+Koriste\cj i prethodne dvije jedna\ch ine, vidimo da je:
+\[
+I(x,y,t)\approx I(x,y,t)+\frac{\partial I}{\partial x}\Delta x+\frac{\partial I}{\partial y}\Delta y+\frac{\partial I}{\partial t}\Delta t
+\]
+
+Odnosno:
+\[
+\frac{\partial I}{\partial x}\Delta x+\frac{\partial I}{\partial y}\Delta y+\frac{\partial I}{\partial t}\Delta t \approx 0
+\]
+
+Ako obje strane jedna\ch ine podijelimo sa $\Delta t$ i uvedemo nove oznake:
+\[
+u=\frac{\Delta x}{\Delta t}
+\]
+\[
+v=\frac{\Delta y}{\Delta t}
+\]
+
+Rezultat je upravo jedna\ch ina opti\ch kog toka (pri \ch emu smo znak $\approx$ zamijenili znakom $=$). Ako nas samo zanimaju pikseli u narednom frejmu (odnosno ako je $\Delta t=1$,
+jedna\ch ina postaje:
+\[
+\frac{\partial I}{\partial x}\Delta x+\frac{\partial I}{\partial y}\Delta y+\frac{\partial I}{\partial t}=0
+\] 
+
+Vidimo da \ch ak ni ovu pojednostavljenu jedna\ch inu ne mo\zh emo jednozna\ch no rije\sh iti jer imamo dvije nepoznate ($\Delta x$ i $\Delta y$). Mi \cj emo u nastavku opisati dva algoritma koji
+na dva razli\ch ita na\ch ina rje\sh avaju ovaj problem. Ako su nam za zadani piksel poznate vrijednosti $\Delta x$ i $\Delta y$, onda vektor $(\begin{smallmatrix}\Delta x &\Delta y\end{smallmatrix})$ predstavlja upravo tra\zh eni opti\ch ki tok,
+koji mo\zh emo koristiti za kreiranje interpoliranih frejmova.
+
+\subsection{Lucas-Kanade metoda}
+\input{"chapters/optical_flow/Lucas-Kanade"}

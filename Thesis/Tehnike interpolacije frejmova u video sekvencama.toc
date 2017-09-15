@@ -18,10 +18,12 @@
 \contentsline {section}{\numberline {3.3}Kros-korelacija}{16}{section.3.3}
 \contentsline {section}{\numberline {3.4}Fazna korelacija}{17}{section.3.4}
 \contentsline {section}{\numberline {3.5}Diferencijalne metode}{17}{section.3.5}
-\contentsline {chapter}{\numberline {4}Uklanjanje gre\IeC {\v s}aka}{18}{chapter.4}
-\contentsline {section}{\numberline {4.1}Neispravni vektori pomaka}{18}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Detekcija neispravnih vektora pomaka}{19}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Ispravljanje neispravnih vektora pomaka}{20}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Izgla\dj ivanje granica izme\dj u blokova}{20}{section.4.2}
-\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\IeC {\v s}tenjem OpenCV biblioteke i benchmark testovi}{22}{chapter.5}
-\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{23}{chapter.6}
+\contentsline {subsection}{\numberline {3.5.1}Uvod}{17}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Lucas-Kanade metoda}{19}{subsection.3.5.2}
+\contentsline {chapter}{\numberline {4}Uklanjanje gre\IeC {\v s}aka}{20}{chapter.4}
+\contentsline {section}{\numberline {4.1}Neispravni vektori pomaka}{20}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Detekcija neispravnih vektora pomaka}{21}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Ispravljanje neispravnih vektora pomaka}{22}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Izgla\dj ivanje granica izme\dj u blokova}{22}{section.4.2}
+\contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\IeC {\v s}tenjem OpenCV biblioteke i benchmark testovi}{24}{chapter.5}
+\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{25}{chapter.6}
