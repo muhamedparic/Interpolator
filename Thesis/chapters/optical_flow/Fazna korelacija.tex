@@ -2,11 +2,8 @@
 %http://www.sciencedirect.com/science/article/pii/S2212017313000145
 Fazna korelacija je tehnika koju mo\zh emo koristiti za brzo pronala\zh enje mjesta preklapanja dviju sli\ch nih slika, \sh to nama upravo i treba. Mo\zh emo uzeti jedan blok piksela jednog frejma, te, koriste\cj i faznu korelaciju, brzo prona\cj i
 gdje se taj blok piksela nalazi u drugom frejmu (ili barem neki drugi, veoma sli\ch an blok). Direktnom primjenom formule bismo dobili algoritam koji je zapravo veoma sli\ch an potpunoj pretrazi, koja je opisana u poglavlju o algoritmima
-uparivanja blokova. Me\dj utim, mo\zh emo koristiti \textit{Brzu Fourierovu Transformaciju} (FFT) za zna\ch ajno ubrzanje.
+uparivanja blokova. Me\dj utim, mo\zh emo koristiti \textit{Brzu Fourierovu Transformaciju} (FFT) za zna\ch ajno ubrzanje. S obzirom na to da jedan korak algoritma uklju\ch uje izra\ch unavanje Hadamardovog proizvoda dvije matrice
+(koji je jedino mogu\cj e izra\ch unati ako su matrice istih dimenzija), ovaj algoritam je ograni\ch en na tra\zh enje jednog ili vi\sh e mjesta poklapanja dva bloka piksela iste veli\ch ine. Tako\dj er, ako \zh elimo koristiti neki od FFT algoritama,
+dimenzije blokova moraju biti stepeni broja dva. Mo\zh emo koristiti 16x16 blokove, dimenzije koje smo tako\dj er koristili u poglavlju u algoritmima uparivanja blokova. 
 
 Koraci algoritma:
-\begin{enumerate}
-\item Izra\ch unati 2D Fourierovu transformaciju obje slike
-\item Izra\ch unati Hadamardov proizvod prve slike i konjugovane druge slike
-% WIP
-\end{enumerate}

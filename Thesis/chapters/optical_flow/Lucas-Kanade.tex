@@ -12,8 +12,14 @@ v
 =\vec{t}
 \]
 
-%pri \ch emu je $S$ 9x2 matrica \ch iji su redovi vektori oblika $\begin{pmatrix}I_x(x+p,y+q),I_y(x+p,y+q)\end{pmatrix},p,q\in (-1,0,1)$, a $\vec{t}$ vektor-kolona \ch iji su \ch lanovi
-%$-I_t(x+p,y+q),p,q\in (-1,0,1)$. Cilj nam je prona\cj i $u$ i $v$ takve da je zbir kvadrata razlika lijevih i desnih strana jedna\ch ina minimalan.
+pri \ch emu je $S$ 9x2 matrica \ch iji su redovi vektori oblika 
+
+\[
+\begin{pmatrix}I_x(x+p,y+q),I_y(x+p,y+q)\end{pmatrix},p,q\in (-1,0,1)
+\] 
+
+dok je $\vec{t}$ vektor-kolona \ch iji su \ch lanovi
+$-I_t(x+p,y+q),p,q\in (-1,0,1)$. Cilj nam je prona\cj i $u$ i $v$ takve da je zbir kvadrata razlika lijevih i desnih strana jedna\ch ina minimalan.
 
 Rje\sh enje dobijamo tako \sh to pomno\zh imo slijeva obje strane sa $S^T$:
 \[
@@ -23,4 +29,52 @@ a zatim pomno\zh imo obje strane slijeva sa $(S^TS)^{-1}$:
 \[
 \begin{pmatrix}u \\ v\end{pmatrix}=(S^TS)^{-1}S^T\vec{t}
 \]
-\textit{Poglavlje nije dovr\sh eno}
+
+Izra\ch unati elemente matrice $I_t$ nije te\sh ko, jer mo\zh emo samo uzeti razliku vrijednosti piksela narednog i trenutnog frejma, odnosno defini\sh emo:
+\[
+I_t(x,y,t)=I(x,y,t+1)-I(x,y,t)
+\]
+
+Prostorne izvode $I_x,I_y$ bismo mogli izra\ch unati najjednostavnije formulama:
+\[
+I_x(x,y,t)=I(x+1,y,t)-I(x,y,t)
+\]
+\[
+I_y(x,y,t)=I(x,y+1,t)-I(x,y,t)
+\]
+
+Ovi izvodi odgovaraju kori\sh tenju kernela $\begin{bmatrix}0 & -1 & 1\end{bmatrix}$, odnosno njegove transponovane forme. Tako\dj er mo\zh emo koristiti
+slo\zh enije kernele, u nadi da \cj emo tako dobiti vi\sh e informacija o prostornim parcijalnim izvodima. Jedan primjer bi mogao biti kernel:
+\[
+\begin{bmatrix}
+\frac{1}{12} & \frac{-8}{12} & 0 & \frac{8}{12} & \frac{1}{12}
+\end{bmatrix}
+\]
+
+za $I_x$, te njegova transponovana forma za $I_y$.
+
+S obzirom da sada imamo matrice $I_x,I_y,I_t$, mo\zh emo jednostavno izra\ch unati matricu $S$ i vektor $\vec{t}$. Prije toga mo\zh emo izgladiti matrice $I_x$, $I_y$ i $I_t$ kori\sh tenjem kernela:
+\[
+\frac{1}{256}
+\begin{bmatrix}
+1 & 4 & 6 & 4 & 1 \\
+4 & 16 & 24 & 16 & 4 \\
+6 & 24 & 36 & 24 & 6 \\
+4 & 16 & 24 & 16 & 4 \\
+1 & 4 & 6 & 4 & 1
+\end{bmatrix}
+\]
+
+Ostala nam je jo\sh\ samo jedna prepreka, a to je invertovanje matrice $S^TS$. Bolje re\ch eno, s obzirom da se radi o 2x2 matrici, samo invertovanje je mogu\cj e uraditi jednostavnom formulom:
+\[
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}^{-1}
+=\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix}
+\]
+
