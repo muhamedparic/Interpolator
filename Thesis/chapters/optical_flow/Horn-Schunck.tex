@@ -1,0 +1,35 @@
+Horn-Schunck je metoda koja direktno ra\ch una sve vektore pomaka tako \sh to minimizira funkciju:
+\[
+E=\iint(I_xu+I_yv+I_t)^2dxdy+\alpha \iint\Bigl\{\frac{\partial u}{\partial x}^2+\frac{\partial u}{\partial y}^2+\frac{\partial v}{\partial x}^2+\frac{\partial v}{\partial y}^2\Bigr\}dxdy
+\]
+
+Dio funkcije pod prvim dvojnim integralom je dobiven direktno iz jedna\ch ine opti\ch kog toka. Minimizacijom prvog dijela \cj emo dobiti precizan opti\ch ki tok,
+\ch iji su vektori pomaka sli\ch ni stvarnim. Dio funkcije pod drugim integralom predstavlja mjerilo glatko\cj e opti\ch kog toka. S obzirom da su $u$ i $v$ komponente
+vektora pomaka, sabirci pod drugim integralom nam daju indikaciju prostornih promjena u opti\ch kom toku. Ve\cj e promjene zna\ch e i manje glatko polje
+opti\ch kog toka, susjedni vektori pomaka se vi\sh e razlikuju. Minimizacijom ovog drugog dijela funkcije upravo pove\cj avamo glatko\cj u polja. Pove\cj avanjem
+faktora $\alpha$ pove\cj avamo zna\ch aj glatko\cj e opti\ch kog toka, dok smanjivanjem pove\cj avamo zna\ch aj preciznosti.
+
+$I_x$, $I_y$ i $I_t$ bismo mogli izra\ch unati kori\sh tenjem kernela koje smo naveli pri opisu Lucas-Kanade metode. Me\dj utim, Horn-Schunck metoda koristi
+Sobel konvolucijski kernel za izra\ch unavanje prostornih izvoda:
+\[
+\begin{bmatrix}
+-1 & 0 & 1 \\
+-2 & 0 & 2 \\
+-1 & 0 & 1
+\end{bmatrix}
+\]
+
+i njegova transponovana forma. 
+
+Nakon izra\ch unavanja $I_x$, $I_y$ i $I_t$, postavit \cj emo sve vektore pomaka na nula vektore, te ih postepeno pobolj\sh avati rekurzivnim formulama
+koje predstavljaju sr\zh\ Horn-Schunck algoritma:
+\[
+u_{x,y}^{k+1}=\bar{u}_{x,y}^{k}-\frac{I_x(I_x\bar{u}_{x,y}^{k}+I_y\bar{v}_{x,y}^{k}+I_t)}{\alpha^2+I_x^2+I_y^2}
+\]
+\[
+v_{x,y}^{k+1}=\bar{v}_{x,y}^{k}-\frac{I_x(I_x\bar{u}_{x,y}^{k}+I_y\bar{v}_{x,y}^{k}+I_t)}{\alpha^2+I_x^2+I_y^2}
+\]
+
+Pri tome, $k$ u superscriptu ozna\ch ava trenutnu vrijednost, a $k+1$ sljede\cj u vrijednost komponenti vektora opti\ch kog toka, dok $\bar{u_{x,y}}$ i $\bar{v_{x,y}}$
+predstavljaju prosje\ch ne vrijednosti vektora pomaka za 4 piksela koji okru\zh uju piksel na poziciji $(x,y)$. U svakoj narednoj iteraciji \cj emo smanjiti vrijednost
+funkcije.

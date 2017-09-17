@@ -89,8 +89,13 @@ c & d-\lambda_2
 =0
 \]
 
-Ako su i $\lambda_1$ i $\lambda_2$ ispod nekog praga $\tau$, matrica je singularna, te je opti\ch ki tok nula-vektor. Ako je jedna od svojstvenih vrijednosti ve\cj a od $\tau$, matrica je lo\sh e uslovljena.
-\textit{Objasniti \sh ta treba tada uraditi}. Ako su obje svostvene vrijednosti iznad praga $\tau$, matrica nije singularna, te mo\zh emo izra\ch unati opti\ch ki tok.
+Ako su i $\lambda_1$ i $\lambda_2$ ispod nekog praga $\tau$, matrica je singularna, te je opti\ch ki tok nula-vektor. Ako je jedna od svojstvenih vrijednosti ve\cj a od $\tau$, matrica je lo\sh e uslovljena. 
+Ako su obje svostvene vrijednosti iznad praga $\tau$, matrica nije singularna, te mo\zh emo izra\ch unati opti\ch ki tok.
 
 %Objasniti ovo gore
-%Objasniti dalje detalje, oko toga kako zapravo pronaci interpolirane frejmove
+
+Sli\ch no kao standardni algoritmi uparivanja blokova, Lucas-Kanade metoda ima problema u slu\ch ajevima kada postoji veliki broj potencijalnih kandidata. Zbog toga se ova metoda naj\ch e\sh \cj e koristi
+za pronala\zh enje \textit{rijetkog} opti\ch kog toka, odnosno toka koji je poznat za samo neke piksele. Ako \zh elimo koristiti ovu metodu za interpoliranje frejmova, moramo prona\cj i vektore pomaka za sve
+piksele kori\sh tenjem podataka koje dobijemo iz malog broja ta\ch aka. 
+Ako nas samo zanima rijetki opti\ch ki tok, trebamo na\cj i piksele \ch ije \cj e nam kretanje biti lako pratiti. U praksi se za tu svrhu koriste pikseli na uglovima, jer pomjeranje tih piksela i njihove okoline
+\cj e uvijek biti lako uo\ch ljivo. Ako umjesto uglova koristimo npr. ivice, pomjeranje du\zh\ ivice nije uo\ch ljivo. Popularan i pouzdan algoritam za detekciju uglova jeste Shi-Tomasi algoritam.
