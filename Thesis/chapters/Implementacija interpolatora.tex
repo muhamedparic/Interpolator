@@ -2,7 +2,7 @@ Algoritmi opisani u ovom radu se mogu relativno jednostavno implementirati u bil
 za to nam je potreban na\ch in da pozovemo odgovaraju\cj i \textit{codec} (eng. \textit{coder-decoder}) za format video datoteke koji koristimo. OpenCV biblioteka nam omogu\cj ava upravo \ch itanje
 i pisanje video datoteka, te direktan pristup pikselima svakog frejma, \sh to je nama od klju\ch nog zna\ch aja za svaki opisani algoritam.
 
-\subsection{OpenCV} %http://opencv.org/about.html
+\section{OpenCV} %http://opencv.org/about.html
 OpenCV (eng. \textit{Open Computer Vision} je biblioteka originalno razvijena od strane Intel-a, koja se fokusira na oblasti ra\ch unarske vizije i ma\sh inskog u\ch enja. Originalna implementacija biblioteke
 je u C++ programskom jeziku, dok tako\dj er postoji podr\sh ka za C, Java, Python i MATLAB. Funkcionalnosti biblioteke koje su nama potrebne uklju\ch uju \ch itanje i pisanje video datoteka sa punom
 kontrolom nad atributima (poput formata, rezolucije, framerate-a, itd.), direktna kontrola nad pikselima svakog pojedina\ch nog frejma, pronala\zh enje opti\ch kog toka kroz ugra\dj ene funkcije, te neke
@@ -31,10 +31,11 @@ nad vra\cj enim frejmom, koja \cj e vratiti logi\ch ku vrijednost \lstinline{tru
 Prate\cj i istu logiku, \lstinline{cv::VideoWriter} implementira \lstinline{.write} metodu, umjesto koje mo\zh emo koristiti \lstinline{<<} operator. Parametar u oba slu\ch aja predstavlja vrijednost tipa
 \lstinline{cv::Mat}, koja \cj s biti dodana na kraj video zapisa. Pozivom prije spomenute metode, video zapis \cj e biti zapisan u datoteku. Ako parametri proslije\dj eni konstruktoru \lstinline{cv::VideoWriter}
 objekta ne odgovaraju formatu frejmova koje poku\sh avamo dodati u video zapis, napravljena datoteka \cj e biti veli\ch ine svega nekoliko kilobajta i ne\cj e sadr\zh avati nikakve korisne informacije.
+Treba imati na umu da \lstinline{cv::VideoWriter}, kroz ovakvu "direktnu" upotrebu, ne\cj e ubaciti audio zapis u video datoteku. To je za o\ch ekivati, jer nismo audio zapis nigdje ni naveli.
 
 % Dodati Farneback-a, ako bude koristen
 
-\subsection{Implementacija}
+\section{Implementacija}
 Osnovni tok interpolatora je sljede\cj i:
 \begin{enumerate}
 \item Inicijaliziraj objekte za \ch itanje i pisanje video datoteka
@@ -157,6 +158,16 @@ Optical_flow_field& Diamond_search::calculate()
 \lstinline{Vec2} je klasa koja samo sadr\zh i dva cjelobrojna atributa. Vidimo upravo \lstinline{for} petlje koje prolaze kroz svaki blok u frejmu, te nakon izra\ch unavanja opti\ch kog toka, svaki piksel
 u bloku, dodjeljuju\cj i svakom izra\ch unati vektor pomaka.
 
+Linija koda u kojoj se izra\ch unava krajnja pozicija piksela u interpoliranom frejmu:
+\begin{lstlisting}
+Vec2 projected_position = Vec2(j, i) + (opt_flow_field.data[i][j] *
+                    (((double)frame_idx + 1) / (interpolator_options.frames_to_generate + 1)));
+\end{lstlisting}
+
+\lstinline{Vec2(j,i)} je pozicija od koje kre\cj emo, tj. pozicija piksela u prethodnom frejmu. \lstinline{opt_flow_field.data[i][j]} je objekat tipa \lstinline{Vec2} koji predstavlja vektor pomaka za trenutni
+piksel. Vektor pomaka pomno\zh imo sa faktorom koji zavisi od pozicije frejma izme\dj u dva originalna. Npr. Ako izme\dj u svaka dva frejma generi\sh emo 3 dodatna, a trenutno generi\sh emo
+prvog od njih, taj faktor \cj e iznositi 0.25. Taj rezultat dobijemo ako u formulu uvrstimo vrijednosti \lstinline{frame_idx = 0}, \lstinline{interpolator_options.frames_to.generate = 3}.
+
 Klasa \lstinline{Interpolator} je glavna klasa kori\sh tena za implementaciju, te jedina \ch iju instancu moramo koristiti da bismo generisali novi video zapis. Klasa \lstinline{Optical_flow_calculator}
 je apstraktna klasa koja je osnova za bilo koju klasu koju koristimo za izra\ch unavanje opti\ch kog toka. \lstinline{Optical_flow_calculator} tako\dj er sadr\zh i dodatne pomo\cj ne funkcije, poput
 \lstinline{is_legal} koja provjerava da li su koordinate piksela validne, te \lstinline{grayscale_pixel}, koja vra\cj a intenzitet piksela prostom aritmeti\ch kom sredinom njegovih komponenti.
@@ -166,8 +177,66 @@ Sam opti\ch ki tok je sadr\zh an u \lstinline{Optical_flow_field} objektu, \ch i
 \lstinline{std::vector<std::vector<Vec2>>}, odnosno jedan \lstinline{Vec2} po pikselu. Razlog za\sh to metoda \lstinline{calculate} vra\cj a referencu a ne \lstinline{const} referencu jeste \sh to \cj e
 opti\ch ki tok biti kasnije izmijenjen u metodama za korekciju, kori\sh tenjem ve\cj\ obra\dj enih algoritama.
 
-\subsection{Qt} %https://wiki.qt.io/About_Qt
+\section{Qt} %https://wiki.qt.io/About_Qt
 Qt framework, razvijen 1990-ih od strane dvojice Norve\sh kih programera, je jedan od najpopularnijih GUI (eng. \textit{Graphical User Interface}) framework-a za C++ programski jezik (s tim da je
 Qt dostupan i za druge jezike). Omogu\cj ava jednostavan razvoj korisni\ch kih su\ch elja, koriste\cj i najpopularnije i naj\ch e\sh \cj e kori\sh tene kontrole, poput dugmadi (\lstinline{QPushButton}),
 unosa teksta (\lstinline{QLineEdit}), indikatora napretka (\lstinline{QProgressBar}), i mnogih drugih. Qt je izabran zbog svoje jednostavnosti, popularnosti, te \ch injenice da je napisan u C++-u.
+Ako koristimo Qt framework, najlak\sh e nam je koristiti Qt-evo razvojno okru\zh enje, Qt Creator, koje nam omogu\cj ava pravljenje korisni\ch kih su\ch elja koriste\cj i obi\ch ni drag-drop pristup,
+te je integrisano sa Qt bibliotekama, \sh to zna\ch ajno olak\sh ava razvoj.
 S obzirom da se Qt brine samo prezentacijskom logikom, koja nije od klju\ch nog zna\ch aja za projekat, ne\cj emo opisivati taj aspekt implementacije.
+
+\section{Rezultati interpolacije}
+Sada \cj emo pogledati nekoliko frejmova jedne video sekvence preuzete sa web stranice youtube.com. Dimenzije kori\sh tenog video zapisa su 1280x720 piksela, a framerate iznosi 24 fps.
+Interpolator je koristio algoritam dijamantne pretrage za tra\zh enje opti\ch kog toka, te je izme\dj u svaka dva frejma generisan jo\sh\ jedan:
+
+\begin{figure}[H]
+\caption{Prethodni frejm}
+\includegraphics[scale=0.2]{Frame1}
+\centering
+\end{figure}
+
+\begin{figure}[H]
+\caption {Interpolirani frejm}
+\includegraphics[scale=0.2]{Frame2}
+\centering
+\end{figure}
+
+\begin{figure}[H]
+\caption{Naredni frejm}
+\includegraphics[scale=0.2]{Frame3}
+\centering
+\end{figure}
+
+Prvo \sh to je uo\ch ljivo u interpoliranom frejmu jesu mnogobrojne horizontalne i vertikalne linije. To su artefakti koji su rezultat kori\sh tenja jednostavnog algoritma za interpolaciju. Iako su vektori
+pomaka prili\ch no ta\ch ni, jednostavnim "lijepljenjem" blokova (koji su u ovom slu\ch aju veli\ch ine 16x16 piksela) \cj emo uvijek dobiti ovakve artefakte. Da bismo to popravili, morali bismo koristiti
+naprednije metode za interpolaciju ili zna\ch ajno pobolj\sh ati algoritam izgla\dj ivanja ivica, koji treba minimizirati upravo ove artefakte. Na interpoliranom frejmu, sa desne strane papira, tako\dj er
+mo\zh emo primijetiti da je interpolator ispravno zaklju\ch io da se ti blokovi kre\cj u prema lijevo (jer se papir kre\cj e prema lijevo), te su zbog toga uklonjeni neki pikseli bijelog papira i zamijenjeni
+pikselima pozadine. Algoritam je tako\dj er ispravno zaklju\ch io da se ve\cj ina blokova ne pomjera izme\dj u dva frejma, zbog \ch ega su artefakti lokalizovani na dijelove frejma koji se mijenjaju.
+
+Jo\sh\ jedan primjer istog efekta mo\zh emo vidjeti na sljede\cj a tri frejma:
+
+\begin{figure}[H]
+\caption{Prethodni frejm}
+\includegraphics[scale=0.2]{Frame9}
+\centering
+\end{figure}
+
+\begin{figure}[H]
+\caption{Interpolirani frejm}
+\includegraphics[scale=0.2]{Frame10}
+\centering
+\end{figure}
+
+\begin{figure}[H]
+\caption{Naredni frejm}
+\includegraphics[scale=0.2]{Frame11}
+\centering
+\end{figure}
+
+Na narednom frejmu vidimo \sh ta se desi ako poku\sh amo generisati novi frejm prije keyframe-a, odnosno kada prethodni i naredni frejm nisu sli\ch ni:
+
+\begin{figure}[H]
+\caption{Neuspjeli poku\sh aj interpolacije}
+\includegraphics[scale=0.2]{Frame4}
+\centering
+\end{figure}
