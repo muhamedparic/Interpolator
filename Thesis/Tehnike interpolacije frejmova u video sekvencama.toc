@@ -27,4 +27,6 @@
 \contentsline {section}{\numberline {4.2}Izgla\dj ivanje granica izme\dj u blokova}{24}{section.4.2}
 \contentsline {chapter}{\numberline {5}Implementacija interpolatora kori\IeC {\v s}tenjem OpenCV biblioteke}{26}{chapter.5}
 \contentsline {subsection}{\numberline {5.0.1}OpenCV}{26}{subsection.5.0.1}
-\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{28}{chapter.6}
+\contentsline {subsection}{\numberline {5.0.2}Implementacija}{28}{subsection.5.0.2}
+\contentsline {subsection}{\numberline {5.0.3}Qt}{32}{subsection.5.0.3}
+\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{33}{chapter.6}
