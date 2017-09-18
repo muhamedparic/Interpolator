@@ -9,6 +9,7 @@
 \usepackage{color}
 \usepackage{gensymb}
 \usepackage{amsmath} % \text
+\usepackage{listings} % \lstlisting
 
 \graphicspath{{images/}}
 
@@ -47,6 +48,8 @@
 \newcommand{\midtilde}{\raisebox{0.6ex}{\texttildelow}} % Iz nekog razloga nije bas jednostavno napisati finu tildu u LaTeX-u, ali ovo radi ok
 \renewcommand{\contentsname}{Sadr\zh aj}
 
+\lstset{language=[ISO]C++}
+
 \begin{document}
 
 \tableofcontents
@@ -63,8 +66,8 @@
 \chapter{Uklanjanje gre\sh aka}
 \input{"chapters/Uklanjanje gresaka"}
 
-\chapter{Implementacija interpolatora kori\sh tenjem OpenCV biblioteke i benchmark testovi}
-%input...
+\chapter{Implementacija interpolatora kori\sh tenjem OpenCV biblioteke}
+\input{"chapters/Implementacija interpolatora"}
 
 \chapter{Zaklju\ch ak}
 %input...

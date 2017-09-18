@@ -1,0 +1,44 @@
+Algoritmi opisani u ovom radu se mogu relativno jednostavno implementirati u bilo kojem modernom programskom jeziku. Zapravo, najve\cj i problem predstavlja \ch itanje i pisanje video datoteka. Naime,
+za to nam je potreban na\ch in da pozovemo odgovaraju\cj i \textit{codec} (eng. \textit{coder-decoder}) za format video datoteke koji koristimo. OpenCV biblioteka nam omogu\cj ava upravo \ch itanje
+i pisanje video datoteka, te direktan pristup pikselima svakog frejma, \sh to je nama od klju\ch nog zna\ch aja za svaki opisani algoritam.
+
+\subsection{OpenCV} %http://opencv.org/about.html
+OpenCV (eng. \textit{Open Computer Vision} je biblioteka originalno razvijena od strane Intel-a, koja se fokusira na oblasti ra\ch unarske vizije i ma\sh inskog u\ch enja. Originalna implementacija biblioteke
+je u C++ programskom jeziku, dok tako\dj er postoji podr\sh ka za C, Java, Python i MATLAB. Funkcionalnosti biblioteke koje su nama potrebne uklju\ch uju \ch itanje i pisanje video datoteka sa punom
+kontrolom nad atributima (poput formata, rezolucije, framerate-a, itd.), direktna kontrola nad pikselima svakog pojedina\ch nog frejma, pronala\zh enje opti\ch kog toka kroz ugra\dj ene funkcije, te neke
+druge funkcionalnosti poput mogu\cj nosti prikazivanja bilo kojeg frejma na ekranu u bilo koje vrijeme. Sve ovo predstavlja jedan veoma mali dio mogu\cj nosti biblioteke, koja ima preko 2500 implementiranih
+i optimizovanih algoritama., zbog \ch ega je kori\sh tena u mnogim od najve\cj ih tehnolo\sh kih kompanija na svijetu.
+
+Tri najva\zh nije OpenCV klase koje \cj emo koristiti za implementaciju su \lstinline{cv::Mat}, \lstinline{cv::VideoCapture}, te \lstinline{cv::VideoWriter}. Sve klase i funkcije OpenCV biblioteke se nalaze u \lstinline{cv}
+imenskom prostoru. \lstinline{cv::Mat} je vi\sh enamjenska klasa koju OpenCV koristi za dr\zh anje raznih tipova matrica, pri \ch emu svaki element mo\zh e imati jedan ili vi\sh e razli\ch itih kanala. O\ch igledna
+korist ovoga jeste da mo\zh emo istu klasu korsititi za dr\zh anje frejmova u boji (gdje svaki piksel ima 3 kanala) i samo intenziteta svakog piksela. Na primjer, ako imamo varijablu \lstinline{frejm} koja je tipa
+\lstinline{cv::Mat}, da bismo pristupili vrijednosti piksela u boji na koordinatama $(x,y)$, koristimo sljede\cj i kod:
+\begin{lstlisting}
+cv::Vec3b piksel = frejm.at<cv::Vec3b>(y, x);
+\end{lstlisting}
+
+Pri tome, \lstinline{cv::Vec3b} je klasa koja dr\zh i tri bajta (jedan za svaki kanal), kojima mo\zh emo pristupiti kori\sh tenjem subscript operatora \lstinline{piksel[0]}, \lstinline{piksel[1]} i \lstinline{piksel[2]}. 
+I \lstinline{.at} metoda i subscript operator vra\cj aju reference, tako da je isti pristup mogu\cj e koristiti i za postavljanje vrijednosti piksela, bilo \ch itavih ili pojedina\ch nih komponenti. 
+Jo\sh\ treba napomenuti da subscript operatori ne referenciraju kanale piksela uobi\ch ajnim RGB (crvena-zelena-plava) redoslijedom, nego obrnutim (BGR). \lstinline{cv::Mat} tako\dj er ima \lstinline{.rows} i 
+\lstinline{.cols} atribute, koji sadr\zh e broj redova odnosno broj kolona frejma (drugim rije\ch ima, rezoluciju).
+
+\lstinline{cv::VideoCapture} i \lstinline{cv::VideoWriter} klase koristimo za \ch itanje odnosno pisanje video datoteka. Pri tome, \lstinline{cv::VideoCapture} mo\zh e uzimati video podatke i iz drugih izvora,
+poput web kamera. U oba slu\ch aja, \lstinline{.open} metoda se koristi za otvaranje datoteke za \ch itanje odnosno pisanje (pri \ch emu u slu\ch aju pisanja tako\dj er navodimo potrebne informacije poput
+formata, rezolucije, i framerate-a video zapisa), tok se \lstinline{.release} koristi za pravilno zatvaranje. \lstinline{cv::VideoCapture} implementira \lstinline{.read} metodu, ili ekvivalentni \lstinline{>>} operator koji
+pro\ch ita, dekodira, i vrati naredni nepro\ch itani frejm (vrijednost tipa \lstinline{cv::Mat}. Da bismo znali da smo do\sh li do kraja video zapisa, preporu\ch eni na\ch in jeste poziv metode \lstinline{.empty()} 
+nad vra\cj enim frejmom, koja \cj e vratiti logi\ch ku vrijednost \lstinline{true} ako smo ve\cj\ pro\ch itali posljednji frejm video zapisa, zbog \ch ega \cj e svaki drugi poku\sh aj \ch itanja rezultirati praznim frejmom.
+
+Prate\cj i istu logiku, \lstinline{cv::VideoWriter} implementira \lstinline{.write} metodu, umjesto koje mo\zh emo koristiti \lstinline{<<} operator. Parametar u oba slu\ch aja predstavlja vrijednost tipa
+\lstinline{cv::Mat}, koja \cj s biti dodana na kraj video zapisa. Pozivom prije spomenute metode, video zapis \cj e biti zapisan u datoteku. Ako parametri proslije\dj eni konstruktoru \lstinline{cv::VideoWriter}
+objekta ne odgovaraju formatu frejmova koje poku\sh avamo dodati u video zapis, napravljena datoteka \cj e biti veli\ch ine svega nekoliko kilobajta i ne\cj e sadr\zh avati nikakve korisne informacije.
+
+% Dodati Farneback-a, ako bude koristen
+
+Osnovni tok interpolatora je sljede\cj ii:
+\begin{enumerate}
+\item Inicijaliziraj objekte za \ch itanje i pisanje video datoteka
+\item U\ch itaj prethodni frejm
+\item U\ch itaj naredni frejm
+\item Inicijaliziraj objekat za pronala\zh enje opti\ch kog toka, te pozovi metodu za izvr\sh avanje
+\item Prona\dj eni opti\ch ki tok proslijedi metodi za generaciju
+\end{enumerate}
