@@ -7,11 +7,12 @@ OpenCV (eng. \textit{Open Computer Vision} je biblioteka originalno razvijena od
 je u C++ programskom jeziku, dok tako\dj er postoji podr\sh ka za C, Java, Python i MATLAB. Funkcionalnosti biblioteke koje su nama potrebne uklju\ch uju \ch itanje i pisanje video datoteka sa punom
 kontrolom nad atributima (poput formata, rezolucije, framerate-a, itd.), direktna kontrola nad pikselima svakog pojedina\ch nog frejma, pronala\zh enje opti\ch kog toka kroz ugra\dj ene funkcije, te neke
 druge funkcionalnosti poput mogu\cj nosti prikazivanja bilo kojeg frejma na ekranu u bilo koje vrijeme. Sve ovo predstavlja jedan veoma mali dio mogu\cj nosti biblioteke, koja ima preko 2500 implementiranih
-i optimizovanih algoritama., zbog \ch ega je kori\sh tena u mnogim od najve\cj ih tehnolo\sh kih kompanija na svijetu.
+i optimizovanih algoritama, zbog \ch ega je kori\sh tena u mnogim od najve\cj ih tehnolo\sh kih kompanija na svijetu\cite{opencvabout}.
 
-Tri najva\zh nije OpenCV klase koje \cj emo koristiti za implementaciju su \lstinline{cv::Mat}, \lstinline{cv::VideoCapture}, te \lstinline{cv::VideoWriter}. Sve klase i funkcije OpenCV biblioteke se nalaze u \lstinline{cv}
-imenskom prostoru. \lstinline{cv::Mat} je vi\sh enamjenska klasa koju OpenCV koristi za dr\zh anje raznih tipova matrica, pri \ch emu svaki element mo\zh e imati jedan ili vi\sh e razli\ch itih kanala. O\ch igledna
-korist ovoga jeste da mo\zh emo istu klasu korsititi za dr\zh anje frejmova u boji (gdje svaki piksel ima 3 kanala) i samo intenziteta svakog piksela. Na primjer, ako imamo varijablu \lstinline{frejm} koja je tipa
+Tri najva\zh nije OpenCV klase koje \cj emo koristiti za implementaciju su \lstinline{cv::Mat}, \lstinline{cv::VideoCapture}, te \lstinline{cv::VideoWriter}. Sve klase i funkcije OpenCV biblioteke koje \cj emo mi koristiti
+ se nalaze u \lstinline{cv}
+imenskom prostoru\cite{cvdocs}. \lstinline{cv::Mat} je vi\sh enamjenska klasa koju OpenCV koristi za dr\zh anje raznih tipova matrica, pri \ch emu svaki element mo\zh e imati jedan ili vi\sh e razli\ch itih kanala. O\ch igledna
+korist ovoga jeste da mo\zh emo istu klasu koristiti za dr\zh anje frejmova u boji (gdje svaki piksel ima 3 kanala) i samo intenziteta svakog piksela. Na primjer, ako imamo varijablu \lstinline{frejm} koja je tipa
 \lstinline{cv::Mat}, da bismo pristupili vrijednosti piksela u boji na koordinatama $(x,y)$, koristimo sljede\cj i kod:
 \begin{lstlisting}
 cv::Vec3b piksel = frejm.at<cv::Vec3b>(y, x);
@@ -29,14 +30,14 @@ pro\ch ita, dekodira, i vrati naredni nepro\ch itani frejm (vrijednost tipa \lst
 nad vra\cj enim frejmom, koja \cj e vratiti logi\ch ku vrijednost \lstinline{true} ako smo ve\cj\ pro\ch itali posljednji frejm video zapisa, zbog \ch ega \cj e svaki drugi poku\sh aj \ch itanja rezultirati praznim frejmom.
 
 Prate\cj i istu logiku, \lstinline{cv::VideoWriter} implementira \lstinline{.write} metodu, umjesto koje mo\zh emo koristiti \lstinline{<<} operator. Parametar u oba slu\ch aja predstavlja vrijednost tipa
-\lstinline{cv::Mat}, koja \cj s biti dodana na kraj video zapisa. Pozivom prije spomenute metode, video zapis \cj e biti zapisan u datoteku. Ako parametri proslije\dj eni konstruktoru \lstinline{cv::VideoWriter}
+\lstinline{cv::Mat}, koja \cj e biti dodana na kraj video zapisa. Pozivom prije spomenute metode, video zapis \cj e biti zapisan u datoteku. Ako parametri proslije\dj eni konstruktoru \lstinline{cv::VideoWriter}
 objekta ne odgovaraju formatu frejmova koje poku\sh avamo dodati u video zapis, napravljena datoteka \cj e biti veli\ch ine svega nekoliko kilobajta i ne\cj e sadr\zh avati nikakve korisne informacije.
 Treba imati na umu da \lstinline{cv::VideoWriter}, kroz ovakvu "direktnu" upotrebu, ne\cj e ubaciti audio zapis u video datoteku. To je za o\ch ekivati, jer nismo audio zapis nigdje ni naveli.
 
 % Dodati Farneback-a, ako bude koristen
 
 \section{Implementacija}
-Osnovni tok interpolatora je sljede\cj i:
+Osnovni tok interpolatora je sljede\cj i\cite{implementation}:
 \begin{enumerate}
 \item Inicijaliziraj objekte za \ch itanje i pisanje video datoteka
 \item U\ch itaj prethodni frejm
@@ -120,7 +121,7 @@ void Interpolator::run()
 \end{lstlisting}
 
 \lstinline{CV_FOURCC('H', '2', '6', '4')} je macro za specifickaciju tzv. \textit{FOURCC} tipa video formata. H.264 je veoma popularan format, tako da interpolator sve video zapise spa\sh ava tako.
-Naredni isje\ch ak koda se poziva ako \zh elimo prona\cj i opeti\ch ki tok Dijamantnom pretragom:
+Naredni isje\ch ak koda se poziva ako \zh elimo prona\cj i opeti\ch ki tok dijamantnom pretragom:
 \begin{lstlisting}
 Optical_flow_field& Diamond_search::calculate()
 {
@@ -165,7 +166,7 @@ Vec2 projected_position = Vec2(j, i) + (opt_flow_field.data[i][j] *
 \end{lstlisting}
 
 \lstinline{Vec2(j,i)} je pozicija od koje kre\cj emo, tj. pozicija piksela u prethodnom frejmu. \lstinline{opt_flow_field.data[i][j]} je objekat tipa \lstinline{Vec2} koji predstavlja vektor pomaka za trenutni
-piksel. Vektor pomaka pomno\zh imo sa faktorom koji zavisi od pozicije frejma izme\dj u dva originalna. Npr. Ako izme\dj u svaka dva frejma generi\sh emo 3 dodatna, a trenutno generi\sh emo
+piksel. Vektor pomaka pomno\zh imo sa faktorom koji zavisi od pozicije frejma izme\dj u dva originalna. Npr. ako izme\dj u svaka dva frejma generi\sh emo 3 dodatna, a trenutno generi\sh emo
 prvog od njih, taj faktor \cj e iznositi 0.25. Taj rezultat dobijemo ako u formulu uvrstimo vrijednosti \lstinline{frame_idx = 0}, \lstinline{interpolator_options.frames_to.generate = 3}.
 
 Klasa \lstinline{Interpolator} je glavna klasa kori\sh tena za implementaciju, te jedina \ch iju instancu moramo koristiti da bismo generisali novi video zapis. Klasa \lstinline{Optical_flow_calculator}
@@ -182,11 +183,12 @@ Qt framework, razvijen 1990-ih od strane dvojice Norve\sh kih programera, je jed
 Qt dostupan i za druge jezike). Omogu\cj ava jednostavan razvoj korisni\ch kih su\ch elja, koriste\cj i najpopularnije i naj\ch e\sh \cj e kori\sh tene kontrole, poput dugmadi (\lstinline{QPushButton}),
 unosa teksta (\lstinline{QLineEdit}), indikatora napretka (\lstinline{QProgressBar}), i mnogih drugih. Qt je izabran zbog svoje jednostavnosti, popularnosti, te \ch injenice da je napisan u C++-u.
 Ako koristimo Qt framework, najlak\sh e nam je koristiti Qt-evo razvojno okru\zh enje, Qt Creator, koje nam omogu\cj ava pravljenje korisni\ch kih su\ch elja koriste\cj i obi\ch ni drag-drop pristup,
-te je integrisano sa Qt bibliotekama, \sh to zna\ch ajno olak\sh ava razvoj.
+te je integrisano sa Qt bibliotekama, \sh to zna\ch ajno olak\sh ava razvoj\cite{qtabout}.
 S obzirom da se Qt brine samo prezentacijskom logikom, koja nije od klju\ch nog zna\ch aja za projekat, ne\cj emo opisivati taj aspekt implementacije.
 
 \section{Rezultati interpolacije}
-Sada \cj emo pogledati nekoliko frejmova jedne video sekvence preuzete sa web stranice youtube.com. Dimenzije kori\sh tenog video zapisa su 1280x720 piksela, a framerate iznosi 24 fps.
+Sada \cj emo pogledati nekoliko frejmova jedne video sekvence preuzete sa web stranice youtube.com\cite{examplevideo}. 
+Dimenzije kori\sh tenog video zapisa su 1280x720 piksela, a framerate iznosi 24 fps.
 Interpolator je koristio algoritam dijamantne pretrage za tra\zh enje opti\ch kog toka, te je izme\dj u svaka dva frejma generisan jo\sh\ jedan:
 
 \begin{figure}[H]

@@ -4,7 +4,7 @@ Fazna korelacija je tehnika koju mo\zh emo koristiti za brzo pronala\zh enje mje
 gdje se taj blok piksela nalazi u drugom frejmu (ili barem neki drugi, veoma sli\ch an blok). Direktnom primjenom formule bismo dobili algoritam koji je zapravo veoma sli\ch an potpunoj pretrazi, koja je opisana u poglavlju o algoritmima
 uparivanja blokova. Me\dj utim, mo\zh emo koristiti \textit{Brzu Fourierovu Transformaciju} (FFT) za zna\ch ajno ubrzanje. S obzirom na to da jedan korak algoritma uklju\ch uje izra\ch unavanje Hadamardovog proizvoda dvije matrice
 (koji je jedino mogu\cj e izra\ch unati ako su matrice istih dimenzija), ovaj algoritam je ograni\ch en na tra\zh enje jednog ili vi\sh e mjesta poklapanja dva bloka piksela iste veli\ch ine. Tako\dj er, ako \zh elimo koristiti neki od FFT algoritama,
-dimenzije blokova moraju biti stepeni broja dva. Preporu\ch ene dimenzije.
+dimenzije blokova moraju biti stepeni broja dva.
 
 Fazna korelacija je tehnika zasnovana na kori\sh tenju algoritma za brzu Fourierovu transformaciju za tra\zh enje mjesta poklapanja dva bloka veoma efikasno. Osim kori\sh tenja ve\cj ih blokova nego u prethodnim poglavljima,
 tako\dj er \cj emo koristiti blokove koji se preklapaju, \sh to \cj e nam dati vi\sh e razli\ch itih kandidata za vektor pomaka jednog piksela. Od tih kandidata \cj emo izabrati vektor koji trenutni piksel uparuje sa najsli\ch nijim.
@@ -16,7 +16,7 @@ Diskretna 2-D Fourierova transformacija je opisana sljede\cj om formulom:
 F(u,v)=\sum_{m=-\infty}^{+\infty}\sum_{n=-\infty}^{+\infty}f(m,n)e^{-2\pi i(um+vn)}
 \]
 
-Koraci algoritma:
+Koraci algoritma\cite{phaseonly}:
 \begin{enumerate}
 \item Podijeli obje slike na preklapaju\cj e blokove kako je opisano
 \item Za svaki piksel i svaki blok u kojem se taj piksel nalazi, izra\ch unaj 2D FFT piksela u tom bloku i u prethodnom i u narednom frejmu

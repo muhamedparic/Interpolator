@@ -1,5 +1,5 @@
 \subsection{Uvod}
-Da bismo objasnili ove metode, moramo prvo pojasniti \textit{jedna\ch inu opti\ch kog toka}. Ova jedna\ch ina glasi:
+Da bismo objasnili ove metode, moramo prvo pojasniti \textit{jedna\ch inu opti\ch kog toka}. Ova jedna\ch ina glasi\cite{wikioptflow, matlablk}:
 \[
 I_xu+I_yv+I_t=0
 \]
@@ -8,7 +8,7 @@ ili
 \frac{\partial I}{\partial x}u+\frac{\partial I}{\partial y}v+\frac{\partial I}{\partial t}=0
 \]
 
-Jedan frejm, pri \ch emu samo posmatramo intenzitet piksela, a ne i njihove boje, mo\zh emo zamisliti kao realnu funkciju dvije realne promjenljive$I(x,y)$. Naravno, vrijednosti parametara
+Jedan frejm, pri \ch emu samo posmatramo intenzitet piksela, a ne i njihove boje, mo\zh emo zamisliti kao realnu funkciju dvije realne promjenljive $I(x,y)$. Naravno, vrijednosti parametara
 $x$ i $y$ moraju biti prirodni brojevi (ili nula), te \cj e sam rezultat funkcije biti cijeli broj u intervalu [0, 255], me\dj utim, uz ovakvo predstavljanje frejma mo\zh emo koristiti metode analize za
 rje\sh avanje problema. Mo\zh emo \ch ak \ch itav video predstaviti kao jednu jedinu funkciju tri realne promjenljive $I(x,y,t)$, pri \ch emu $x$ i $y$ predstavljaju koordinate piksela u frejmu,
 dok $t$ predstavlja redni broj samog frejma. Iz ovakve funkcije mo\zh emo izvesti jedna\ch inu opti\ch kog toka.

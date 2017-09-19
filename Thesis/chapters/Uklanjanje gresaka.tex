@@ -16,7 +16,7 @@ u video sekvenci. Prvo \cj emo definisati \sh ta zapravo zna\ch i neispravan vek
 
 \subsection{Detekcija neispravnih vektora pomaka} % Low complexity method (citav subsection)
 U ovom odjeljku \cj emo objasniti generalnu metodu detekcije neispravnih vektora pomaka, pri \ch emu \cj emo izra\ch unavanje odre\dj enih konstanti ostaviti za poglavlje vezano za implementaciju (te konstante \cj emo dobiti
-eksperimentalno).
+eksperimentalno)\cite{lowcomplexity}.
 
 Vektor pomaka za neki blok, bez obzira na kori\sh tenu metodu, je dobiven kori\sh tenjem \textit{MAD} metode. Me\dj utim, MAD nije efektivan u situacijama u kojima postoji veliki broj kandidata sa istom MAD mjerom.
 Da bismo preciznije izra\ch unali ispravnost vektora pomaka, koristit \cj emo jo\sh\ jednu mjeru, a to je \textit{BAD} (\textit{Boundary Absolute Difference}). Za blok B$_1$ nekog frejma, i njemu upareni blok B$_2$ iz narednog
@@ -30,25 +30,25 @@ Ove konstante \cj emo koristiti u algoritmu za odre\dj ivanje kvalitete vektora 
 	\item U suprotnom, vektor pomaka je neispravan
 \end{itemize}
 
-Postoji jo\sh jedna metoda detekcije neispravnih vektora pomaka, koja se izvr\sh ava direktno na vektorima, umjesto na blokovima. Ovom metodom mo\zh emo otkriti vektore koji se zna\ch ajno razlikuju od svojih susjednih vektora,
+Postoji jo\sh\ jedna metoda detekcije neispravnih vektora pomaka, koja se izvr\sh ava direktno na vektorima, umjesto na blokovima. Ovom metodom mo\zh emo otkriti vektore koji se zna\ch ajno razlikuju od svojih susjednih vektora,
 \sh to je naj\ch e\sh \cj e indikator neispravnosti. Svaki vektor pomaka se sastoji od \textit{x}-komponente i \textit{y}-komponente, te \cj emo definisati razliku dva vektora pomaka kao zbir apsolutnih vrijednosti razlika njihovih
 x i y komponenti, odnosno, razlika dva vektora pomaka \textit{mv$_1$} i \textit{mv$_2$} je $|mv_{1x} - mv_{2x}| + |mv_{1y} - mv_{2y}|$. Ako je za neki vektor pomaka zbir razlika sa njegovih 8 susjednih vektora ve\cj i od neke
 konstante, vektor ozna\ch imo kao neispravan.
 
 \subsection{Ispravljanje neispravnih vektora pomaka}
-Neovisno od toga kako smo odredili neispravnost vektora pomaka, koristit \cj emo istu metodu ispravljanja. S obzirom da o\ch ekujemo da \cj e susjedni blokovi imati iste vektore pomaka, najlak\sh i na\ch in da ispravimo neispravan 
+Neovisno od toga kako smo odredili neispravnost vektora pomaka, koristit \cj emo istu metodu ispravljanja\cite{lowcomplexity}. S obzirom da o\ch ekujemo da \cj e susjedni blokovi imati iste vektore pomaka, najlak\sh i na\ch in da ispravimo neispravan 
 vektor pomaka jeste da ga zamijenimo jednim od 8 susjednih vektora. Izbor \cj emo izvr\sh iti tako \sh to \cj emo, od 8 susjednih vektora, uzeti onaj sa minimalnim zbirom razlika od ostalih 7. Odnosno, uzet \cj emo onaj vektor pomaka
-$mv_k$ koji daje najmanji rezultat funkcije $\sum_{i=1}^{8}(|mv_{kx}-mv_{ix}|+|mv_{ky}=mv_{iy|})$, pri \ch emu su $mv_1, mv_2, \ldots , mv_8$ susjedni vektori pomaka na\sh eg neispravnog vektora.
+$mv_k$ koji daje najmanji rezultat funkcije $\sum_{i=1}^{8}(|mv_{kx}-mv_{ix}|+|mv_{ky}-mv_{iy|})$, pri \ch emu su $mv_1, mv_2, \ldots , mv_8$ susjedni vektori pomaka na\sh eg neispravnog vektora.
 
 \section{Izgla\dj ivanje granica izme\dj u blokova}
 Kori\sh tenjem algoritama koji uparuju \ch itave blokove sa drugim blokovima, interpolirani frejmovi \cj e imati veoma vidljive vertikalne i horizontalne linije izme\dj u granica blokova. Kori\sh tenjem BAD metode mo\zh emo detektovati vektore
-pomaka koji \cj rezultovati ovim artefaktima, ali to ne zna\ch i da \cj emo ih mo\cj i uvijek kvalitetno ispraviti. Tako da je po\zh eljno, radi pobolj\sh anja kvalitete, promijeniti piksele u neposrednoj okolini tih artefakta radi njihovog maskiranja.
+pomaka koji \cj e rezultovati ovim artefaktima, ali to ne zna\ch i da \cj emo ih mo\cj i uvijek kvalitetno ispraviti. Tako da je po\zh eljno, radi pobolj\sh anja kvalitete, promijeniti piksele u neposrednoj okolini tih artefakta radi njihovog maskiranja.
 Piksele mo\zh emo promijeniti kori\sh tenjem kernel konvolucije, koriste\cj i kernel koji zamu\cj uje sliku u okolini artefakata. Koristit \cj emo 1-D kernele za zamu\cj ivanje horizontalnih i vertikalnih linija koji su zasnovani na Gaussovoj funkciji.
 Vrijednosti matrice kernela mo\zh emo dobiti iz Gaussove funkcije na jednakim intervalima, pri \ch emu je tako\dj er bitno da je kernel simetri\ch an, \sh to mo\zh emo dobiti ako uzimamo vrijednosti funkcije centrirane oko ta\ch ke 0.
 Matrice kernela za vertikalne i horizontalne linije \cj e biti me\dj usobno transponovane. U slu\ch aju da se piksel nalazi u presjeku vertikalne i horizontalne linije, mo\zh emo koristiti kernel dobiven iz 2-D Gaussove funkcije. U oba slu\ch aja,
 parametar $\sigma$ predstavlja standardnu devijaciju. Pove\cj anjem ovog parametra se pove\cj ava zamu\cj enost slike, \sh to smanjuje artefakte, ali se gubi vi\sh e informacija o originalnoj slici.
 
-1-D Gaussova funkcija:
+1-D Gaussova funkcija\cite{gaussian}:
 \[
 G(x)=\frac{e^{-\frac{x^2}{2\sigma^2}}}{\sqrt{2\pi\sigma^2}}
 \]
@@ -57,6 +57,8 @@ G(x)=\frac{e^{-\frac{x^2}{2\sigma^2}}}{\sqrt{2\pi\sigma^2}}
 \[
 G(x,y)=\frac{e^{-\frac{x^2+y^2}{2\sigma^2}}}{\sqrt{2\pi\sigma^2}}
 \]
+
+Kerneli u primjerima su izra\ch unati uz pomo\cj\ \cite{gausscalc}.
 
 Primjer 1-D kernela (za $\sigma=1$):
 \[

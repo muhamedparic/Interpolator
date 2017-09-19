@@ -6,11 +6,11 @@ upoznati. Prije toga bi ipak bilo korisno napraviti kratak uvod u video sekvence
 Ljudi svijet oko sebe vide kao sliku koja se kontinuirano mijenja. To jeste, svaki vremenski trenutak je razli\ch it od pro\sh log, koliko god da je blizu. Ljudi i objekti se kre\cj u "glatko", bez potpuno naglih pokreta. Tako\dj er, slike koje vidimo
 su prostorno kontinualne, prividno beskona\ch no detaljne. Ra\ch unari, s druge strane, moraju slike i video fajlove \ch uvati u ograni\ch enoj koli\ch ini memorije, \sh to zna\ch i da mora do\cj i do kompromisa. Ve\cj a koli\ch ina detalja
 zahtijeva vi\sh e memorije za \ch uvanje. Svaka slika ima samo kona\ch nu koli\ch inu detalja, \sh to zna\ch i da se sastoji od kona\ch nog broja piksela. Piksel (od eng. \textit{picture element}) je najmanji djeli\cj\ slike. Dva naj\ch e\sh \cj a tipa piksela,
-pri \ch emu \cj emo mi u ovom radu koristiti oba, su 1-komponentni i 3-komponentni (nekada se umjesto termina komponenta koristi termin kanal). Jednokomponentni piksel je  djeli\cj\ slike koji je jednobojan. 1-komponentni pikseli su
+pri \ch emu \cj emo mi u ovom radu koristiti oba, su 1-komponentni i 3-komponentni (nekada se umjesto termina komponenta koristi termin kanal)\cite{wikivideo}. Jednokomponentni piksel je  djeli\cj\ slike koji je jednobojan. 1-komponentni pikseli su
 gotovo islju\ch ivo monohromatski, tj. njihova boja mo\zh e biti crna, bijela, ili neka nijansa sive. 3-komponentni pikseli, s druge strane, se sastoje od 3 jednobojne komponente, koje zovemo podpikseli ili subpikseli. Ako je piksel oblika kvadrata,
 onda su podpikseli oblika pravougaonika (koji su po pravilu izdu\zh eni vertikalno). Na svim modernim ekranima, boje podpiksela su crvena, zelena i plava. Ovaj raspored \cj emo ubudu\cj e zvati RGB (od eng. \textit{Red-Green-Blue}). Drugi tipovi podpiksela
  tako\dj er postoje, koji se moraju konvertovati u RGB za prikaz na ekranima.
-Svaki ekran i svaka slika se sastoje od odre\dj enog broja piksela, koji su po pravilu raspore\dj eni u matricu. Ako na monitoru
+Svaki ekran i svaka slika se sastoje od odre\dj enog broja piksela, koji su u pravilu raspore\dj eni u matricu. Ako na monitoru
 gledamo sliku koja ima vi\sh e horizontalnih ili vertikalnih piksela od na\sh eg monitora, onda ne mo\zh emo vidjeti sve detalje te slike. Koji detalji \cj e biti izostavljeni zavisi od konkretnog algoritma kori\sh tenog za skaliranje slike, o kojima
 ne\cj emo pri\ch ati u ovom radu.
 
@@ -22,7 +22,7 @@ skra\cj eno \textit{fps}. Tako je maksimalni framerate ve\cj ine ekrana 60 fps, 
 \section{Interpolacija u video sekvenci}
 Sada kada znamo \sh ta je framerate, mo\zh emo objasniti video interpolaciju. Naime, interpolacijom video sekvence se dobivaju novi frejmovi izme\dj u postoje\cj ih. Taj novi frejm \cj e biti veoma sli\ch an svojim susjednim, jer u su\sh tini predstavlja
 "me\dj u korak". Izlaz algoritma za video interpolaciju \cj e biti video veoma sli\ch an po\ch etnom, sa dodatnim frejmovima koji su generisani iz originalnih. U matemati\ch kom smislu, interpolacija predstavlja izra\ch unavanje novih vrijednosti na osnovu
-okolnih poznatih, \sh to zvu\ch i veoma sli\ch no video interpolaciji. Me\dj utim, zbog svoje prirode, algoritmi interpolacije video sekvenci se potpuno razlikuju od onih kori\sh tenih u matematici.
+okolnih poznatih, \sh to zvu\ch i veoma sli\ch no video interpolaciji. Me\dj utim, zbog svoje prirode, algoritmi interpolacije video sekvenci se potpuno razlikuju od onih kori\sh tenih u matematici\cite{mcfiwiki}.
 
 \section{Primjene video interpolacije}
 Kao \sh to smo ve\cj\ rekli, izlaz algoritma za video interpolaciju jeste novi video koji je veoma sli\ch an originalnom. Ako \zh elimo, mo\zh emo koristiti taj video, koji \cj e zbog svog vi\sh eg framerate-a izgledati prirodnije (pod uslovnom da je kvalitetno
@@ -30,5 +30,5 @@ interpoliran) i gla\dj e. Tako bi sportski sadr\zh aj mogao biti sniman kamerom 
 Tako\dj er bismo mogli koristiti video interpolaciju za video pozive, gdje je mre\zh na propusnost \ch esto ograni\ch avaju\cj i faktor. Mo\zh emo snimiti video niskog framerate-a, koji ne zahtijeva visoku mre\zh nu propusnost, te interpolirati
 dolaze\cj i video. Naravno, u oba ova slu\ch aja \cj e dobiveni rezultat biti ni\zh eg kvaliteta nego video sniman visokim framerate-om, ali uz kvalitetne algoritme razlika ne\cj e biti zna\ch ajna.
 
-Postoje ve\cj\ projekti koji koriste video interpolaciju za kreiranje \textit{slow-motion} video sekvenci. Umjesto zadr\zh avanje ukupne du\zh ine video sekvencei pove\cj avanja framerate-a, mo\zh emo pove\cj ati du\zh inu i zadr\zh ati framerate.
-Jedan primjer bi bio \href{https://github.com/dthpham/butterflow}{\textcolor{blue}{Butterflow}}.
+Postoje ve\cj\ projekti koji koriste video interpolaciju za kreiranje \textit{slow-motion} video sekvenci. Umjesto zadr\zh avanja ukupne du\zh ine video sekvencei pove\cj avanja framerate-a, mo\zh emo pove\cj ati du\zh inu i zadr\zh ati framerate.
+Jedan primjer bi bio \href{https://github.com/dthpham/butterflow}{\textcolor{blue}{Butterflow}}\cite{butterflow}.

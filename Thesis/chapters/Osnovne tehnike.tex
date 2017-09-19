@@ -26,7 +26,7 @@ Sada je vrijednost piksela \textit{C} interpoliranog frejma:
 \begin{equation}
 C=(1-\alpha)*A+\alpha*B
 \end{equation}
-Ako izme\dj u svaka dva frejma jednostavno \zh elimo generisati jedan novi, tada je $\alpha=\frac{1}{2}$, te \cj e svaka komponenta generisanog piksela biti aritmeti\ch ka sredina komponenti piksela $A$ i $B$.
+Ako izme\dj u svaka dva frejma jednostavno \zh elimo generisati jedan novi, tada je $\alpha=\frac{1}{2}$, te \cj e svaka komponenta generisanog piksela biti aritmeti\ch ka sredina komponenti piksela $A$ i $B$\cite{mefi}.
 
 Kao \sh to \cj emo kasnije vidjeti, pri generisanju novog frejma dr\zh at \cj emo "matricu posje\cj enosti", koja \cj e za svaki piksel dr\zh ati jednu binarnu vrijednost. Sve vrijedosti \cj e na po\ch etku biti postavljene na 0 (false).
 Pri upisivanju novog piksela, odgovaraju\cj u vrijednost matrice \cj emo postaviti na 1 (true). Na kraju, piksele na pozicijama sa vrijedno\sh \cj u 0 \cj emo generisati na drugi na\ch in, konkretno upravo linearnom interpolacijom.

@@ -2,7 +2,7 @@ Osnovna ideja iza Lucas-Kanade metode jeste kori\sh tenje vi\sh e od jednog piks
 (npr. ako koristimo 3x3 podru\ch je oko zadanog piksela dobit \cj emo 9 nezavisnih jedna\ch ina). Naravno, sistem od 9 jedna\ch ina sa 2 nepoznate gotovo nikada nema jedinstveno rje\sh enje,
 tako da Lucas-Kanade metoda pronalazi najbolje rje\sh enje metodom najmanjih kvadrata. Nije nu\zh no koristiti ta\ch no 9 jedna\ch ina, metoda radi sa bilo kojim brojem piksela u okolini zadanog.
 
-Umjesto pisanja jedna\ch ine opti\ch kog toka 9 puta za svih 9 piksela, mo\zh emo svih 9 predstaviti jednostavnom matri\ch nom jedna\ch inom:
+Umjesto pisanja jedna\ch ine opti\ch kog toka 9 puta za svih 9 piksela, mo\zh emo svih 9 predstaviti jednostavnom matri\ch nom jedna\ch inom\cite{matlablk, lknutshell}:
 \[
 S
 \begin{pmatrix}
@@ -47,7 +47,7 @@ Ovi izvodi odgovaraju kori\sh tenju kernela $\begin{bmatrix}0 & -1 & 1\end{bmatr
 slo\zh enije kernele, u nadi da \cj emo tako dobiti vi\sh e informacija o prostornim parcijalnim izvodima. Jedan primjer bi mogao biti kernel:
 \[
 \begin{bmatrix}
-\frac{1}{12} & \frac{-8}{12} & 0 & \frac{8}{12} & \frac{1}{12}
+\frac{1}{12} & -\frac{8}{12} & 0 & \frac{8}{12} & -\frac{1}{12}
 \end{bmatrix}
 \]
 
@@ -90,7 +90,7 @@ c & d-\lambda_2
 \]
 
 Ako su i $\lambda_1$ i $\lambda_2$ ispod nekog praga $\tau$, matrica je singularna, te je opti\ch ki tok nula-vektor. Ako je jedna od svojstvenih vrijednosti ve\cj a od $\tau$, matrica je lo\sh e uslovljena. 
-Ako su obje svostvene vrijednosti iznad praga $\tau$, matrica nije singularna, te mo\zh emo izra\ch unati opti\ch ki tok.
+Ako su obje svojstvene vrijednosti iznad praga $\tau$, matrica nije singularna, te mo\zh emo izra\ch unati opti\ch ki tok.
 
 %Objasniti ovo gore
 
@@ -98,4 +98,4 @@ Sli\ch no kao standardni algoritmi uparivanja blokova, Lucas-Kanade metoda ima p
 za pronala\zh enje \textit{rijetkog} opti\ch kog toka, odnosno toka koji je poznat za samo neke piksele. Ako \zh elimo koristiti ovu metodu za interpoliranje frejmova, moramo prona\cj i vektore pomaka za sve
 piksele kori\sh tenjem podataka koje dobijemo iz malog broja ta\ch aka. 
 Ako nas samo zanima rijetki opti\ch ki tok, trebamo na\cj i piksele \ch ije \cj e nam kretanje biti lako pratiti. U praksi se za tu svrhu koriste pikseli na uglovima, jer pomjeranje tih piksela i njihove okoline
-\cj e uvijek biti lako uo\ch ljivo. Ako umjesto uglova koristimo npr. ivice, pomjeranje du\zh\ ivice nije uo\ch ljivo. Popularan i pouzdan algoritam za detekciju uglova jeste Shi-Tomasi algoritam.
+\cj e uvijek biti lako uo\ch ljivo. Ako umjesto uglova koristimo npr. ivice, pomjeranje du\zh\ ivice nije uo\ch ljivo. Popularan i pouzdan algoritam za detekciju uglova jeste Shi-Tomasi algoritam\cite{opencvshitomasi}.

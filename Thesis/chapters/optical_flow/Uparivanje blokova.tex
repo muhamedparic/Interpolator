@@ -1,5 +1,5 @@
 Prva klasa algoritama koje \cj emo prou\ch avati kre\cj u od iste osnovne ideje: Podijeliti prvi frejm na blokove, te na\cj i vektor pomaka svakog bloka iz prvog frejma u drugi. Ovi algoritmi zna\ch ajno pojednostave problem tako \sh to
-pretpostave da \cj e svi pikseli unutar jednog bloka imati iste vektore pomaka. Ovaj pristup mo\zh e dovesti do gre\sh aka, ali \ch ini izra\ch unavanje vektora pomaka jednostavnim i brzim.
+pretpostave da \cj e svi pikseli unutar jednog bloka imati iste vektore pomaka. Ovaj pristup mo\zh e dovesti do gre\sh aka, ali \ch ini izra\ch unavanje vektora pomaka jednostavnim i brzim\cite{blockmatching}.
 
 Ako nam je cilj samo kreirati jedan novi frejm izme\dj u svaka dva postoje\cj a, svaki blok \cj emo pomjeriti du\zh\ pola izra\ch unatog vektora pomaka. Ako nam je cilj interpolirati dva frejma izme\dj u dva postoje\cj a, blok \cj emo 
 pomjeriti du\zh\ jedne tre\cj ine vektora pomaka za prvi, i dvije tre\cj ine za drugi interpolirani frejm, itd. Cilj slijede\cj ih algoritama jeste uparivanje blokova prvog frejma sa blokom iste veli\ch ine u drugom frejmu. Me\dj utim,
@@ -30,7 +30,7 @@ $$
 MAD = \frac{1}{N^2}\sum_{i=0}^{N-1}\sum_{j=0}^{N-1}|A_{ij}-B_{ij}|
 $$
 
-Pri \ch emu \textit{N} predstavlja visinu i \sh irinu bloka (u na\sh em slu\ch aju 16), dok $A_{ij}$ i $B_{ij}$ predstavljaju vrijednosti piksela na koordinatama $(i,j)$ (sa po\ch etkom u gornjem lijevom uglu bloka) prvog,
+pri \ch emu \textit{N} predstavlja visinu i \sh irinu bloka (u na\sh em slu\ch aju 16), dok $A_{ij}$ i $B_{ij}$ predstavljaju vrijednosti piksela na koordinatama $(i,j)$ (sa po\ch etkom u gornjem lijevom uglu bloka) prvog,
 odnosno drugog razmatranog bloka. 
 
 Druga, veoma sli\ch na mjera jeste \textit{Mean Squared Error (MSE)}, odnosno \textit{Srednji Kvadrat Gre\sh ke}. Umjesto uzimanja apsolutne vrijednosti razlika piksela, ova mjera kvadrira razlike piksela, \ch ime se vi\sh e
@@ -41,11 +41,9 @@ $$
 
 Mi \cj emo ove funkcije ubudu\cj e zvati zajedni\ch kim imenom \textit{funkcije cijene}. Cilj svih algoritama u ovom poglavlju jeste minimizacija funkcije cijene, bilo \textit{MAD} ili \textit{MSE}.
 
-Jo\sh\ jedno veoma va\zh no podru\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. O ovom poglavlju se obra\dj uju
-algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine) kori\sh teni su napredniji algoritmi, koji u
+Jo\sh\ jedno veoma va\zh no podru\ch je primjene algoritama uparivanja blokova (i zapravo podru\ch je gdje se najvi\sh e primjenjuju) jeste kompresija video sekvenci. U ovom poglavlju se obra\dj uju
+algoritmi koji su kori\sh teni u standardima H.261, H.262 i H.263. U novijim standardima (pri \ch emu je najnoviji H.265, \ch ija je prva verzija iza\sh la 2013. godine)\cite{h265} kori\sh teni su napredniji algoritmi, koji u
 ovom radu ne\cj e biti obra\dj eni.
-
-\subsection{PSNR}
 
 Sada \cj emo se osvrnuti na neke od osnovnih algoritama uparivanja blokova. Pretpostavit \cj emo da su blokovi veli\ch ine 16x16 piksela, a prozori pretrage veli\ch ine 30x30 piksela, te da su svi pikseli monohromatski
 (crno-bijeli). Od svih slijede\cj ih algoritama, samo prvi pronalazi optimalno uparivanje. Svi ostali ostali algoritmi su aproksimacije. Preciznije re\ch eno, postoji 225 mogu\cj ih lokacija gdje se po\ch tni blok mo\zh e nalaziti
