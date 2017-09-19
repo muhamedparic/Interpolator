@@ -5,11 +5,14 @@ neki nisu uop\sh te zasnovani na izra\ch unavanju opti\ch kog toka, a drugi kori
 poput obi\ch ne linearne interpolacije, su toliko brze da mogu biti kori\sh tene u realnom vremenu. Kao i u svim ostalim oblastima ra\ch unarskih nauka, jo\sh\ uvijek se radi
 na tra\zh enju boljih, br\zh ih i efikasnijih metoda.
 
-Od metoda koje izra\ch unaju opti\ch ki tok, najjednostavnije su zasnovane na \ch istom uparivanju blokova piksela i tra\zh enju blokova koji se najbolje podudaraju.
-S obzirom da bi izra\ch unavanje kvalitete uparivanja svaka dva para blokova piksela bilo neprihvatljivo sporo, pretraga je ograni\ch ena na relativno mali broj potencijalnih
-kandidata, i ubrzana heuristi\ch kim metodama koje se razlikuju od algoritma do algoritma.
+Jednostavne metode, poput duplikacije frejmova i linearne interpolacije, su izuzetno korisne kao pomo\cj\ slo\zh enijim metoda u odre\dj enim situacijama. Neke slo\zh enije
+metode koriste heuristi\ch ke pristupe za izra\ch unavanje opti\ch kog toka, mijenjaju\cj i ta\ch nost za brzinu izvr\sh avanja.
 
 Naprednije metode uklju\ch uju uparivanje ubrzano kori\sh tenjem brze Fourierove transformacije, rje\sh avanjem sistema linearnih jedna\ch ine, ili iterativnim pobolj\sh anjem
 kvalitete opti\ch kog toka. Nakon izra\ch unavanja opti\ch kog toka, ideja je uvijek ista: piksele pomjerimo jedan dio puta du\zh\ njihovog vektora pomaka, ostale piksele izra\ch unamo
 drugim metodama (poput linearne interpolacije), te popravimo koliko mo\zh emo nastale artefakte. Kvalitet generisanih frejmova nikada ne\cj e biti isti kao kvalitet originalnih,
 ali kori\sh tenjem boljih i br\zh ih metoda, pribli\zh avamo se tom idealnom cilju.
+
+Na kraju smo demonstrirali izgled frejmova interpoliranih kori\sh tenjem aplikacije razvijene pomo\cj u OpenCV biblioteke i Qt framework-a. Direktnom upotrebom algoritama
+za interpolaciju dobijemo izuzetno slabu kvalitetu frejmova, \sh to mo\zh e biti popravljeno kori\sh tenjem metoda opisanih u ovom radu, kao i mnogobrojnih drugih
+koje su van opsega.

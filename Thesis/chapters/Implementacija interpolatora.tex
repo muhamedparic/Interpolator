@@ -184,7 +184,23 @@ Qt dostupan i za druge jezike). Omogu\cj ava jednostavan razvoj korisni\ch kih s
 unosa teksta (\lstinline{QLineEdit}), indikatora napretka (\lstinline{QProgressBar}), i mnogih drugih. Qt je izabran zbog svoje jednostavnosti, popularnosti, te \ch injenice da je napisan u C++-u.
 Ako koristimo Qt framework, najlak\sh e nam je koristiti Qt-evo razvojno okru\zh enje, Qt Creator, koje nam omogu\cj ava pravljenje korisni\ch kih su\ch elja koriste\cj i obi\ch ni drag-drop pristup,
 te je integrisano sa Qt bibliotekama, \sh to zna\ch ajno olak\sh ava razvoj\cite{qtabout}.
-S obzirom da se Qt brine samo prezentacijskom logikom, koja nije od klju\ch nog zna\ch aja za projekat, ne\cj emo opisivati taj aspekt implementacije.
+\begin{figure}[H]
+\caption{Izgled Qt Creator-a sa otvorenim projektom}
+\includegraphics[scale=0.35]{qtscr1}
+\centering
+\end{figure}
+
+Kod za izbor datoteke kori\sh tenjem QFileDialog klase:
+\begin{lstlisting}
+std::string input_file = QFileDialog::getOpenFileName(this, "Open video file", "/home/muhamed/Desktop/videos", "All files (*.*)").toStdString();
+\end{lstlisting}
+
+Osim raznih GUI kontrola, Qt tako\dj nudi klase i funkcije za HTTP zahtjeve, multimediju, unit testove i druge funkcionalnosti. Osim C++-a, mogu\cj je tako\dj er koristiti QML (\textit{Qt Modeling Language})
+za kreiranje GUI aplikacija \cite{qtabout}. QML je jednostavniji jezik od C++-a, me\dj utim C++ je preporu\ch en za pisanje intenzivnijih i slo\zh enijih komponenti aplikacije. Qt tako\dj er ima posebne tipove
+podataka koji su namijenjeni da budu kori\sh teni umjesto tipova iz C++ standardne biblioteke, poput \lstinline{QString} i \lstinline{QList}, koje su bolje integrisane sa Qt framework-om od standardnih tipova 
+i nude dodatne funkcionalnosti.
+
+Qt je tako\dj er popularan izbor za razvoj mobilnih aplikacija jer ve\cj ina napisanog koda mo\zh e biti biti kori\sh tena na bilo kojoj podr\zh anoj platformi.
 
 \section{Rezultati interpolacije}
 Sada \cj emo pogledati nekoliko frejmova jedne video sekvence preuzete sa web stranice youtube.com\cite{examplevideo}. 

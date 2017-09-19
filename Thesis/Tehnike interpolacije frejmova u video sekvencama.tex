@@ -11,6 +11,8 @@
 \usepackage{amsmath} % \text
 \usepackage{listings} % \lstlisting
 \usepackage{float} % \begin{figure}[H]
+\usepackage{geometry}
+%\usepackage{mathpazo} % Palatino font
 
 \graphicspath{{images/}}
 
@@ -49,6 +51,7 @@
 \newcommand{\midtilde}{\raisebox{0.6ex}{\texttildelow}} % Iz nekog razloga nije bas jednostavno napisati finu tildu u LaTeX-u, ali ovo radi ok
 \renewcommand{\contentsname}{Sadr\zh aj}
 \renewcommand\bibname{Literatura}
+\renewcommand{\figurename}{Slika}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \lstset{frame=tb,
@@ -71,11 +74,15 @@
 
 \begin{document}
 
-\chapter*{Sa\zh etak}
+\section*{Sa\zh etak}
 \input{chapters/Sazetak}
 
-\chapter*{Abstract}
+\section*{Abstract}
 \input{chapters/Abstract}
+
+\newpage
+\section*{Izjava autora}
+\input{chapters/Izjava}
 
 \tableofcontents
 
