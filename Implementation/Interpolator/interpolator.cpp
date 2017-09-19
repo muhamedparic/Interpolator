@@ -278,8 +278,10 @@ void Interpolator::run()
     total_frames = video_info.frame_count;
     frames_processed = 0;
 
-    video_writer.open(output_file_name, CV_FOURCC('H', '2', '6', '4'),
-                      video_info.fps * 2, cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
+    video_writer.open(output_file_name,
+                      CV_FOURCC('H', '2', '6', '4'),
+                      video_info.fps * (interpolator_options.frames_to_generate + 1),
+                      cv::Size(video_info.width, video_info.height)); // Should be changed to a different framerate
     if (!video_writer.isOpened())
         throw std::logic_error("Can\'t open video writer!");
 
