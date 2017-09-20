@@ -17,22 +17,22 @@
 \graphicspath{{images/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\makeatletter
-\def\@makechapterhead#1{%
-  \vspace*{50\p@}%
-  {\parindent \z@ \raggedright \normalfont
-    \interlinepenalty\@M
-    \Huge \bfseries #1\par\nobreak
-    \vskip 40\p@
-  }}
-\def\@makeschapterhead#1{%
-  \vspace*{50\p@}%
-  {\parindent \z@ \raggedright
-    \normalfont
-    \interlinepenalty\@M
-    \Huge  \bfseries  #1\par\nobreak
-    \vskip 40\p@
-  }}
+%\makeatletter
+%\def\@makechapterhead#1{%
+%  \vspace*{50\p@}%
+%  {\parindent \z@ \raggedright \normalfont
+%    \interlinepenalty\@M
+%    \Huge \bfseries #1\par\nobreak
+%    \vskip 40\p@
+%  }}
+%\def\@makeschapterhead#1{%
+%  \vspace*{50\p@}%
+%  {\parindent \z@ \raggedright
+%    \normalfont
+%    \interlinepenalty\@M
+%    \Huge  \bfseries  #1\par\nobreak
+%    \vskip 40\p@
+%  }}
 \makeatother
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Kod iznad preuzet (uz manje modifikacije) sa: http://tex.stackexchange.com/a/120743
@@ -52,6 +52,7 @@
 \renewcommand{\contentsname}{Sadr\zh aj}
 \renewcommand\bibname{Literatura}
 \renewcommand{\figurename}{Slika}
+\renewcommand{\chaptername}{Poglavlje}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \lstset{frame=tb,
@@ -79,10 +80,6 @@
 
 \section*{Abstract}
 \input{chapters/Abstract}
-
-\newpage
-\section*{Izjava autora}
-\input{chapters/Izjava}
 
 \tableofcontents
 
