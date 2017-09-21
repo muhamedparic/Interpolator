@@ -20,6 +20,8 @@ private slots:
 
     void on_runButton_clicked();
 
+    void on_chooseButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

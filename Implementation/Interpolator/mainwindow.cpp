@@ -27,25 +27,34 @@ void MainWindow::on_runButton_clicked()
     options.block_size = 16;
     options.blur_overlaps = true;
     options.fix_holes = true;
-    options.frames_to_generate = 1;
+    options.frames_to_generate = ui->interpFrames->value();
     options.mv_correction_algorithm = Algorithm::odd_mv_corrector;
     options.opt_flow_algorithm = Algorithm::diamond_search;
     options.smooth_edges = false;
     options.max_valid_cost = 75;
 
-    // Temporary!
-    std::string input_file = QFileDialog::getOpenFileName(this, "Open video file", "/home/muhamed/Desktop/videos", "All files (*.*)").toStdString();
-    std::string output_file = "/home/muhamed/Desktop/Videos/video.avi";
+    if (ui->inputFile->text().length() == 0)
+        return;
 
     Interpolator interpolator;
-    interpolator.set_input_file_name(input_file);
-    interpolator.set_output_file_name(output_file);
+    interpolator.set_input_file_name(ui->inputFile->text().toStdString());
+    interpolator.set_output_file_name(ui->outputFile->text().toStdString());
 
     interpolator.options() = options;
     interpolator.set_progress_callback([&](double progress)
     {
-        ui->progressBar->setValue(100 * progress);
+        ui->progressBar->setValue(100 * progress + 1);
     });
     interpolator.run();
     interpolator.save_video();
+}
+
+void MainWindow::on_chooseButton_clicked()
+{
+    QString input_file = QFileDialog::getOpenFileName(this, "Open video file", "", "All files (*.*)");
+    if (input_file.length() == 0)
+        return;
+    ui->inputFile->setText(input_file);
+    QString output_file = QFileInfo(ui->inputFile->text()).dir().absolutePath() + "/video.avi";
+    ui->outputFile->setText(output_file);
 }
